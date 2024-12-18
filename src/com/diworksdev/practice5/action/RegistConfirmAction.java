@@ -50,6 +50,10 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		}
 
+		userGenderCheck = Integer.toString(userGender);
+		session.put("userGender", userGenderCheck);
+		System.out.println("Gender: " + userGenderCheck);
+
 		if (userGender == 0) {
 			userGenderCheck = "男性";
 
@@ -58,8 +62,9 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		}
 
-		session.put("userGender", userGenderCheck);
-		System.out.println("Gender: " + userGenderCheck);
+		userAuthorityCheck = Integer.toString(userAuthority);
+		session.put("userAuthority", userAuthorityCheck);
+		System.out.println("Authority: " + userAuthorityCheck);
 
 		if (userAuthority == 0) {
 			userAuthorityCheck = "一般";
@@ -69,8 +74,9 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		}
 
-		session.put("userAuthority", userAuthorityCheck);
-		System.out.println("Authority: " + userAuthorityCheck);
+		delete_flagCheck = Integer.toString(delete_flag);
+		session.put("delete_flag", delete_flagCheck);
+		System.out.println("delete_flag: " + delete_flagCheck);
 
 		if (delete_flag == 0) {
 			delete_flagCheck = "有効";
@@ -79,9 +85,6 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			delete_flagCheck = "無効";
 
 		}
-
-		session.put("delete_flag", delete_flagCheck);
-		System.out.println("delete_flag: " + delete_flagCheck);
 
 		return result;
 

@@ -13,12 +13,8 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 	public Map<String, Object> session;
 	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
 
-
-	// 全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
 	@Override
 	public String execute() throws SQLException {
-
-		String result = ERROR;
 
 		registCompleteDAO.regist5(session.get("userFamilyName").toString(), session.get("userLastName").toString(),
 				session.get("userFamilyNameKana").toString(), session.get("userLastNameKana").toString(),
@@ -28,7 +24,7 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 				session.get("userAddress2").toString(), session.get("userAuthority").toString(),
 				session.get("delete_flag").toString());
 
-		result = SUCCESS;
+		String result = SUCCESS;
 
 		return result;
 	}

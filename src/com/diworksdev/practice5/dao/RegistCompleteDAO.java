@@ -3,7 +3,6 @@ package com.diworksdev.practice5.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-//import java.sql.ResultSet;
 
 import com.diworksdev.practice5.util.DBConnector;
 import com.diworksdev.practice5.util.DateUtil;
@@ -42,7 +41,7 @@ public class RegistCompleteDAO {
 			preparedStatement.setString(14, dateUtil.getDate());
 			preparedStatement.execute();
 
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 
 			} finally {
