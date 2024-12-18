@@ -1,4 +1,5 @@
 package com.diworksdev.practice5.action;
+
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -13,10 +14,11 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	private String userLastNameKana;
 	private String userMail;
 	private String userPassword;
+	private String maskedPassword;
 	private int userGender;
 	private String userGenderCheck;
 	private String userPostalCode;
-	//private String userPostalCodeCheck;
+	// private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
@@ -24,7 +26,6 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	private String userAuthorityCheck;
 	private int delete_flag;
 	private String delete_flagCheck;
-
 
 	public Map<String, Object> session;
 
@@ -35,7 +36,8 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		if (!(userFamilyName.equals("")) && !(userLastName.equals("")) && !(userFamilyNameKana.equals(""))
 				&& !(userLastNameKana.equals("")) && !(userMail.equals("")) && !(userPassword.equals(""))
-				&& !(userPostalCode.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals("")) && !(userAddress2.equals(""))) {
+				&& !(userPostalCode.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
+				&& !(userAddress2.equals(""))) {
 
 			session.put("userFamilyName", userFamilyName);
 			session.put("userLastName", userLastName);
@@ -85,6 +87,15 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			delete_flagCheck = "無効";
 
 		}
+
+		StringBuilder masked = new StringBuilder();
+
+		for (int i = 0; i < userPassword.length(); i++) {
+			masked.append('●');
+
+		}
+
+		maskedPassword = masked.toString();
 
 		return result;
 
@@ -185,16 +196,16 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 		System.out.println("end: setUserPostalCode()");
 
 	}
-//
-//	public String getUserPostalCodeCheck() {
-//		return userPostalCodeCheck;
-//
-//	}
-//
-//	public void setUserPostalCodeCheck(String userPostalCodeCheck) {
-//		this.userPostalCodeCheck = userPostalCodeCheck;
-//
-//	}
+	//
+	// public String getUserPostalCodeCheck() {
+	// return userPostalCodeCheck;
+	//
+	// }
+	//
+	// public void setUserPostalCodeCheck(String userPostalCodeCheck) {
+	// this.userPostalCodeCheck = userPostalCodeCheck;
+	//
+	// }
 
 	public String getUserPrefecture() {
 		return userPrefecture;
@@ -249,6 +260,11 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 	}
 
+	public String getMaskedPassword() {
+		return maskedPassword;
+
+	}
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -276,4 +292,3 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	}
 
 }
-
