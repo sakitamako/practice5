@@ -33,7 +33,7 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 			String hashedPassword = hashPassword(userPassword);
 
 			if (con == null) {
-                errorMessage = "データベース接続に失敗しました。";
+                errorMessage = "エラーが発生したためアカウント登録できません。";
 
                 result = ERROR;
 
