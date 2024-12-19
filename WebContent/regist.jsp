@@ -154,10 +154,7 @@ body .fielderror {
                             <s:if test="%{userGender == 0 || userGender == null}">checked="checked"</s:if>>男性
                             <input type="radio" name="userGender" value="1"
                             <s:if test="%{userGender == 1}">checked="checked"</s:if>>女性
-                            <p>
-                                現在の性別:
-                                <s:property value="userGender" />
-                            </p></td>
+                        </td>
                     </tr>
                     <tr>
                         <td><label>郵便番号</label></td>
@@ -241,10 +238,6 @@ body .fielderror {
                             <s:if test="%{userAuthority == 0 || userAuthority == null}">checked="checked"</s:if>>一般
                             <input type="radio" name="userAuthority" value="1"
                             <s:if test="%{userAuthority == 1}">checked="checked"</s:if>>管理者
-                            <p>
-                                現在の性別:
-                                <s:property value="userAuthority" />
-                            </p>
                         </td>
                     </tr>
                     <tr>
