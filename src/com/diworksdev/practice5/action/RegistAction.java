@@ -11,7 +11,8 @@ public class RegistAction extends ActionSupport {
 	private String userMail;
 	private String userPassword;
 	private int userGender;
-	private String userPostalCode;
+	private int userPostalCode;
+	private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
@@ -89,18 +90,32 @@ public class RegistAction extends ActionSupport {
  		this.userGender = userGender;
  		System.out.println("end: setUserGender()");
  	}
+
+ 	public int getUserPostalCode() {
+		return userPostalCode;
+
+	}
+
+	public void setUserPostalCode(int userPostalCode) {
+		System.out.println("start: setUserPostalCode()");
+		System.out.println(userPostalCode);
+		this.userPostalCode = userPostalCode;
+		System.out.println("end: setUserPostalCode()");
+
+	}
+
  	// フィールド変数に対応したgetterとsetterを定義
  	// Actionクラスから呼び出され、loginPasswordフィールドの値をActionに渡す
- 	public String getUserPostalCode() {
- 		return userPostalCode;
+ 	public String getUserPostalCodeCheck() {
+ 		return userPostalCodeCheck;
  	}
  	// フィールド変数に対応したgetterとsetterを定義
  	// DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のloginPasswordフィールドに格納
- 	public void setUserPostalCode(String userPostalCode) {
- 		System.out.println("start: setUserPostalCode()");
- 		System.out.println(userPostalCode);
- 		this.userPostalCode = userPostalCode;
- 		System.out.println("end: setUserPostalCode()");
+ 	public void setUserPostalCodeCheck(String userPostalCodeCheck) {
+ 		System.out.println("start: setUserPostalCodeCheck()");
+ 		System.out.println(userPostalCodeCheck);
+ 		this.userPostalCodeCheck = userPostalCodeCheck;
+ 		System.out.println("end: setUserPostalCodeCheck()");
  	}
  	// フィールド変数に対応したgetterとsetterを定義
  	// Actionクラスから呼び出され、userNameフィールドの値をActionに渡す

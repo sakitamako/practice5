@@ -17,8 +17,8 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	private String maskedPassword;
 	private int userGender;
 	private String userGenderCheck;
-	private String userPostalCode;
-	// private String userPostalCodeCheck;
+	private int userPostalCode;
+	private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
@@ -32,12 +32,10 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	@Override
 	public void validate() {
 
-		// System.out.println(userFamilyName);
-		// System.out.println(userFamilyName.equals(""));
-		// System.out.println(userFamilyName.trim().isEmpty());
+		userPostalCodeCheck = Integer.toString(userPostalCode);
+		session.put("userPostalCode", userPostalCodeCheck);
+		System.out.println("postalCode: " + userPostalCodeCheck);
 
-		// isEmptyメソッドを利用することで、文字列が空であるかどうかを判定できる || userFamilyName.isEmpty()
-		// userFamilyNameと空文字が等しいかつ,userFamilyNameの文字列が空の時
 		if (userFamilyName == null || userFamilyName.isEmpty()) {
 			addFieldError("userFamilyName", "名前（姓）が未入力です。");
 
@@ -80,11 +78,11 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			addFieldError("userPassword", "パスワードは半角英数字のみ使用できます。");
 		}
 
-		if (userPostalCode == null || userPostalCode.isEmpty()) {
+		if (userPostalCodeCheck == null || userPostalCodeCheck.isEmpty()) {
 			addFieldError("userPostalCode", "郵便番号が未入力です。");
 
-		} else if (!(userPostalCode.matches("^[0-9]+$"))) {
-			addFieldError("userPostalCode", "郵便番号は半角数字のみ使用できます。");
+		} else if (!(userPostalCodeCheck.matches("^[0-9]+$"))) {
+			addFieldError("userPostalCodeCheck", "郵便番号は半角数字のみ使用できます。");
 		}
 
 		if (userPrefecture == null || userPrefecture.isEmpty()) {
@@ -113,10 +111,14 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		String result = SUCCESS;
 
+		userPostalCodeCheck = Integer.toString(userPostalCode);
+
 		if (!(userFamilyName.equals("")) && !(userLastName.equals("")) && !(userFamilyNameKana.equals(""))
 				&& !(userLastNameKana.equals("")) && !(userMail.equals("")) && !(userPassword.equals(""))
-				&& !(userPostalCode.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
+				&& !(userPostalCodeCheck.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
 				&& !(userAddress2.equals(""))) {
+
+
 
 			session.put("userFamilyName", userFamilyName);
 			session.put("userLastName", userLastName);
@@ -124,7 +126,7 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			session.put("userLastNameKana", userLastNameKana);
 			session.put("userMail", userMail);
 			session.put("userPassword", userPassword);
-			session.put("userPostalCode", userPostalCode);
+			session.put("userPostalCode", userPostalCodeCheck);
 			session.put("userPrefecture", userPrefecture);
 			session.put("userAddress1", userAddress1);
 			session.put("userAddress2", userAddress2);
@@ -263,28 +265,28 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 	}
 
-	public String getUserPostalCode() {
+	public int getUserPostalCode() {
 		return userPostalCode;
 
 	}
 
-	public void setUserPostalCode(String userPostalCode) {
+	public void setUserPostalCode(int userPostalCode) {
 		System.out.println("start: setUserPostalCode()");
 		System.out.println(userPostalCode);
 		this.userPostalCode = userPostalCode;
 		System.out.println("end: setUserPostalCode()");
 
 	}
-	//
-	// public String getUserPostalCodeCheck() {
-	// return userPostalCodeCheck;
-	//
-	// }
-	//
-	// public void setUserPostalCodeCheck(String userPostalCodeCheck) {
-	// this.userPostalCodeCheck = userPostalCodeCheck;
-	//
-	// }
+
+	 public String getUserPostalCodeCheck() {
+	 return userPostalCodeCheck;
+
+	 }
+
+	 public void setUserPostalCodeCheck(String userPostalCodeCheck) {
+	 this.userPostalCodeCheck = userPostalCodeCheck;
+
+	 }
 
 	public String getUserPrefecture() {
 		return userPrefecture;
