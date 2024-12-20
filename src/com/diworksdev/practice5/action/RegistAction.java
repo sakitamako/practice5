@@ -11,7 +11,7 @@ public class RegistAction extends ActionSupport {
 	private String userMail;
 	private String userPassword;
 	private int userGender;
-	private int userPostalCode;
+	private Integer userPostalCode;
 	private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
@@ -97,14 +97,18 @@ public class RegistAction extends ActionSupport {
 
  	}
 
- 	public int getUserPostalCode() {
+ 	public Integer getUserPostalCode() {
 		return userPostalCode;
 
 	}
 
-	public void setUserPostalCode(int userPostalCode) {
+	public void setUserPostalCode(Integer userPostalCode) {
 		System.out.println("start: setUserPostalCode()");
 		System.out.println(userPostalCode);
+		if (userPostalCode == null) {
+	        System.out.println("郵便番号が未入力です");
+
+		}
 		this.userPostalCode = userPostalCode;
 		System.out.println("end: setUserPostalCode()");
 

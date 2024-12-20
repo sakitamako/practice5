@@ -32,10 +32,6 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	@Override
 	public void validate() {
 
-		userPostalCodeCheck = Integer.toString(userPostalCode);
-		session.put("userPostalCode", userPostalCodeCheck);
-		System.out.println("postalCode: " + userPostalCodeCheck);
-
 		if (userFamilyName == null || userFamilyName.isEmpty()) {
 			addFieldError("userFamilyName", "名前（姓）が未入力です。");
 
@@ -78,6 +74,7 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			addFieldError("userPassword", "パスワードは半角英数字のみ使用できます。");
 		}
 
+		userPostalCodeCheck = Integer.toString(userPostalCode);
 		if (userPostalCodeCheck == null || userPostalCodeCheck.isEmpty()) {
 			addFieldError("userPostalCode", "郵便番号が未入力です。");
 
