@@ -105,10 +105,10 @@ public class RegistAction extends ActionSupport {
 	public void setUserPostalCode(Integer userPostalCode) {
 		System.out.println("start: setUserPostalCode()");
 		System.out.println(userPostalCode);
-		if (userPostalCode == null) {
-	        System.out.println("郵便番号が未入力です");
-
-		}
+//		if (userPostalCode == null) {
+//	        System.out.println("郵便番号が未入力です");
+//
+//		}
 		this.userPostalCode = userPostalCode;
 		System.out.println("end: setUserPostalCode()");
 

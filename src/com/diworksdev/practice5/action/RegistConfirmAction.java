@@ -75,12 +75,13 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 		}
 
 		userPostalCodeCheck = Integer.toString(userPostalCode);
-		if (userPostalCodeCheck == null || userPostalCodeCheck.isEmpty()) {
-			addFieldError("userPostalCode", "郵便番号が未入力です。");
+		if (userPostalCodeCheck == null || userPostalCode <= 0) {
+	        addFieldError("userPostalCode", "郵便番号は半角数字のみ使用できます。");
+	    }
 
-		} else if (!(userPostalCodeCheck.matches("^[0-9]+$"))) {
-			addFieldError("userPostalCodeCheck", "郵便番号は半角数字のみ使用できます。");
-		}
+//		} else if (!(userPostalCodeCheck.matches("^[0-9]+$"))) {
+//			addFieldError("userPostalCodeCheck", "郵便番号は半角数字のみ使用できます。");
+//		}
 
 		if (userPrefecture == null || userPrefecture.isEmpty()) {
 			addFieldError("userPrefecture", "住所（都道府県）が未入力です。");
