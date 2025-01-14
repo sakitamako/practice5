@@ -91,15 +91,15 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 		if (userAddress1 == null || userAddress1.isEmpty()) {
 			addFieldError("userAddress1", "住所（市区町村）が未入力です。");
 
-		} else if (!(userAddress1.matches("^[\\p{IsHiragana}\\p{IsHan}\\p{IsKatakana}0-9\\s-]+$"))) {
-			addFieldError("userAddress1", "住所（市区町村）はひらがな、漢字、カタカナ、半角数字、ハイフン、スペースのみ使用できます。");
+		} else if (!(userAddress1.matches("^[\\p{IsHiragana}\\p{IsHan}\\p{IsKatakana}０-９　ー]+$"))) {
+			addFieldError("userAddress1", "住所（市区町村）はひらがな、漢字、カタカナ、全角数字、全角ハイフン、全角スペースのみ使用できます。");
 		}
 
 		if (userAddress2 == null || userAddress2.isEmpty()) {
 			addFieldError("userAddress2", "住所（番地）が未入力です。");
 
-		} else if (!(userAddress2.matches("^[\\p{IsHiragana}\\p{IsHan}\\p{IsKatakana}0-9\\s-]+$"))) {
-			addFieldError("userAddress2", "住所（番地）はひらがな、漢字、カタカナ、半角数字、ハイフン、スペースのみ使用できます。");
+		} else if (!(userAddress2.matches("^[\\p{IsHiragana}\\p{IsHan}\\p{IsKatakana}０-９　ー]+$"))) {
+			addFieldError("userAddress2", "住所（番地）はひらがな、漢字、カタカナ、全角数字、全角ハイフン、全角スペースのみ使用できます。");
 		}
 
 	}
