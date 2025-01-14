@@ -233,11 +233,12 @@ body .fielderror {
                                 style="color: red; font-weight: bold;" /></td>
                     </tr>
                     <tr>
-                        <td><label>アカウント権限</label></td>
-                        <td><input type="radio" name="userAuthority" value="0"
-                            <s:if test="%{userAuthority == 0 || userAuthority == null}">checked="checked"</s:if>>一般
-                            <input type="radio" name="userAuthority" value="1"
-                            <s:if test="%{userAuthority == 1}">checked="checked"</s:if>>管理者
+                        <td><label>権限</label></td>
+                        <td><select name="userAuthority">
+                                <option value="0" <s:if test="%{userAuthority == 0}"> selected= "selected"</s:if>>一般</option>
+                                <option value="1" <s:if test="%{userAuthority == 1}"> selected="selected"</s:if>>管理者</option>
+                            </select><br>
+                            <s:fielderror fieldName="userAuthority" style="color: red; font-weight: bold;" />
                         </td>
                     </tr>
                     <tr>
