@@ -16,7 +16,7 @@ public class RegistAction extends ActionSupport {
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
-	private String userAuthorityCheck;
+	private int userAuthority;
 
 	@Override
 	public String execute() {
@@ -157,16 +157,16 @@ public class RegistAction extends ActionSupport {
 
  	}
 
- 	public String getUserAuthorityCheck() {
- 		return userAuthorityCheck;
+ 	public int getUserAuthority() {
+ 		return userAuthority;
 
  	}
 
- 	public void setUserAuthorityCheck(String userAuthorityCheck) {
- 		System.out.println("start: setUserAuthorityCheck()");
- 		System.out.println(userAuthorityCheck);
- 		this.userAuthorityCheck = userAuthorityCheck;
- 		System.out.println("end: setUserAuthorityCheck()");
+ 	public void setUserAuthority(int userAuthority) {
+ 		System.out.println("start: setUserAuthority()");
+ 		System.out.println(userAuthority);
+ 		this.userAuthority = userAuthority;
+ 		System.out.println("end: setUserAuthority()");
 
  	}
 
