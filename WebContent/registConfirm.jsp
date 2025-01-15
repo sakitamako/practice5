@@ -139,7 +139,7 @@ input[type="submit"] {
 				</tr>
 				<tr>
 					<td><label>郵便番号</label></td>
-					<td><s:property value="userPostalCodeCheck" escape="false" /></td>
+					<td><s:property value="userPostalCode" escape="false" /></td>
 				</tr>
 				<tr>
 					<td><label>住所（都道府県）</label></td>

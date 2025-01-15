@@ -17,8 +17,8 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	private String maskedPassword;
 	private int userGender;
 	private String userGenderCheck;
-	private int userPostalCode;
-	private String userPostalCodeCheck;
+	private String userPostalCode;
+//	private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
@@ -74,14 +74,13 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			addFieldError("userPassword", "パスワードは半角英数字のみ使用できます。");
 		}
 
-		userPostalCodeCheck = Integer.toString(userPostalCode);
-		if (userPostalCodeCheck == null || userPostalCode <= 0) {
-	        addFieldError("userPostalCode", "郵便番号は半角数字のみ使用できます。");
-	    }
+//		userPostalCodeCheck = Integer.toString(userPostalCode);
+		if (userPostalCode == null || userPostalCode.isEmpty()) {
+	        addFieldError("userPostalCode", "郵便番号が未入力です。");
 
-//		} else if (!(userPostalCodeCheck.matches("^[0-9]+$"))) {
-//			addFieldError("userPostalCodeCheck", "郵便番号は半角数字のみ使用できます。");
-//		}
+		} else if (!(userPostalCode.matches("^[0-9]+$"))) {
+			addFieldError("userPostalCode", "郵便番号は半角数字のみ使用できます。");
+		}
 
 		if (userPrefecture == null || userPrefecture.isEmpty()) {
 			addFieldError("userPrefecture", "住所（都道府県）が未入力です。");
@@ -109,11 +108,11 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 		String result = SUCCESS;
 
-		userPostalCodeCheck = Integer.toString(userPostalCode);
+//		userPostalCodeCheck = Integer.toString(userPostalCode);
 
 		if (!(userFamilyName.equals("")) && !(userLastName.equals("")) && !(userFamilyNameKana.equals(""))
 				&& !(userLastNameKana.equals("")) && !(userMail.equals("")) && !(userPassword.equals(""))
-				&& !(userPostalCodeCheck.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
+				&& !(userPostalCode.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
 				&& !(userAddress2.equals(""))) {
 
 
@@ -124,7 +123,7 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 			session.put("userLastNameKana", userLastNameKana);
 			session.put("userMail", userMail);
 			session.put("userPassword", userPassword);
-			session.put("userPostalCode", userPostalCodeCheck);
+			session.put("userPostalCode", userPostalCode);
 			session.put("userPrefecture", userPrefecture);
 			session.put("userAddress1", userAddress1);
 			session.put("userAddress2", userAddress2);
@@ -263,19 +262,19 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 
 	}
 
-	public int getUserPostalCode() {
+	public String getUserPostalCode() {
 		return userPostalCode;
 
 	}
 
-	public void setUserPostalCode(int userPostalCode) {
+	public void setUserPostalCode(String userPostalCode) {
 		System.out.println("start: setUserPostalCode()");
 		System.out.println(userPostalCode);
 		this.userPostalCode = userPostalCode;
 		System.out.println("end: setUserPostalCode()");
 
 	}
-
+/*
 	 public String getUserPostalCodeCheck() {
 	 return userPostalCodeCheck;
 
@@ -285,7 +284,7 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 	 this.userPostalCodeCheck = userPostalCodeCheck;
 
 	 }
-
+*/
 	public String getUserPrefecture() {
 		return userPrefecture;
 

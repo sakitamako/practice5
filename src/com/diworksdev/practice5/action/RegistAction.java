@@ -11,8 +11,8 @@ public class RegistAction extends ActionSupport {
 	private String userMail;
 	private String userPassword;
 	private int userGender;
-	private Integer userPostalCode;
-	private String userPostalCodeCheck;
+	private String userPostalCode;
+//	private String userPostalCodeCheck;
 	private String userPrefecture;
 	private String userAddress1;
 	private String userAddress2;
@@ -97,12 +97,12 @@ public class RegistAction extends ActionSupport {
 
  	}
 
- 	public Integer getUserPostalCode() {
+ 	public String getUserPostalCode() {
 		return userPostalCode;
 
 	}
 
-	public void setUserPostalCode(Integer userPostalCode) {
+	public void setUserPostalCode(String userPostalCode) {
 		System.out.println("start: setUserPostalCode()");
 		System.out.println(userPostalCode);
 //		if (userPostalCode == null) {
@@ -113,7 +113,7 @@ public class RegistAction extends ActionSupport {
 		System.out.println("end: setUserPostalCode()");
 
 	}
-
+/*
  	public String getUserPostalCodeCheck() {
  		return userPostalCodeCheck;
 
@@ -126,7 +126,7 @@ public class RegistAction extends ActionSupport {
  		System.out.println("end: setUserPostalCodeCheck()");
 
  	}
-
+*/
  	public String getUserPrefecture() {
  		return userPrefecture;
 
