@@ -59,7 +59,7 @@ table {
 #main h3 {
 	width: 100%;
 	text-align: left;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 #main h4 {
