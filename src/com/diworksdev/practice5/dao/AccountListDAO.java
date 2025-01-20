@@ -62,17 +62,7 @@ public class AccountListDAO {
 					AccountListDTO.add(dto);
 
 				}
-
-			} catch(Exception e) {
-				e.printStackTrace();
-
-			} finally {
-
-				connection.close();
-
-			}
-
-			return accountListDTO;
+				return accountListDTO;
 
 		}
 

@@ -128,11 +128,23 @@ input[type="submit"] {
                         </tr>
                         <s:iterator value="accountList">
                             <tr>
-                                <td><s:property value="itemName" /></td>
-                                <td><s:property value="totalPrice" /><span>円</span></td>
-                                <td><s:property value="totalCount" /><span>個</span></td>
-                                <td><s:property value="payment" /></td>
-                                <td><s:property value="insert_date" /></td>
+                                <td><s:property value="userId" /></td>
+                                <td><s:property value="userFamilyName" /></td>
+                                <td><s:property value="userLastName" /><span>円</span></td>
+                                <td><s:property value="userFamilyNameKana" /><span>個</span></td>
+                                <td><s:property value="userLastNameKana" /></td>
+                                <td><s:property value="userMail" /></td>
+                                <td><s:property value="userGender" /></td>
+                                <td><s:property value="userAuthority" /></td>
+                                <td><s:property value="delete_flag" /></td>
+                                <td><s:property value="registered_time" /></td>
+                                <td><s:property value="update_time" /></td>
+                                <td>
+                                    <s:form action="AccountDeleteAction" method="post">
+                                        <input type="hidden" name="userId" value="<s:property value='userId' />" />
+                                        <s:submit value="削除" />
+                                    </s:form>
+                                </td>
                             </tr>
                         </s:iterator>
                     </table>
@@ -144,7 +156,7 @@ input[type="submit"] {
                 <s:if test="message != null">
                     <h3><s:property value="message" /></h3>
                 </s:if>
-                <div id="text-right">
+                <div class="center-buttons">
                     <p>Homeへ戻る場合は<a href='<s:url action="HomeAction" />'>こちら</a></p>
                 </div>
             </div>
