@@ -128,8 +128,6 @@ public class AccountListDTO {
         this.update_time = update_time;
 
     }
-	public static void add(AccountListDTO dto) {
 
-	}
 
 }
