@@ -8,12 +8,18 @@ import java.util.ArrayList;
 
 import com.diworksdev.practice5.dto.AccountListDTO;
 import com.diworksdev.practice5.util.DBConnector;
+import com.diworksdev.practice5.util.DateUtil;
+import com.diworksdev.practice5.util.UpdateUtil;
 
 public class AccountListDAO {
 
 		private DBConnector dbConnector = new DBConnector();
 		private Connection connection = dbConnector.getConnection();
-		public ArrayList<AccountListDTO> getAccountListUserInfo(String item_transaction_id) throws SQLException {
+		private DateUtil dateUtil = new DateUtil();
+		private UpdateUtil updateUtil = new UpdateUtil();
+
+		public ArrayList<AccountListDTO> getRegist5(String userId, String userFamilyName, String userLastName, String userFamilyNameKana, String userLastNameKana,
+				String userMail, String userGender, String userAuthority, String delete_flag, String registered_time, String update_time) throws SQLException {
 
 			ArrayList<AccountListDTO> accountListDTO = new ArrayList<AccountListDTO>();
 
@@ -27,14 +33,25 @@ public class AccountListDAO {
 			//JOINの左側のテーブルが結合条件に一致しなくてもレコードをは返します
 			//ORDER BY=降順に並べ替える
 			String sql = "SELECT ubit.id, ubit.family_name, ubit.last_name, ubit.family_name_kana, ubit.last_name_kana,"
-					+ "ubit.mail, ubit.gender, ubit.authority, ubit.delete_flag, FROM login_user_transaction ubit LEFT JOIN "
-					+ "iit ON ubit.item_transaction_id = iit.id WHERE ubit.item_transaction_id= ? "
-					+ "AND ubit.user_master_id= ? ORDER BY registered_time, update_time DESC";
+					+ "ubit.mail, ubit.gender, ubit.authority, ubit.delete_flag, FROM login_user_transaction"
+					+ "ORDER BY registered_time, update_time DESC";
 
 
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-				preparedStatement.setString(1, item_transaction_id);
+				preparedStatement.setString(1, userId);
+				preparedStatement.setString(2, userFamilyName);
+				preparedStatement.setString(3, userLastName);
+				preparedStatement.setString(4, userFamilyNameKana);
+				preparedStatement.setString(5, userLastNameKana);
+				preparedStatement.setString(6, userMail);
+				preparedStatement.setString(7, userGender);
+				preparedStatement.setString(8, userAuthority);
+				preparedStatement.setString(9, delete_flag);
+				preparedStatement.setString(10, dateUtil.getDate());
+				preparedStatement.setString(11, updateUtil.getUpdate());
+				preparedStatement.execute();
+
 
 				ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -59,6 +76,7 @@ public class AccountListDAO {
 					AccountListDTO.add(dto);
 
 				}
+
 				return accountListDTO;
 
 		}

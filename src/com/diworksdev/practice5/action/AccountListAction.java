@@ -13,38 +13,20 @@ public class AccountListAction extends ActionSupport {
 	private Map<String, Object> session; // セッション情報
 	private AccountListDAO accountListDAO = new AccountListDAO(); // DAOインスタンス
 	private ArrayList<AccountListDTO> accountListDTO = new ArrayList<>(); // DTOリスト
-	private String delete_flag; // 削除フラグ
 
-	public String execute() {
+	public String execute() throws SQLException {
 
+		accountListDTO = accountListDAO.getRegist5(session.get("userId").toString(),
+				session.get("userFamilyName").toString(), session.get("userLastName").toString(),
+				session.get("userFamilyNameKana").toString(), session.get("userLastNameKana").toString(),
+				session.get("userMail").toString(), session.get("userGender").toString(),
+				session.get("userAuthority").toString(), session.get("delete_flag").toString(),
+				session.get("registered_time").toString(), session.get("update_time").toString());
 
-            if (delete_flag == null) {
-                loadAccountList();
+		String result = SUCCESS;
 
-            } else if ("1".equals(delete_flag)) {
+		return result;
 
-                deleteAccounts();
-
-            }
-
-	}
-
-	/**
-	 * アカウント情報の読み込み
-	 *
-	 * @throws SQLException
-	 *             データベース接続エラー
-	 */
-	private void loadAccountList() throws SQLException {
-		String itemTransactionId = session.get("id").toString();
-
-		accountListDTO = accountListDAO.getAccountListUserInfo(itemTransactionId);
-
-	}
-
-	// Getter and Setter
-	public void setDelete_flag(String delete_flag) {
-		this.delete_flag = delete_flag;
 	}
 
 	public void setSession(Map<String, Object> session) {

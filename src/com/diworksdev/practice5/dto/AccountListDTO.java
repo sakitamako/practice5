@@ -8,7 +8,12 @@ public class AccountListDTO {
 	private String userFamilyNameKana;
 	private String userLastNameKana;
 	private String userMail;
+	private String userPassword;
 	private String userGender;
+	private String userPostalCode;
+	private String userPrefecture;
+	private String userAddress1;
+	private String userAddress2;
 	private String userAuthority;
 	private String delete_flag;
 	private String registered_time;
@@ -63,6 +68,16 @@ public class AccountListDTO {
 
  	}
 
+	public String getUserPassword() {
+		return userPassword;
+
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+
+	}
+
  	public String getUserMail() {
  		return userMail;
 
@@ -85,6 +100,49 @@ public class AccountListDTO {
  		System.out.println("end: setUserGender()");
 
  	}
+
+	public String getUserPostalCode() {
+		return userPostalCode;
+
+	}
+
+	public void setUserPostalCode(String userPostalCode) {
+		System.out.println("start: setUserPostalCode()");
+		System.out.println(userPostalCode);
+		this.userPostalCode = userPostalCode;
+		System.out.println("end: setUserPostalCode()");
+
+	}
+
+	public String getUserPrefecture() {
+		return userPrefecture;
+
+	}
+
+	public void setUserPrefecture(String userPrefecture) {
+		this.userPrefecture = userPrefecture;
+
+	}
+
+	public String getUserAddress1() {
+		return userAddress1;
+
+	}
+
+	public void setUserAddress1(String userAddress1) {
+		this.userAddress1 = userAddress1;
+
+	}
+
+	public String getUserAddress2() {
+		return userAddress2;
+
+	}
+
+	public void setUserAddress2(String userAddress2) {
+		this.userAddress2 = userAddress2;
+
+	}
 
  	public String getUserAuthority() {
  		return userAuthority;
@@ -128,6 +186,10 @@ public class AccountListDTO {
         this.update_time = update_time;
 
     }
+	public static void add(AccountListDTO dto) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 
 
 }
