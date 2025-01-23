@@ -30,6 +30,22 @@ delete_flag int(1),
 registered_time datetime,
 update_time datetime);
 
+/*DROP TABLE IF EXISTS でテーブルが存在すれば削除する*/
+drop table if exists total_user_transaction;
+
+create table total_user_transaction(
+id int(100) not null primary key auto_increment,
+family_name varchar(100),
+last_name varchar(100),
+family_name_kana varchar(100),
+last_name_kana varchar(100),
+mail varchar(255),
+gender int(1),
+authority int(1),
+delete_flag int(1),
+registered_time datetime,
+update_time datetime);
+
 INSERT INTO login_user_transaction(
 family_name, last_name, family_name_kana,
 last_name_kana, mail, password, gender, postal_code,

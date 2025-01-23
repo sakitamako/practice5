@@ -1,6 +1,6 @@
 package com.diworksdev.practice5.dto;
 
-public class AccountListDTO {
+public class MyPageDTO {
 
 	private String userId;
 	private String userFamilyName;
@@ -186,7 +186,7 @@ public class AccountListDTO {
         this.update_time = update_time;
 
     }
-	public static void add(AccountListDTO dto) {
+	public static void add(MyPageDTO dto) {
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
