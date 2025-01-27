@@ -34,7 +34,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	//JSPから受け取る値
 	//※必ずJSPでの定義と同じ名前にする
 	//このクラスのみ 変数 変数名
-	private String deleteFlg;
+	private String delete_flag;
 	private String message;
 
 	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
@@ -42,15 +42,15 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 
 		//履歴の削除がされているか否か、チェックをしています。
 		//もしdeleteFlgとnullが等しい場合はDBから取得した履歴情報を、「myPageList」に格納しています
-		if (deleteFlg == null) {
+		if (delete_flag == null) {
 
 			//sessionに記憶しているIDとlogin_user_idを取得してテキストで表す文字列を返す
 			//item_transaction_idとuser_master_idはDBに問い合わせて受け取ったデータ
-			String userFamilyName = session.get("userFamilyName").toString();
+			String login_user_transaction = session.get("Id").toString();
 
 
 			//DBから取得した履歴情報を、「myPageList」に格納しています
-			myPageList = myPageDAO.getMyPageUserInfo(userFamilyName);
+			myPageList = myPageDAO.getMyPageUserInfo(login_user_transaction);
 
 		}
 
@@ -66,8 +66,8 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	//外部のSETをここに代入して元々の値を外部から持ってきた値に変えて格納する
 	//フィールド変数に対応したgetterとsetterを定義
 	//受け取ったテーブルの値を自身のdeleteFlgフィールドに格納
-	public void setDeleteFlg(String deleteFlg) {
-		this.deleteFlg = deleteFlg;
+	public void setDelete_flag(String delete_flag) {
+		this.delete_flag = delete_flag;
 
 	}
 

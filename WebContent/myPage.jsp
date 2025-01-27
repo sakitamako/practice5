@@ -15,7 +15,7 @@
 <meta http-equiv="imagetoolbar" content="no" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<title>AccountList画面</title>
+<title>MyPage画面</title>
 
 <style type="text/css">
 
@@ -126,7 +126,7 @@ input[type="submit"] {
                             <th>更新日時</th>
                             <th>操作</th>
                         </tr>
-                        <s:iterator value="accountList">
+                        <s:iterator value="myPageList">
                             <tr>
                                 <td><s:property value="userId" /></td>
                                 <td><s:property value="userFamilyName" /></td>
@@ -140,7 +140,7 @@ input[type="submit"] {
                                 <td><s:property value="registered_time" /></td>
                                 <td><s:property value="update_time" /></td>
                                 <td>
-                                    <s:form action="AccountDeleteAction" method="post">
+                                    <s:form action="MyPageAction" method="post">
                                         <input type="hidden" name="userId" value="<s:property value='userId' />" />
                                         <s:submit value="削除" />
                                     </s:form>
