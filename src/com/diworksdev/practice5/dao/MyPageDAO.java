@@ -23,7 +23,7 @@ public class MyPageDAO {
 	// ①クラス、メソッドの定義
 	// DTO型を最後に呼び出し元に渡すので、DTO型を戻り値にしたメソッドを作る
 	// Actionクラスの値を引数として受け取る,throws=例外を意図的に起こすことが出来る処理のこと。
-	public ArrayList<MyPageDTO> getMyPageUserInfo(String login_user_transaction) throws SQLException {
+	public ArrayList<MyPageDTO> getMyPageUserInfo(String family_name) throws SQLException {
 
 		// DTOインスタンス化
 		// DTOと会話するためのコード
@@ -38,12 +38,12 @@ public class MyPageDAO {
 		// データベースに入ってる条件を満たしたデータがsqlに代入される
 		// JOINの左側のテーブルが結合条件に一致しなくてもレコードをは返します
 		// ORDER BY=降順に並べ替える
-		String sql = "SELECT ubit.id, ubit.family_name, ubit.last_name, ubit.family_name_kana, "
+		String sql = "SELECT ubit.family_name, ubit.last_name, ubit.family_name_kana, "
 		           + "ubit.last_name_kana, ubit.mail, ubit.gender, ubit.authority, "
-		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time "
-		           + "FROM login_user_transaction ubit "
-		           + "WHERE ubit.id = ? "
+		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time FROM total_user_transaction ubit LEFT JOIN login_user_transaction "
+		           + "iit ON ubit.family_name = iit.userFamilyName WHERE ubit.family_name = ? "
 		           + "ORDER BY ubit.registered_time DESC, ubit.update_time DESC";
+
 
 		// try.catchはjavaの例外処理のための構文
 		try {
@@ -53,7 +53,7 @@ public class MyPageDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			// ⑥sql文の?に入れる値をsetする
-			preparedStatement.setString(1, login_user_transaction);
+			preparedStatement.setString(1, family_name);
 
 			// ⑥sql文の?に入れる値をsetする
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,18 +66,14 @@ public class MyPageDAO {
 				// DTOと会話するためのコード
 				MyPageDTO dto = new MyPageDTO();
 
-				// 取得した結果を1件ずつDTOに格納し、更にDTOをArrayListに格納している
-				dto.setId(resultSet.getString("Id"));
-				dto.setFamily_name(resultSet.getString("family_name"));
-				dto.setLast_name(resultSet.getString("last_name"));
-				dto.setFamily_name_kana(resultSet.getString("family_name_kana"));
-				dto.setLast_name_kana(resultSet.getString("last_name_kana"));
-				dto.setMail(resultSet.getString("mail"));
-				dto.setGender(resultSet.getString("gender"));
-				dto.setAuthority(resultSet.getString("authority"));
-				dto.setDelete_flag(resultSet.getString("delete_flag"));
-				dto.setRegistered_time(resultSet.getString("registered_time"));
-				dto.setUpdate_time(resultSet.getString("update_time"));
+
+				dto.setUserFamilyName(resultSet.getString("userFamilyName"));
+				dto.setUserLastName(resultSet.getString("userLastName"));
+				dto.setUserFamilyNameKana(resultSet.getString("userFamilyNameKana"));
+				dto.setUserLastNameKana(resultSet.getString("userLastNameKana"));
+				dto.setUserMail(resultSet.getString("userMail"));
+				dto.setUserGender(resultSet.getString("userGender"));
+				dto.setUserAuthority(resultSet.getString("userAuthority"));
 
 				// dtoに記憶する
 				myPageDTO.add(dto);

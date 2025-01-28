@@ -38,7 +38,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	private String message;
 
 	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
-	public String execute() throws SQLException {
+	public String execute() {
 
 		//履歴の削除がされているか否か、チェックをしています。
 		//もしdeleteFlgとnullが等しい場合はDBから取得した履歴情報を、「myPageList」に格納しています
@@ -46,11 +46,16 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 
 			//sessionに記憶しているIDとlogin_user_idを取得してテキストで表す文字列を返す
 			//item_transaction_idとuser_master_idはDBに問い合わせて受け取ったデータ
-			String login_user_transaction = session.get("Id").toString();
+			String family_name = session.get("userFamilyName").toString();
 
 
 			//DBから取得した履歴情報を、「myPageList」に格納しています
-			myPageList = myPageDAO.getMyPageUserInfo(login_user_transaction);
+			try {
+				myPageList = myPageDAO.getMyPageUserInfo(family_name);
+			} catch (SQLException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 
 		}
 
