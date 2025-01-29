@@ -115,8 +115,6 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 				&& !(userPostalCode.equals("")) && !(userPrefecture.equals("")) && !(userAddress1.equals(""))
 				&& !(userAddress2.equals(""))) {
 
-
-
 			session.put("userFamilyName", userFamilyName);
 			session.put("userLastName", userLastName);
 			session.put("userFamilyNameKana", userFamilyNameKana);
@@ -178,6 +176,7 @@ public class RegistConfirmAction extends ActionSupport implements SessionAware {
 		return result;
 
 	}
+
 
 	public String getUserFamilyName() {
 		return userFamilyName;

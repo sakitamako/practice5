@@ -23,7 +23,7 @@ public class MyPageDAO {
 	// ①クラス、メソッドの定義
 	// DTO型を最後に呼び出し元に渡すので、DTO型を戻り値にしたメソッドを作る
 	// Actionクラスの値を引数として受け取る,throws=例外を意図的に起こすことが出来る処理のこと。
-	public ArrayList<MyPageDTO> getMyPageUserInfo(String family_name) throws SQLException {
+	public ArrayList<MyPageDTO> getMyPageUserInfo(String user_id) throws SQLException {
 
 		// DTOインスタンス化
 		// DTOと会話するためのコード
@@ -38,10 +38,10 @@ public class MyPageDAO {
 		// データベースに入ってる条件を満たしたデータがsqlに代入される
 		// JOINの左側のテーブルが結合条件に一致しなくてもレコードをは返します
 		// ORDER BY=降順に並べ替える
-		String sql = "SELECT ubit.family_name, ubit.last_name, ubit.family_name_kana, "
+		String sql = "SELECT ubit.id, ubit.family_name, ubit.last_name, ubit.family_name_kana, "
 		           + "ubit.last_name_kana, ubit.mail, ubit.gender, ubit.authority, "
-		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time FROM total_user_transaction ubit LEFT JOIN login_user_transaction "
-		           + "iit ON ubit.family_name = iit.userFamilyName WHERE ubit.family_name = ? "
+		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time FROM login_user_transaction ubit LEFT JOIN total_user_transaction"
+		           + " ON ubit.id = iit.user_id WHERE ubit.id = user_id "
 		           + "ORDER BY ubit.registered_time DESC, ubit.update_time DESC";
 
 
@@ -53,7 +53,7 @@ public class MyPageDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			// ⑥sql文の?に入れる値をsetする
-			preparedStatement.setString(1, family_name);
+			preparedStatement.setString(1, user_id);
 
 			// ⑥sql文の?に入れる値をsetする
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +66,7 @@ public class MyPageDAO {
 				// DTOと会話するためのコード
 				MyPageDTO dto = new MyPageDTO();
 
-
+				dto.setUserId(resultSet.getString("userId"));
 				dto.setUserFamilyName(resultSet.getString("userFamilyName"));
 				dto.setUserLastName(resultSet.getString("userLastName"));
 				dto.setUserFamilyNameKana(resultSet.getString("userFamilyNameKana"));
@@ -74,6 +74,8 @@ public class MyPageDAO {
 				dto.setUserMail(resultSet.getString("userMail"));
 				dto.setUserGender(resultSet.getString("userGender"));
 				dto.setUserAuthority(resultSet.getString("userAuthority"));
+				dto.setRegistered_time(resultSet.getString("registered_time"));
+				dto.setUpdate_time(resultSet.getString("update_time"));
 
 				// dtoに記憶する
 				myPageDTO.add(dto);

@@ -2,7 +2,7 @@ package com.diworksdev.practice5.dto;
 
 public class MyPageDTO {
 
-
+	private String userId;
     private String userFamilyName;
     private String userLastName;
     private String userFamilyNameKana;
@@ -10,8 +10,16 @@ public class MyPageDTO {
     private String userMail;
     private String userGender;
     private String userAuthority;
+    private String update_time;
+    private String registered_time;
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getUserFamilyName() {
         return userFamilyName;
@@ -67,5 +75,21 @@ public class MyPageDTO {
 
     public void setUserAuthority(String userAuthority) {
         this.userAuthority = userAuthority;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
+
+    public String getRegistered_time() {
+        return registered_time;
+    }
+
+    public void setRegistered_time(String registered_time) {
+        this.registered_time = registered_time;
     }
 }

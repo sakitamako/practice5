@@ -100,17 +100,17 @@ input[type="submit"] {
         <div id="header">
             <div id="pr"></div>
         </div>
+        <h1>アカウント一覧画面</h1>
         <div id="main">
             <div id="top">
                 <p>ナビゲーションバー</p>
-                <h3>アカウント一覧</h3>
+                <h3>アカウント一覧画面</h3>
             </div>
             <div>
                 <s:if test="myPageList == null">
                     <h3>ご購入情報はありません。</h3>
                 </s:if>
                 <s:elseif test="message == null">
-                    <h3>ご購入情報は以下になります！</h3>
                     <table border="1">
                         <tr>
                             <th>Id</th>
@@ -130,8 +130,8 @@ input[type="submit"] {
                             <tr>
                                 <td><s:property value="userId" /></td>
                                 <td><s:property value="userFamilyName" /></td>
-                                <td><s:property value="userLastName" /><span>円</span></td>
-                                <td><s:property value="userFamilyNameKana" /><span>個</span></td>
+                                <td><s:property value="userLastName" /></td>
+                                <td><s:property value="userFamilyNameKana" /></td>
                                 <td><s:property value="userLastNameKana" /></td>
                                 <td><s:property value="userMail" /></td>
                                 <td><s:property value="userGender" /></td>
@@ -139,17 +139,11 @@ input[type="submit"] {
                                 <td><s:property value="delete_flag" /></td>
                                 <td><s:property value="registered_time" /></td>
                                 <td><s:property value="update_time" /></td>
-                                <td>
-                                    <s:form action="MyPageAction" method="post">
-                                        <input type="hidden" name="userId" value="<s:property value='userId' />" />
-                                        <s:submit value="削除" />
-                                    </s:form>
-                                </td>
                             </tr>
                         </s:iterator>
                     </table>
                     <s:form action="MyPageAction">
-                        <input type="hidden" name="deleteFlg" value="1">
+                        <input type="hidden" name="delete_flg" value="1">
                         <s:submit value="削除" />
                     </s:form>
                 </s:elseif>

@@ -46,12 +46,12 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 
 			//sessionに記憶しているIDとlogin_user_idを取得してテキストで表す文字列を返す
 			//item_transaction_idとuser_master_idはDBに問い合わせて受け取ったデータ
-			String family_name = session.get("userFamilyName").toString();
+			String user_id = session.get("userId").toString();
 
 
 			//DBから取得した履歴情報を、「myPageList」に格納しています
 			try {
-				myPageList = myPageDAO.getMyPageUserInfo(family_name);
+				myPageList = myPageDAO.getMyPageUserInfo(user_id);
 			} catch (SQLException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

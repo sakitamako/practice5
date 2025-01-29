@@ -35,6 +35,7 @@ drop table if exists total_user_transaction;
 
 create table total_user_transaction(
 id int(100) not null primary key auto_increment,
+user_id int,
 family_name varchar(100),
 last_name varchar(100),
 family_name_kana varchar(100),
