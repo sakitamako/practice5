@@ -24,6 +24,7 @@
 
         <action name="MyPageAction" class="com.diworksdev.practice5.action.MyPageAction" method="execute">
             <result name="success">myPage.jsp</result>
+            <result name="error">home.jsp</result>
         </action>
 
         <action name="RegistAction" class="com.diworksdev.practice5.action.RegistAction" method="execute">

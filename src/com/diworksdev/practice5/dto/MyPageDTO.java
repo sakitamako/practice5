@@ -1,8 +1,10 @@
 package com.diworksdev.practice5.dto;
 
+import java.sql.Timestamp;
+
 public class MyPageDTO {
 
-	private String userId;
+	private int userId;
     private String userFamilyName;
     private String userLastName;
     private String userFamilyNameKana;
@@ -10,15 +12,16 @@ public class MyPageDTO {
     private String userMail;
     private String userGender;
     private String userAuthority;
-    private String update_time;
-    private String registered_time;
+    private int deleteFlag;
+    private Timestamp updateTime;
+    private Timestamp registeredTime;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(int string) {
+        this.userId = string;
     }
 
     public String getUserFamilyName() {
@@ -77,19 +80,44 @@ public class MyPageDTO {
         this.userAuthority = userAuthority;
     }
 
-    public String getUpdate_time() {
-        return update_time;
+    public int getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setUpdate_time(String update_time) {
-        this.update_time = update_time;
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
-    public String getRegistered_time() {
-        return registered_time;
+    public Timestamp getUpdateTime() {
+        return updateTime;
     }
 
-    public void setRegistered_time(String registered_time) {
-        this.registered_time = registered_time;
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Timestamp getRegisteredTime() {
+        return registeredTime;
+    }
+
+    public void setRegisteredTime(Timestamp registeredTime) {
+        this.registeredTime = registeredTime;
+    }
+
+    @Override
+    public String toString() {
+        return "MyPageDTO{" +
+                "userId=" + userId +
+                ", userFamilyName='" + userFamilyName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
+                ", userFamilyNameKana='" + userFamilyNameKana + '\'' +
+                ", userLastNameKana='" + userLastNameKana + '\'' +
+                ", userMail='" + userMail + '\'' +
+                ", userGender='" + userGender + '\'' +
+                ", userAuthority='" + userAuthority + '\'' +
+                ", deleteFlag='" + deleteFlag + '\'' +
+                ", updateTime=" + updateTime +
+                ", registeredTime=" + registeredTime +
+                '}';
     }
 }

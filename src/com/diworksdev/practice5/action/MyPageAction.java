@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
-import com.diworksdev.practice5.dao.MyPageDAO;
+import com.diworksdev.practice5.dao.RegistCompleteDAO;
 import com.diworksdev.practice5.dto.MyPageDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -19,7 +19,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	public Map<String, Object> session;
 
 	//②DTOとDAOのインスタンス化（コピーして値を代入）
-	private MyPageDAO myPageDAO = new MyPageDAO();
+	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
 
 	//Listインタフェースのサイズ変更可能な配列の実装です。
 	//リストのオプションの操作をすべて実装し、nullを含むすべての要素を許容します。
@@ -40,32 +40,34 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
 	public String execute() {
 
-		//履歴の削除がされているか否か、チェックをしています。
-		//もしdeleteFlgとnullが等しい場合はDBから取得した履歴情報を、「myPageList」に格納しています
-		if (delete_flag == null) {
+		// ユーザーがログインしていない場合はエラーを返す
+        if (!session.containsKey("login_user_id")) {
+            return ERROR;
+        }
 
-			//sessionに記憶しているIDとlogin_user_idを取得してテキストで表す文字列を返す
-			//item_transaction_idとuser_master_idはDBに問い合わせて受け取ったデータ
-			String user_id = session.get("userId").toString();
+        try {
+            // アカウント削除処理
+            if ("1".equals(delete_flag)) {
+                String user_id = session.get("login_user_id").toString();
+                int result = registCompleteDAO.deleteAccount(Integer.parseInt(user_id));
 
+                if (result > 0) {
+                    message = "アカウントを削除しました。";
+                } else {
+                    message = "アカウント削除に失敗しました。";
+                }
+            }
 
-			//DBから取得した履歴情報を、「myPageList」に格納しています
-			try {
-				myPageList = myPageDAO.getMyPageUserInfo(user_id);
-			} catch (SQLException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
+            // アカウント一覧取得
+            myPageList = registCompleteDAO.getMyPageListUserInfo();
 
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return ERROR;
+        }
 
-		//resultに上記処理結果を代入
-		String result = SUCCESS;
-
-		//resultにSUCCESS代入＝myPage.jspに遷移する、商品情報を正しく削除しました。や商品情報の削除に失敗しました。を表示する
-		return result;
-
-	}
+        return SUCCESS;
+    }
 
 
 	//外部のSETをここに代入して元々の値を外部から持ってきた値に変えて格納する

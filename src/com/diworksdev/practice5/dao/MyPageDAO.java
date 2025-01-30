@@ -38,10 +38,10 @@ public class MyPageDAO {
 		// データベースに入ってる条件を満たしたデータがsqlに代入される
 		// JOINの左側のテーブルが結合条件に一致しなくてもレコードをは返します
 		// ORDER BY=降順に並べ替える
-		String sql = "SELECT ubit.id, ubit.family_name, ubit.last_name, ubit.family_name_kana, "
+		String sql = "SELECT ubit.user_id, ubit.family_name, ubit.last_name, ubit.family_name_kana, "
 		           + "ubit.last_name_kana, ubit.mail, ubit.gender, ubit.authority, "
-		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time FROM login_user_transaction ubit LEFT JOIN total_user_transaction"
-		           + " ON ubit.id = iit.user_id WHERE ubit.id = user_id "
+		           + "ubit.delete_flag, ubit.registered_time, ubit.update_time FROM total_user_transaction ubit LEFT JOIN login_user_transaction"
+		           + " ON ubit.user_id = iit.id WHERE ubit.user_id = id "
 		           + "ORDER BY ubit.registered_time DESC, ubit.update_time DESC";
 
 
@@ -66,7 +66,7 @@ public class MyPageDAO {
 				// DTOと会話するためのコード
 				MyPageDTO dto = new MyPageDTO();
 
-				dto.setUserId(resultSet.getString("userId"));
+				//dto.setUserId(resultSet.getString("userId"));
 				dto.setUserFamilyName(resultSet.getString("userFamilyName"));
 				dto.setUserLastName(resultSet.getString("userLastName"));
 				dto.setUserFamilyNameKana(resultSet.getString("userFamilyNameKana"));
@@ -74,8 +74,8 @@ public class MyPageDAO {
 				dto.setUserMail(resultSet.getString("userMail"));
 				dto.setUserGender(resultSet.getString("userGender"));
 				dto.setUserAuthority(resultSet.getString("userAuthority"));
-				dto.setRegistered_time(resultSet.getString("registered_time"));
-				dto.setUpdate_time(resultSet.getString("update_time"));
+				//dto.setRegistered_time(resultSet.getString("registered_time"));
+				//dto.setUpdate_time(resultSet.getString("update_time"));
 
 				// dtoに記憶する
 				myPageDTO.add(dto);
