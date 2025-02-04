@@ -53,15 +53,15 @@ public class RegistCompleteDAO {
 			preparedStatement.execute();
 
 		} catch (SQLException e) {
-            e.printStackTrace();
-            throw e; // 呼び出し元でエラーハンドリングできるようにする
-        }
+			e.printStackTrace();
+			throw e; // 呼び出し元でエラーハンドリングできるようにする
+		}
 
 	}
 
 	// アカウント一覧取得メソッド
-	public ArrayList<MyPageDTO> getMyPageListUserInfo() throws SQLException {
-		ArrayList<MyPageDTO> myPageList = new ArrayList<>();
+	public ArrayList<MyPageDTO> getMyPageDTOUserInfo() throws SQLException {
+		ArrayList<MyPageDTO> myPageDTO = new ArrayList<>();
 
 		try (Connection connection = dbConnector.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
@@ -81,14 +81,14 @@ public class RegistCompleteDAO {
 				dto.setRegisteredTime(rs.getTimestamp("registered_time"));
 				dto.setUpdateTime(rs.getTimestamp("update_time"));
 
-				myPageList.add(dto);
+				myPageDTO.add(dto);
 			}
 
 		} catch (SQLException e) {
-            e.printStackTrace();
-            throw e; // 呼び出し元で処理できるようにする
-        }
-		return myPageList;
+			e.printStackTrace();
+			throw e; // 呼び出し元で処理できるようにする
+		}
+		return myPageDTO;
 	}
 
 	// アカウント削除メソッド
@@ -104,9 +104,9 @@ public class RegistCompleteDAO {
 			result = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-            e.printStackTrace();
-            throw e; // 呼び出し元でエラーハンドリング
-        }
+			e.printStackTrace();
+			throw e; // 呼び出し元でエラーハンドリング
+		}
 
 		return result;
 	}

@@ -28,7 +28,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	//ArrayList は、 Array という名にあるように配列のような感覚で扱うことができる。
 	//配列 には格納できる 要素数が決まっている が、 ArrayList は 要素数は決まっていない 。
 	//ArrayList は、 プリミティブ型（int, booleanなど） を入れられない。
-	private ArrayList<MyPageDTO> myPageList = new ArrayList<MyPageDTO>();
+	private ArrayList<MyPageDTO> myPageDTO = new ArrayList<MyPageDTO>();
 
 	//フィールド変数
 	//JSPから受け取る値
@@ -59,7 +59,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
             }
 
             // アカウント一覧取得
-            myPageList = registCompleteDAO.getMyPageListUserInfo();
+            myPageDTO = registCompleteDAO.getMyPageDTOUserInfo();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,8 +90,8 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 	//外部からここにアクセスして、外部にデータを渡している
 	//フィールド変数に対応したgetterとsetterを定義
 	//DTOから戻り値として受け取った、myPageListフィールドの値をmyPage.jspに渡している
-	public ArrayList<MyPageDTO> getMyPageList() {
-		return this.myPageList;
+	public ArrayList<MyPageDTO> getMyPageDTO() {
+		return this.myPageDTO;
 
 	}
 
