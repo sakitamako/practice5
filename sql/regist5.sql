@@ -26,9 +26,9 @@ prefecture varchar(100),
 address_1 varchar(100),
 address_2 varchar(255),
 authority int(1),
-delete_flag int(1),
-registered_time datetime,
-update_time datetime);
+delete_flag int(1) DEFAULT 0,
+registered_time datetime DEFAULT CURRENT_TIMESTAMP,
+update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
 
 /*DROP TABLE IF EXISTS でテーブルが存在すれば削除する*/
 drop table if exists total_user_transaction;
@@ -43,9 +43,9 @@ last_name_kana varchar(100),
 mail varchar(255),
 gender int(1),
 authority int(1),
-delete_flag int(1),
-registered_time datetime,
-update_time datetime);
+delete_flag int(1) DEFAULT 0,
+registered_time datetime DEFAULT CURRENT_TIMESTAMP,
+update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
 
 INSERT INTO login_user_transaction(
 family_name, last_name, family_name_kana,

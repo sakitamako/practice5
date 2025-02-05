@@ -20,8 +20,8 @@ public class MyPageDTO {
         return userId;
     }
 
-    public void setUserId(int string) {
-        this.userId = string;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserFamilyName() {
@@ -104,20 +104,4 @@ public class MyPageDTO {
         this.registeredTime = registeredTime;
     }
 
-    @Override
-    public String toString() {
-        return "MyPageDTO{" +
-                "userId=" + userId +
-                ", userFamilyName='" + userFamilyName + '\'' +
-                ", userLastName='" + userLastName + '\'' +
-                ", userFamilyNameKana='" + userFamilyNameKana + '\'' +
-                ", userLastNameKana='" + userLastNameKana + '\'' +
-                ", userMail='" + userMail + '\'' +
-                ", userGender='" + userGender + '\'' +
-                ", userAuthority='" + userAuthority + '\'' +
-                ", deleteFlag='" + deleteFlag + '\'' +
-                ", updateTime=" + updateTime +
-                ", registeredTime=" + registeredTime +
-                '}';
-    }
 }
