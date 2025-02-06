@@ -21,7 +21,7 @@
 
 /*  TAG LAYOUT  */
 body {
-    width: 100%;
+	width: 100%;
 	margin: 0;
 	padding: 200px;
 	line-height: 1.6;
@@ -32,17 +32,22 @@ body {
 	text-align: center;
 }
 
-body input {
-	border: 1px solid #333;
+/* テーブルの横スクロール対応 */
+.table-container {
+	width: 100%;
+	overflow-x: auto;
 }
 
+/* テーブルデザイン */
 table {
-	margin: 0 auto;
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	min-width: 600px;
 }
 
 /*  ID LAYOUT  */
 #top {
-
 	margin-left: 0px;
 }
 
@@ -52,20 +57,17 @@ table {
 }
 
 #main h3 {
-
 	text-align: left;
 	margin-left: 10px;
 }
 
 #main h4 {
-
 	text-align: center;
 	padding-top: 200px;
 	padding-bottom: 200px;
 }
 
 #main p {
-
 	font-size: 20px;
 	text-align: center;
 	border-top: 1px solid #333;
@@ -78,7 +80,6 @@ th, td {
 	border: 1px solid #333;
 	padding: 8px;
 	text-align: center;
-
 }
 
 th {
@@ -93,33 +94,53 @@ th {
 	display: inline-block;
 }
 
-/* ボタン共通スタイル */
-input[type="submit"], a {
-	background-color: #fff;
-	padding: 8px 16px;
+/* ボタンをリンク風に */
+.action-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.action-buttons form {
+	margin: 0;
+	display: inline;
+}
+
+.action-buttons a, .action-buttons button {
+	display: inline-block;
+	padding: 5px 10px;
+	color: #0066cc;
 	text-decoration: none;
-	font-size: 18px;
-	border: 1px solid #333;
+	border: none;
+	background: none;
+	font-size: 16px;
 	cursor: pointer;
 }
 
-input[type="submit"]:hover, a:hover {
-	background-color: #ddd;
+.action-buttons a:hover, .action-buttons button:hover {
+	text-decoration: underline;
+	color: #004499;
 }
 
 /* レスポンシブデザイン */
-@media ( max-width : 400px) {
+@media ( max-width : 768px) {
 	body {
 		font-size: 16px;
 		padding: 10px;
 	}
 	table {
 		font-size: 14px;
-
+		min-width: 100%;
 	}
-	input[type="submit"], a {
-		font-size: 16px;
-		padding: 6px 12px;
+	.action-buttons a, .action-buttons button {
+		font-size: 14px;
+		padding: 4px 8px;
+	}
+	#main input[type="submit"] {
+		background-color: #fff; /* ボタンの背景色 */
+		padding: 5px 20px; /* 内側の余白 */
+		text-align: center;
+		font-size: 20px; /* 文字サイズ */
 	}
 }
 </style>
@@ -159,18 +180,30 @@ input[type="submit"]:hover, a:hover {
 						<td><s:property value="userFamilyNameKana" /></td>
 						<td><s:property value="userLastNameKana" /></td>
 						<td><s:property value="userMail" /></td>
-						<td><s:property value="userGender" /></td>
-						<td><s:property value="userAuthority" /></td>
-						<td><s:property value="deleteFlag" /></td>
+						<td><s:if test="userGender == 0">男性</s:if> <s:else>女性</s:else></td>
+						<td><s:if test="userAuthority == 0">一般</s:if> <s:else>管理者</s:else></td>
+						<td><s:if test="deleteFlag == 0">有効</s:if> <s:else>無効</s:else></td>
 						<td><s:property value="registeredTime" /></td>
 						<td><s:property value="updateTime" /></td>
 						<td>
-							<form action="deleteUserAction" method="post">
-								<input type="hidden" name="userId"
-									value="<s:property value='userId' />"> <input
-									type="submit" value="削除">
-							</form>
+							<div class="action-buttons">
+								<!-- 削除ボタン -->
+								<form action="deleteUserAction" method="post">
+									<input type="hidden" name="userId"
+										value="<s:property value='userId'/>">
+									<button type="submit">削除</button>
+								</form>
+
+								<!-- 更新ボタン -->
+								<form action="updateUserAction" method="get">
+									<input type="hidden" name="userId"
+										value="<s:property value='userId'/>">
+									<button type="submit">更新</button>
+								</form>
+							</div>
 						</td>
+
+
 					</tr>
 				</s:iterator>
 			</table>
