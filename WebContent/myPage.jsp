@@ -21,14 +21,15 @@
 
 /*  TAG LAYOUT  */
 body {
+    width: 100%;
 	margin: 0;
 	padding: 200px;
 	line-height: 1.6;
 	letter-spacing: 1px;
 	font-family: Verdana, Helvetica, sans-serif;
-	font-size: 20px;
 	color: #333;
 	background: #fff;
+	text-align: center;
 }
 
 body input {
@@ -41,42 +42,47 @@ table {
 
 /*  ID LAYOUT  */
 #top {
-	width: 100%;
+
 	margin-left: 0px;
 }
 
-#header {
-	width: 100%;
-}
-
 #main {
-	width: 100%;
-	text-align: center;
 	border-right: 1px solid #333;
 	border-left: 1px solid #333;
 }
 
 #main h3 {
-	width: 100%;
+
 	text-align: left;
 	margin-left: 10px;
 }
 
 #main h4 {
-	width: 100%;
+
 	text-align: center;
 	padding-top: 200px;
 	padding-bottom: 200px;
 }
 
 #main p {
-	width: 100%;
+
 	font-size: 20px;
 	text-align: center;
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #333;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+th, td {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: center;
+
+}
+
+th {
+	background: #f4f4f4;
 }
 
 .center-buttons {
@@ -88,11 +94,33 @@ table {
 }
 
 /* ボタン共通スタイル */
-input[type="submit"] {
-	background-color: #fff; /* ボタンの背景色 */
-	padding: 5px 20px; /* 内側の余白 */
-	text-align: center;
-	font-size: 20px; /* 文字サイズ */
+input[type="submit"], a {
+	background-color: #fff;
+	padding: 8px 16px;
+	text-decoration: none;
+	font-size: 18px;
+	border: 1px solid #333;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover, a:hover {
+	background-color: #ddd;
+}
+
+/* レスポンシブデザイン */
+@media ( max-width : 400px) {
+	body {
+		font-size: 16px;
+		padding: 10px;
+	}
+	table {
+		font-size: 14px;
+
+	}
+	input[type="submit"], a {
+		font-size: 16px;
+		padding: 6px 12px;
+	}
 }
 </style>
 </head>
@@ -133,9 +161,16 @@ input[type="submit"] {
 						<td><s:property value="userMail" /></td>
 						<td><s:property value="userGender" /></td>
 						<td><s:property value="userAuthority" /></td>
-						<td><s:property value="delete_flag" /></td>
-						<td><s:property value="registered_time" /></td>
-						<td><s:property value="update_time" /></td>
+						<td><s:property value="deleteFlag" /></td>
+						<td><s:property value="registeredTime" /></td>
+						<td><s:property value="updateTime" /></td>
+						<td>
+							<form action="deleteUserAction" method="post">
+								<input type="hidden" name="userId"
+									value="<s:property value='userId' />"> <input
+									type="submit" value="削除">
+							</form>
+						</td>
 					</tr>
 				</s:iterator>
 			</table>
