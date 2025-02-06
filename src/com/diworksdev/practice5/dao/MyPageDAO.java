@@ -26,7 +26,7 @@ public class MyPageDAO {
 		ArrayList<MyPageDTO> myPageDTO = new ArrayList<>();
 
 
-		String sql = "SELECT * FROM login_user_transaction WHERE delete_flag = 0";
+		String sql = "SELECT * FROM login_user_transaction WHERE delete_flag = 0 ORDER BY registered_time DESC";
 
 		// try.catchはjavaの例外処理のための構文
 		try {
