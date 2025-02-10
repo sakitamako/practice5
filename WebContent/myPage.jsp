@@ -19,130 +19,68 @@
 
 <style type="text/css">
 
-/*  TAG LAYOUT  */
+/* 全体レイアウト */
 body {
-	width: 100%;
-	margin: 0;
-	padding: 200px;
-	line-height: 1.6;
-	letter-spacing: 1px;
-	font-family: Verdana, Helvetica, sans-serif;
-	color: #333;
-	background: #fff;
-	text-align: center;
+    margin: 0;
+    padding: 20px;
+    font-family: Verdana, Helvetica, sans-serif;
+    color: #333;
+    background: #fff;
+    text-align: center;
 }
 
-/* テーブルの横スクロール対応 */
-.table-container {
-	width: 100%;
-	overflow-x: auto;
-}
-
-/* テーブルデザイン */
+/* テーブルを画面の中央に配置 */
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin: 20px 0;
-	min-width: 600px;
+    width: 80%; /* 必要に応じて調整 */
+    margin: 20px auto; /* 水平方向にセンター配置 */
+    border-collapse: collapse;
+    min-width: 600px;
+    border: 1px solid #333;
+    text-align: center; /* テーブル内のテキストを中央寄せ */
 }
 
-/*  ID LAYOUT  */
-#top {
-	margin-left: 0px;
+/* 行を中央寄せする */
+tr {
+    display: table-row;
+    text-align: center;
 }
 
 #main {
-	border-right: 1px solid #333;
-	border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    border-left: 1px solid #333;
 }
 
 #main h3 {
-	text-align: left;
-	margin-left: 10px;
-}
-
-#main h4 {
-	text-align: center;
-	padding-top: 200px;
-	padding-bottom: 200px;
+    text-align: left;
+    margin-left: 10px;
 }
 
 #main p {
-	font-size: 20px;
-	text-align: center;
-	border-top: 1px solid #333;
-	border-bottom: 1px solid #333;
-	padding-top: 10px;
-	padding-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
 }
 
-th, td {
-	border: 1px solid #333;
-	padding: 8px;
-	text-align: center;
-}
-
-th {
-	background: #f4f4f4;
-}
-
-.center-buttons {
-	text-align: center;
-}
-
-.center-buttons form {
-	display: inline-block;
-}
-
-/* ボタンをリンク風に */
+/* ボタンのデザイン */
 .action-buttons {
-	display: flex;
-	justify-content: center;
-	gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.action-buttons form {
-	margin: 0;
-	display: inline;
+/* ボタンの間に縦線を入れる */
+.action-buttons form + form::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background-color: #333;
+    margin: 0 5px;
 }
 
-.action-buttons a, .action-buttons button {
-	display: inline-block;
-	padding: 5px 10px;
-	color: #0066cc;
-	text-decoration: none;
-	border: none;
-	background: none;
-	font-size: 16px;
-	cursor: pointer;
-}
-
-.action-buttons a:hover, .action-buttons button:hover {
-	text-decoration: underline;
-	color: #004499;
-}
-
-/* レスポンシブデザイン */
-@media ( max-width : 768px) {
-	body {
-		font-size: 16px;
-		padding: 10px;
-	}
-	table {
-		font-size: 14px;
-		min-width: 100%;
-	}
-	.action-buttons a, .action-buttons button {
-		font-size: 14px;
-		padding: 4px 8px;
-	}
-	#main input[type="submit"] {
-		background-color: #fff; /* ボタンの背景色 */
-		padding: 5px 20px; /* 内側の余白 */
-		text-align: center;
-		font-size: 20px; /* 文字サイズ */
-	}
-}
 </style>
 </head>
 <body>
