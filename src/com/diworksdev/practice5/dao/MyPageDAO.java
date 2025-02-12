@@ -51,8 +51,9 @@ public class MyPageDAO {
 				dto.setUserGender(resultSet.getString("gender"));
 				dto.setUserAuthority(resultSet.getString("authority"));
 				dto.setDeleteFlag(resultSet.getInt("delete_flag"));
-                dto.setRegisteredTime(resultSet.getTimestamp("registered_time"));
+				dto.setRegisteredTime(resultSet.getTimestamp("registered_time"));
                 dto.setUpdateTime(resultSet.getTimestamp("update_time"));
+
 
 				// dtoに記憶する
 				myPageDTO.add(dto);

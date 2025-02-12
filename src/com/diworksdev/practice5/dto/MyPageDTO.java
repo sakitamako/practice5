@@ -1,6 +1,6 @@
 package com.diworksdev.practice5.dto;
-
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MyPageDTO {
 
@@ -13,8 +13,29 @@ public class MyPageDTO {
     private String userGender;
     private String userAuthority;
     private int deleteFlag;
-    private Timestamp updateTime;
-    private Timestamp registeredTime;
+    private Date updateTime;
+    private Date registeredTime;
+
+ // 日付フォーマット用
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    // getter（フォーマット済みで返す）
+    public String getRegisteredTime() {
+        return (registeredTime != null) ? sdf.format(registeredTime) : "";
+    }
+
+    public String getUpdateTime() {
+        return (updateTime != null) ? sdf.format(updateTime) : "";
+    }
+
+    // setter
+    public void setRegisteredTime(Date registeredTime) {
+        this.registeredTime = registeredTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public int getUserId() {
         return userId;
@@ -86,22 +107,6 @@ public class MyPageDTO {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
-    }
-
-    public Timestamp getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Timestamp getRegisteredTime() {
-        return registeredTime;
-    }
-
-    public void setRegisteredTime(Timestamp registeredTime) {
-        this.registeredTime = registeredTime;
     }
 
 }

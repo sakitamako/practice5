@@ -133,12 +133,12 @@ tr {
 						<td><s:property value="updateTime" /></td>
 						<td>
 							<div class="action-links">
-								<!-- 削除リンク -->
-								<a href="deleteUserAction?userId=<s:property value='userId'/>">削除</a>
-								<span></span>
-								<!-- 仕切り用の縦線 -->
 								<!-- 更新リンク -->
-								<a href="updateUserAction?userId=<s:property value='userId'/>">更新</a>
+								<a href="updateUser.jsp?userId=<s:property value='userId'/>">更新</a>
+								<span></span>
+                                <!-- 仕切り用の縦線 -->
+                                <!-- 削除リンク -->
+                                <a href="deleteUser.jsp?userId=<s:property value='userId'/>">削除</a>
 							</div>
 						</td>
 

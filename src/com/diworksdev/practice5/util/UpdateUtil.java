@@ -16,7 +16,7 @@ public class UpdateUtil {
 			// SimpleDateFormatは、日付のフォーマットと解析を、ロケールを考慮して行うための具象クラスです。
 			// フォーマット(日付→テキスト)、解析(テキスト→日付)および正規化を行うことができます。
 			// 現在日時を指定フォーマットで取得する
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
 			// 処理結果を渡す
 			return simpleDateFormat.format(date);
