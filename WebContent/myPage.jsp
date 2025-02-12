@@ -21,66 +21,74 @@
 
 /* 全体レイアウト */
 body {
-    margin: 0;
-    padding: 20px;
-    font-family: Verdana, Helvetica, sans-serif;
-    color: #333;
-    background: #fff;
-    text-align: center;
+	margin: 0;
+	padding: 20px;
+	font-family: Verdana, Helvetica, sans-serif;
+	color: #333;
+	background: #fff;
 }
 
 /* テーブルを画面の中央に配置 */
 table {
-    width: 80%; /* 必要に応じて調整 */
-    margin: 20px auto; /* 水平方向にセンター配置 */
-    border-collapse: collapse;
-    min-width: 600px;
-    border: 1px solid #333;
-    text-align: center; /* テーブル内のテキストを中央寄せ */
+	width: 80%; /* 必要に応じて調整 */
+	margin: 20px auto; /* 水平方向にセンター配置 */
+	border-collapse: collapse;
+	min-width: 600px;
+	border: 1px solid #333;
+	text-align: center; /* テーブル内のテキストを中央寄せ */
 }
 
 /* 行を中央寄せする */
 tr {
-    display: table-row;
-    text-align: center;
+	display: table-row;
+	text-align: center;
 }
 
 #main {
-    border-right: 1px solid #333;
-    border-left: 1px solid #333;
+	border-right: 1px solid #333;
+	border-left: 1px solid #333;
 }
 
 #main h3 {
-    text-align: left;
-    margin-left: 10px;
+	text-align: left;
+	margin-left: 10px;
 }
 
 #main p {
-    font-size: 20px;
-    text-align: center;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    padding: 10px 0;
+	font-size: 20px;
+	text-align: center;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
+	padding: 10px 0;
 }
 
-/* ボタンのデザイン */
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+/* 操作リンク全体のデザイン */
+.action-links {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
 }
 
-/* ボタンの間に縦線を入れる */
-.action-buttons form + form::before {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 20px;
-    background-color: #333;
-    margin: 0 5px;
+/* 削除と更新の間の仕切り */
+.action-links span {
+	display: inline-block;
+	width: 1px;
+	height: 20px;
+	background-color: #333;
 }
 
+/* リンクのデザイン */
+.action-links a {
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+	padding: 5px 10px;
+}
+
+.action-links a:hover {
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -124,20 +132,13 @@ tr {
 						<td><s:property value="registeredTime" /></td>
 						<td><s:property value="updateTime" /></td>
 						<td>
-							<div class="action-buttons">
-								<!-- 削除ボタン -->
-								<form action="deleteUserAction" method="post">
-									<input type="hidden" name="userId"
-										value="<s:property value='userId'/>">
-									<button type="submit">削除</button>
-								</form>
-
-								<!-- 更新ボタン -->
-								<form action="updateUserAction" method="get">
-									<input type="hidden" name="userId"
-										value="<s:property value='userId'/>">
-									<button type="submit">更新</button>
-								</form>
+							<div class="action-links">
+								<!-- 削除リンク -->
+								<a href="deleteUserAction?userId=<s:property value='userId'/>">削除</a>
+								<span></span>
+								<!-- 仕切り用の縦線 -->
+								<!-- 更新リンク -->
+								<a href="updateUserAction?userId=<s:property value='userId'/>">更新</a>
 							</div>
 						</td>
 
@@ -145,12 +146,6 @@ tr {
 					</tr>
 				</s:iterator>
 			</table>
-
-			<div class="center-buttons">
-				<p>
-					Homeへ戻る場合は<a href='<s:url action="HomeAction" />'>こちら</a>
-				</p>
-			</div>
 		</div>
 		<p>フッター</p>
 	</div>
