@@ -82,7 +82,6 @@ tr {
 .action-links a {
 	text-decoration: none;
 	color: #333;
-	font-weight: bold;
 	padding: 5px 10px;
 }
 

@@ -10,40 +10,54 @@ import com.diworksdev.practice5.dao.MyPageDAO;
 import com.diworksdev.practice5.dto.MyPageDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
+//SQLException → SQL 実行時の例外を処理するために使用。
+//ArrayList → MyPageDTO のデータリストを管理するために使用。
+//Map → セッション情報を格納するために使用。
+//SessionAware → Struts2 のセッションを扱うためのインターフェース。
+//MyPageDAO → データベースとやりとりをする DAO クラス。
+//MyPageDTO → 取得したデータを格納する DTO クラス。
+//ActionSupport → Struts2 の Action クラスの基本機能を提供するクラス。
+
 public class MyPageAction extends ActionSupport implements SessionAware {
+//	ActionSupport を継承しているため、Struts2 のアクションとして動作する。
+//	SessionAware を実装することで、セッション管理が可能になる。
 
-	//Map<String, Object>=キーを値にマッピングするオブジェクト。
-	//マップには、同一のキーを複数登録できない。各キーは1つの値にしかマッピングできません。
-    //このインタフェースは、インタフェースというよりむしろ完全に抽象クラスであったDictionaryクラスに代わるものです
-	//全てのクラス 変数 変数名
 	public Map<String, Object> session;
-
-	//Listインタフェースのサイズ変更可能な配列の実装です。
-	//リストのオプションの操作をすべて実装し、nullを含むすべての要素を許容します。
-	//このクラスは、Listインタフェースを実装するほか、リストを格納するために内部的に使われる配列のサイズを操作するメソッドを提供します
-	//ArrayList とは、 Listインタフェース を実装した コレクションクラス である。
-	//ArrayList は、 Array という名にあるように配列のような感覚で扱うことができる。
-	//配列 には格納できる 要素数が決まっている が、 ArrayList は 要素数は決まっていない 。
-	//ArrayList は、 プリミティブ型（int, booleanなど） を入れられない。
 	private ArrayList<MyPageDTO> myPageDTO;
+//	session → ユーザーのセッション情報を格納する Map オブジェクト。
+//	myPageDTO → MyPageDAO から取得した MyPageDTO のリストを格納。
 
 	public String execute() {
+//		Struts2 の execute メソッド。
+//		アクションが実行されたときに、このメソッドが呼ばれる。
+//		返り値 (String) に SUCCESS または ERROR を返すことで、Struts の画面遷移を制御する。
 
 		MyPageDAO dao = new MyPageDAO();
+//		MyPageDAO クラスのインスタンス dao を作成。
+//		この dao を使ってデータベースからデータを取得する。
 
 		try {
 			myPageDTO = dao.getMyPageDTO();
+//			dao.getMyPageDTO() を呼び出し、データを取得して myPageDTO に格納する。
+//			getMyPageDTO() メソッドは MyPageDAO クラス内でデータベースから情報を取得する処理を実行する。
 
 			if (myPageDTO.isEmpty()) {
                 System.out.println("データが取得できませんでした");
             } else {
                 System.out.println("取得データ: " + myPageDTO);
             }
+//			myPageDTO が空 (isEmpty()) かどうかを確認。
+//			空なら "データが取得できませんでした" を出力。
+//			データがあれば "取得データ: [データ内容]" を出力。
 
             session.put("myPageDTO", myPageDTO);
+//            session (セッションの Map) に myPageDTO を保存。
+//            これにより、別の画面やアクションでもデータを利用できる。
 
         } catch (SQLException e) {
             e.printStackTrace();
+//            SQLException が発生した場合、エラーメッセージを出力 (e.printStackTrace())。
+//            ERROR を返し、エラーページへ遷移するようにする。
 
             return ERROR;
         }
@@ -51,23 +65,20 @@ public class MyPageAction extends ActionSupport implements SessionAware {
     }
 
 
-	//外部のSETをここに代入して元々の値を外部から持ってきた値に変えて格納する
-	//フィールド変数に対応したgetterとsetterを定義
-	//受け取ったテーブルの値を自身のsessionフィールドに格納
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-
+//		SessionAware インターフェースの setSession メソッドをオーバーライド。
+//		Struts2 によって渡される session オブジェクトを this.session に格納
 	}
 
-	//外部からここにアクセスして、外部にデータを渡している
-	//フィールド変数に対応したgetterとsetterを定義
-	//DTOから戻り値として受け取った、myPageListフィールドの値をmyPage.jspに渡している
+
 	public ArrayList<MyPageDTO> getMyPageDTO() {
 		return this.myPageDTO;
+//		myPageDTO を取得するためのメソッド。
+//		Struts2 では get メソッドが JSP で使われるため、データ取得用に定義。
 
 	}
-
-
 
 }
