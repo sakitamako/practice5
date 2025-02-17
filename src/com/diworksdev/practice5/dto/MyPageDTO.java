@@ -2,6 +2,10 @@ package com.diworksdev.practice5.dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//SimpleDateFormat → 日付 (Date) を特定のフォーマット (yyyy-MM-dd) で文字列として出力するために使用。
+//Date → データベースの TIMESTAMP 型 (registered_time や update_time) を扱うために使用。
+
+
 public class MyPageDTO {
 
 	private int userId;
@@ -18,12 +22,18 @@ public class MyPageDTO {
 
  // 日付フォーマット用
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//  SimpleDateFormat を yyyy-MM-dd のフォーマットで初期化。
+//  static final なので、クラス共通で使えるフォーマット を定義している。
 
-    // getter（フォーマット済みで返す）
+//	getter（フォーマット済みで返す）
+//  registeredTime が null でない場合 → sdf.format(registeredTime) で yyyy-MM-dd の文字列に変換して返す。
+//  null の場合 → 空文字 ("") を返す。（NullPointerException 防止）
     public String getRegisteredTime() {
         return (registeredTime != null) ? sdf.format(registeredTime) : "";
     }
 
+//  updateTime を yyyy-MM-dd 形式の文字列として返す。
+//  null の場合は空文字を返す。
     public String getUpdateTime() {
         return (updateTime != null) ? sdf.format(updateTime) : "";
     }
@@ -37,6 +47,9 @@ public class MyPageDTO {
         this.updateTime = updateTime;
     }
 
+
+//  各フィールドの値を取得 (getXXX()) するメソッドと、設定 (setXXX()) するメソッド。
+//  setXXX() は this.フィールド名 = 引数; でフィールドを更新。
     public int getUserId() {
         return userId;
     }
