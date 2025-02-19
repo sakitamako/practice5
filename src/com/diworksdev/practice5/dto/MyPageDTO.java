@@ -21,7 +21,7 @@ public class MyPageDTO {
     private Date registeredTime;
 
  // 日付フォーマット用
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 //  SimpleDateFormat を yyyy-MM-dd のフォーマットで初期化。
 //  static final なので、クラス共通で使えるフォーマット を定義している。
 

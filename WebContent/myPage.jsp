@@ -40,6 +40,7 @@ table {
 
 /* 行を中央寄せする */
 tr {
+    font-weight: normal;
 	display: table-row;
 	text-align: center;
 }
