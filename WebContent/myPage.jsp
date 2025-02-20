@@ -40,7 +40,7 @@ table {
 
 /* 行を中央寄せする */
 tr {
-    font-weight: normal;
+	font-weight: normal;
 	display: table-row;
 	text-align: center;
 }
@@ -133,16 +133,17 @@ tr {
 						<td><s:property value="updateTime" /></td>
 						<td>
 							<div class="action-links">
-								<!-- 更新リンク -->
-								<a href="updateUser.jsp?userId=<s:property value='userId'/>">更新</a>
+								<!-- 更新ボタン（Strutsアクションを使用） -->
+								<s:form action="registAction" method="post">
+									<s:hidden name="userId" value="%{userId}" />
+									<s:submit value="更新" />
+								</s:form>
 								<span></span>
-                                <!-- 仕切り用の縦線 -->
-                                <!-- 削除リンク -->
-                                <a href="deleteUser.jsp?userId=<s:property value='userId'/>">削除</a>
+								<!-- 仕切り用の縦線 -->
+								<!-- 削除リンク -->
+								<a href="deleteUser.jsp?userId=<s:property value='userId'/>">削除</a>
 							</div>
 						</td>
-
-
 					</tr>
 				</s:iterator>
 			</table>

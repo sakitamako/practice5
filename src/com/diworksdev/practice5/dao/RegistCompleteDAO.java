@@ -22,10 +22,13 @@ public class RegistCompleteDAO {
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	// アカウント一覧取得SQL
-	private String sqlSelect = "SELECT * FROM login_user_transaction";
+		private String sqlSelect = "SELECT * FROM login_user_transaction WHERE delete_flag = 0";
 
-	// アカウント削除SQL（delete_flagを1に更新）
-	private String sqlDelete = "UPDATE login_user_transaction SET delete_flag = 1 WHERE id = ?";
+		// アカウント削除SQL（delete_flagを1に更新）
+		private String sqlDelete = "UPDATE login_user_transaction SET delete_flag = 1 WHERE id = ?";
+
+		// 特定の userId でユーザー情報を取得するSQL
+		private String sqlGetUserById = "SELECT * FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
 
 	public void regist5(String userFamilyName, String userLastName, String userFamilyNameKana, String userLastNameKana,
 			String userMail, String hashedPassword, String userGender, String userPostalCode, String userPrefecture,
@@ -75,8 +78,8 @@ public class RegistCompleteDAO {
 				dto.setUserFamilyNameKana(rs.getString("family_name_kana"));
 				dto.setUserLastNameKana(rs.getString("last_name_kana"));
 				dto.setUserMail(rs.getString("mail"));
-				dto.setUserGender(rs.getString("gender"));
-				dto.setUserAuthority(rs.getString("authority"));
+				dto.setUserGender(rs.getInt("gender"));
+				dto.setUserAuthority(rs.getInt("authority"));
 				dto.setDeleteFlag(rs.getInt("delete_flag"));
 				dto.setRegisteredTime(rs.getTimestamp("registered_time"));
 				dto.setUpdateTime(rs.getTimestamp("update_time"));
@@ -92,22 +95,54 @@ public class RegistCompleteDAO {
 	}
 
 	// アカウント削除メソッド
-	public int deleteAccount(int userId) throws SQLException {
-		int result = 0;
+		public int deleteAccount(int userId) throws SQLException {
+			int result = 0;
 
-		try (
+			try (Connection connection = dbConnector.getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
 
-				Connection connection = dbConnector.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
+				preparedStatement.setInt(1, userId);
+				result = preparedStatement.executeUpdate();
 
-			preparedStatement.setInt(1, userId);
-			result = preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e; // 呼び出し元でエラーハンドリング
+			return result;
 		}
 
-		return result;
+		// 特定の userId に該当するユーザー情報を取得するメソッド
+		public MyPageDTO getUserById(int userId) throws SQLException {
+			MyPageDTO user = null;
+
+			try (Connection connection = dbConnector.getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(sqlGetUserById)) {
+
+				preparedStatement.setInt(1, userId);
+				ResultSet rs = preparedStatement.executeQuery();
+
+				if (rs.next()) {
+					user = new MyPageDTO();
+					user.setUserId(rs.getInt("id"));
+					user.setUserFamilyName(rs.getString("family_name"));
+					user.setUserLastName(rs.getString("last_name"));
+					user.setUserFamilyNameKana(rs.getString("family_name_kana"));
+					user.setUserLastNameKana(rs.getString("last_name_kana"));
+					user.setUserMail(rs.getString("mail"));
+					user.setUserGender(rs.getInt("gender"));
+					user.setUserPostalCode(rs.getString("postal_code"));
+					user.setUserPrefecture(rs.getString("prefecture"));
+					user.setUserAddress1(rs.getString("address_1"));
+					user.setUserAddress2(rs.getString("address_2"));
+					user.setUserAuthority(rs.getInt("authority"));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
+
+		return user;
 	}
 }

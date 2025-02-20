@@ -1,9 +1,14 @@
 package com.diworksdev.practice5.action;
 
+import java.sql.SQLException;
+
+import com.diworksdev.practice5.dao.RegistCompleteDAO;
+import com.diworksdev.practice5.dto.MyPageDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class RegistAction extends ActionSupport {
 
+	private int userId;
 	private String userFamilyName;
 	private String userLastName;
 	private String userFamilyNameKana;
@@ -20,10 +25,37 @@ public class RegistAction extends ActionSupport {
 
 	@Override
 	public String execute() {
+		// userId が 0 の場合は新規登録、それ以外なら更新処理（データ取得）
+        if (userId > 0) {
+            // DAO を使って userId に該当するユーザー情報を取得
+            RegistCompleteDAO dao = new RegistCompleteDAO();
+            MyPageDTO user = null;
 
-		return SUCCESS;
+            try {
+				user = dao.getUserById(userId);
+			} catch (SQLException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 
-	}
+            if (user != null) {
+                // 取得した情報をセット
+                this.userFamilyName = user.getUserFamilyName();
+                this.userLastName = user.getUserLastName();
+                this.userFamilyNameKana = user.getUserFamilyNameKana();
+                this.userLastNameKana = user.getUserLastNameKana();
+                this.userMail = user.getUserMail();
+                this.userGender = user.getUserGender();
+                this.userPostalCode = user.getUserPostalCode();
+                this.userPrefecture = user.getUserPrefecture();
+                this.userAddress1 = user.getUserAddress1();
+                this.userAddress2 = user.getUserAddress2();
+                this.userAuthority = user.getUserAuthority();
+            }
+        }
+
+        return SUCCESS;
+    }
 
 	public String getUserFamilyName() {
         return userFamilyName;

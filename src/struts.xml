@@ -7,49 +7,49 @@
 
 <struts>
 
-    <!-- このプロジェクトで使うActionファイルが保存されているパッケージを宣言 -->
-    <!-- 1, Struts2の挙動を制御する設定、name:設定名、value:設定値、をそれぞれ記述！※この研修では毎回同じ値を使う -->
-    <constant name="struts.devMode" value="false" />
+	<!-- このプロジェクトで使うActionファイルが保存されているパッケージを宣言 -->
+	<!-- 1, Struts2の挙動を制御する設定、name:設定名、value:設定値、をそれぞれ記述！※この研修では毎回同じ値を使う -->
+	<constant name="struts.devMode" value="false" />
 
-    <!-- 2, 対象のpackageを設定 -->
-    <package name="com.diworksdev.practice5.action" extends="struts-default">
+	<!-- 2, 対象のpackageを設定 -->
+	<package name="com.diworksdev.practice5.action" extends="struts-default">
 
-        <!-- 呼び出されるJavaクラスファイルと実行するメソッドを宣言 -->
-        <!-- 3, プロジェクト内で使うActionファイルを記述 -->
-        <!-- 4, パッケージ名、Actionクラス名の順で記述 -->
-        <!-- 5, 普通はexecuteメソッドを記述 呼び出されたActionクラスのどのメソッドが呼ばれるかを記述 -->
-        <action name="HomeAction" class="com.diworksdev.practice5.action.HomeAction" method="execute">
-            <result name="success">home.jsp</result>
-        </action>
+		<!-- 呼び出されるJavaクラスファイルと実行するメソッドを宣言 -->
+		<!-- 3, プロジェクト内で使うActionファイルを記述 -->
+		<!-- 4, パッケージ名、Actionクラス名の順で記述 -->
+		<!-- 5, 普通はexecuteメソッドを記述 呼び出されたActionクラスのどのメソッドが呼ばれるかを記述 -->
+		<action name="HomeAction" class="com.diworksdev.practice5.action.HomeAction"
+			method="execute">
+			<result name="success">home.jsp</result>
+		</action>
 
-        <action name="MyPageAction" class="com.diworksdev.practice5.action.MyPageAction" method="execute">
-            <result name="success">myPage.jsp</result>
-            <result name="error">home.jsp</result>
-        </action>
+		<action name="MyPageAction" class="com.diworksdev.practice5.action.MyPageAction"
+			method="execute">
+			<result name="success">myPage.jsp</result>
+			<result name="error">home.jsp</result>
+		</action>
 
-        <action name="deleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
-            <result name="success">myPageAction</result>
-            <result name="error">error.jsp</result>
-        </action>
+		<action name="deleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
+			<result name="success">myPageAction</result>
+			<result name="error">error.jsp</result>
+		</action>
 
-        <action name="updateUserAction" class="com.diworksdev.practice5.action.UpdateUserAction">
-            <result name="success">myPageAction</result>
-            <result name="error">error.jsp</result>
-        </action>
+		<action name="RegistAction" class="com.diworksdev.practice5.action.RegistAction"
+			method="execute">
+			<result name="success">regist.jsp</result>
+		</action>
 
-        <action name="RegistAction" class="com.diworksdev.practice5.action.RegistAction" method="execute">
-            <result name="success">regist.jsp</result>
-        </action>
+		<action name="RegistConfirmAction"
+			class="com.diworksdev.practice5.action.RegistConfirmAction" method="execute">
+			<result name="success">registConfirm.jsp</result>
+			<result name="input">regist.jsp</result>
+		</action>
 
-        <action name="RegistConfirmAction" class="com.diworksdev.practice5.action.RegistConfirmAction" method="execute">
-            <result name="success">registConfirm.jsp</result>
-            <result name="input">regist.jsp</result>
-        </action>
+		<action name="RegistCompleteAction"
+			class="com.diworksdev.practice5.action.RegistCompleteAction" method="execute">
+			<result name="success">registComplete.jsp</result>
+			<result name="error">registError.jsp</result>
+		</action>
 
-        <action name="RegistCompleteAction" class="com.diworksdev.practice5.action.RegistCompleteAction" method="execute">
-            <result name="success">registComplete.jsp</result>
-            <result name="error">registError.jsp</result>
-        </action>
-
-    </package>
+	</package>
 </struts>
