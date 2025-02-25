@@ -1,9 +1,7 @@
 package com.diworksdev.practice5.action;
 
-import java.sql.SQLException;
-
 import com.diworksdev.practice5.dao.RegistCompleteDAO;
-import com.diworksdev.practice5.dto.MyPageDTO;
+import com.diworksdev.practice5.dto.UserDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class RegistAction extends ActionSupport {
@@ -25,18 +23,12 @@ public class RegistAction extends ActionSupport {
 
 	@Override
 	public String execute() {
+
 		// userId が 0 の場合は新規登録、それ以外なら更新処理（データ取得）
         if (userId > 0) {
             // DAO を使って userId に該当するユーザー情報を取得
             RegistCompleteDAO dao = new RegistCompleteDAO();
-            MyPageDTO user = null;
-
-            try {
-				user = dao.getUserById(userId);
-			} catch (SQLException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
+            UserDTO user = null;
 
             if (user != null) {
                 // 取得した情報をセット
@@ -54,8 +46,19 @@ public class RegistAction extends ActionSupport {
             }
         }
 
-        return SUCCESS;
+		return SUCCESS;
+
+	}
+
+	// ゲッター・セッター
+    public int getUserId() {
+        return userId;
     }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 
 	public String getUserFamilyName() {
         return userFamilyName;

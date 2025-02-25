@@ -15,12 +15,12 @@ public class MyPageDTO {
     private String userLastNameKana;
     private String userMail;
     private String userPassword;
-    private int userGender;
+    private String userGender;
     private String userPostalCode;
     private String userPrefecture;
     private String userAddress1;
     private String userAddress2;
-    private int userAuthority;
+    private String userAuthority;
     private int deleteFlag;
     private Date updateTime;
     private Date registeredTime;
@@ -114,11 +114,11 @@ public class MyPageDTO {
 	}
 
 
-    public int getUserGender() {
+    public String getUserGender() {
         return userGender;
     }
 
-    public void setUserGender(int userGender) {
+    public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
 
@@ -160,11 +160,11 @@ public class MyPageDTO {
 
 	}
 
-    public int getUserAuthority() {
+    public String getUserAuthority() {
         return userAuthority;
     }
 
-    public void setUserAuthority(int userAuthority) {
+    public void setUserAuthority(String userAuthority) {
         this.userAuthority = userAuthority;
     }
 

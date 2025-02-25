@@ -62,12 +62,12 @@ public class MyPageDAO {
 				dto.setUserLastNameKana(resultSet.getString("last_name_kana"));
 				dto.setUserMail(resultSet.getString("mail"));
 				dto.setUserPassword(resultSet.getString("password"));
-				dto.setUserGender(resultSet.getInt("gender"));
+				dto.setUserGender(resultSet.getString("gender"));
 				dto.setUserPostalCode(resultSet.getString("postal_code"));
 				dto.setUserPrefecture(resultSet.getString("prefecture"));
 				dto.setUserAddress1(resultSet.getString("address_1"));
 				dto.setUserAddress2(resultSet.getString("address_2"));
-				dto.setUserAuthority(resultSet.getInt("authority"));
+				dto.setUserAuthority(resultSet.getString("authority"));
 				dto.setDeleteFlag(resultSet.getInt("delete_flag"));
 				dto.setRegisteredTime(resultSet.getTimestamp("registered_time"));
                 dto.setUpdateTime(resultSet.getTimestamp("update_time"));
