@@ -33,23 +33,34 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 			String hashedPassword = hashPassword(userPassword);
 
 			if (con == null) {
-                errorMessage = "エラーが発生したためアカウント登録できません。";
+				errorMessage = "エラーが発生したためアカウント登録できません。";
 
-                result = ERROR;
+				result = ERROR;
 
-			 } else {
+			} else {
 
-			registCompleteDAO.regist5(session.get("userFamilyName").toString(), session.get("userLastName").toString(),
-					session.get("userFamilyNameKana").toString(), session.get("userLastNameKana").toString(),
-					session.get("userMail").toString(), hashedPassword,
-					session.get("userGender").toString(), session.get("userPostalCode").toString(),
-					session.get("userPrefecture").toString(), session.get("userAddress1").toString(),
-					session.get("userAddress2").toString(), session.get("userAuthority").toString(),
-					session.get("delete_flag").toString());
+				if (session.containsKey("userId") && (int) session.get("userId") > 0) {
+					// 更新処理
+					registCompleteDAO.updateUser((int) session.get("userId"), session.get("userFamilyName").toString(),
+							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
+							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
+							hashedPassword, session.get("userGender").toString(),
+							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
+							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
+							session.get("userAuthority").toString());
+				} else {
 
-			result = SUCCESS;
+					registCompleteDAO.regist5(session.get("userFamilyName").toString(),
+							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
+							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
+							hashedPassword, session.get("userGender").toString(),
+							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
+							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
+							session.get("userAuthority").toString(), session.get("delete_flag").toString());
+				}
+				result = SUCCESS;
 
-			 }
+			}
 
 		} catch (SQLException e) {
 			errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";

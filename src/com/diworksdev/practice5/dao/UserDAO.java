@@ -1,5 +1,5 @@
 package com.diworksdev.practice5.dao;
 
-public class UpdateUserDAO {
+public class UserDAO {
 
 }

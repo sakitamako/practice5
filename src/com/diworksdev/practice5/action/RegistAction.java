@@ -1,5 +1,7 @@
 package com.diworksdev.practice5.action;
 
+import java.sql.SQLException;
+
 import com.diworksdev.practice5.dao.RegistCompleteDAO;
 import com.diworksdev.practice5.dto.UserDTO;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,7 +30,19 @@ public class RegistAction extends ActionSupport {
         if (userId > 0) {
             // DAO を使って userId に該当するユーザー情報を取得
             RegistCompleteDAO dao = new RegistCompleteDAO();
-            UserDTO user = null;
+            UserDTO user;
+
+            try {
+
+                user = dao.getUserById(userId);
+
+            } catch (SQLException e) {
+
+                e.printStackTrace();
+
+                return ERROR;
+
+            }
 
             if (user != null) {
                 // 取得した情報をセット
@@ -43,7 +57,15 @@ public class RegistAction extends ActionSupport {
                 this.userAddress1 = user.getUserAddress1();
                 this.userAddress2 = user.getUserAddress2();
                 this.userAuthority = user.getUserAuthority();
+
+            } else {
+
+            	addActionError("該当するユーザーが見つかりません。");
+
+                return ERROR; // ユーザーが見つからなかった場合
+
             }
+
         }
 
 		return SUCCESS;

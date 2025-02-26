@@ -22,6 +22,11 @@ public class RegistCompleteDAO {
 			+ "last_name_kana, mail, password, gender, postal_code, prefecture, address_1, address_2, authority, delete_flag, registered_time, update_time) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+	// アカウント更新SQL
+    private String sqlUpdate = "UPDATE login_user_transaction SET family_name = ?, last_name = ?, family_name_kana = ?, "
+            + "last_name_kana = ?, mail = ?, password = ?, gender = ?, postal_code = ?, prefecture = ?, address_1 = ?, "
+            + "address_2 = ?, authority = ?, update_time = ? WHERE id = ? AND delete_flag = 0";
+
 	// アカウント一覧取得SQL
 	private String sqlSelect = "SELECT * FROM login_user_transaction WHERE delete_flag = 0";
 
@@ -62,6 +67,43 @@ public class RegistCompleteDAO {
 		}
 
 	}
+
+    // ユーザー情報更新メソッド
+    public int updateUser(int userId, String userFamilyName, String userLastName, String userFamilyNameKana,
+                          String userLastNameKana, String userMail, String hashedPassword, String userGender,
+                          String userPostalCode, String userPrefecture, String userAddress1,
+                          String userAddress2, String userAuthority) throws SQLException {
+
+        int result = 0;
+
+        try (Connection connection = dbConnector.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
+
+               preparedStatement.setString(1, userFamilyName);
+               preparedStatement.setString(2, userLastName);
+               preparedStatement.setString(3, userFamilyNameKana);
+               preparedStatement.setString(4, userLastNameKana);
+               preparedStatement.setString(5, userMail);
+               preparedStatement.setString(6, hashedPassword);
+               preparedStatement.setString(7, userGender);
+               preparedStatement.setString(8, userPostalCode);
+               preparedStatement.setString(9, userPrefecture);
+               preparedStatement.setString(10, userAddress1);
+               preparedStatement.setString(11, userAddress2);
+               preparedStatement.setString(12, userAuthority);
+               preparedStatement.setString(13, UpdateUtil.getUpdate());
+               preparedStatement.setInt(14, userId);
+
+               result = preparedStatement.executeUpdate();
+
+           } catch (SQLException e) {
+               e.printStackTrace();
+               throw e;
+           }
+
+           return result;
+       }
+
 
 	// アカウント一覧取得メソッド
 	public ArrayList<MyPageDTO> getMyPageDTOUserInfo() throws SQLException {

@@ -29,8 +29,13 @@
 			<result name="error">home.jsp</result>
 		</action>
 
-		<action name="deleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
-			<result name="success">myPageAction</result>
+		<action name="UpdateUserAction" class="com.diworksdev.practice5.action.UpdateUserAction">
+    <result name="success">updateUser.jsp</result>
+    <result name="error">error.jsp</result>
+</action>
+
+		<action name="DeleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
+			<result name="success">deleteUser.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
 
