@@ -190,4 +190,27 @@ public class RegistCompleteDAO {
 
 		return user;
 	}
+
+	// 特定の userId に対応するパスワードを取得するメソッドを追加
+	public String getUserPasswordById(int userId) throws SQLException {
+	    String password = null;
+	    String sqlGetPassword = "SELECT password FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
+
+	    try (Connection connection = dbConnector.getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetPassword)) {
+
+	        preparedStatement.setInt(1, userId);
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        if (rs.next()) {
+	            password = rs.getString("password");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+
+	    return password;
+	}
 }

@@ -29,17 +29,30 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 
 		try {
 
-			String userPassword = session.get("userPassword").toString();
-			String hashedPassword = hashPassword(userPassword);
-
 			if (con == null) {
 				errorMessage = "エラーが発生したためアカウント登録できません。";
 
 				result = ERROR;
 
-			} else {
+			}
+
+			String hashedPassword = null;
 
 				if (session.containsKey("userId") && (int) session.get("userId") > 0) {
+					int userId = (int) session.get("userId");
+		            String inputPassword = session.get("userPassword").toString();
+
+		            // データベースから既存のパスワードを取得
+		            String storedPassword = registCompleteDAO.getUserPasswordById(userId);
+
+		            if (inputPassword.equals("⚫︎⚫︎⚫︎⚫︎")) {
+		                // 「⚫︎⚫︎⚫︎⚫︎」のままなら、既存のパスワードを使用
+		                hashedPassword = storedPassword;
+		            } else {
+		                // 新しいパスワードが入力された場合、ハッシュ化
+		                hashedPassword = hashPassword(inputPassword);
+		            }
+
 					// 更新処理
 					registCompleteDAO.updateUser((int) session.get("userId"), session.get("userFamilyName").toString(),
 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
@@ -60,23 +73,30 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 				}
 				result = SUCCESS;
 
-			}
 
-		} catch (SQLException e) {
-			errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
-			e.printStackTrace();
 
-		} catch (NoSuchAlgorithmException e) {
-			errorMessage = "パスワードのハッシュ化に失敗しました。";
-			e.printStackTrace();
+		}catch(
 
-		} catch (Exception e) {
-			errorMessage = "予期しないエラーが発生しました。";
-			e.printStackTrace();
+	SQLException e)
+	{
+		errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
+		e.printStackTrace();
 
-		}
+	}catch(
+	NoSuchAlgorithmException e)
+	{
+		errorMessage = "パスワードのハッシュ化に失敗しました。";
+		e.printStackTrace();
 
-		return result;
+	}catch(
+	Exception e)
+	{
+		errorMessage = "予期しないエラーが発生しました。";
+		e.printStackTrace();
+
+	}
+
+	return result;
 	}
 
 	/**
