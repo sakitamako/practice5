@@ -141,7 +141,7 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><s:password name="userPassword" value="********" /><br>
+						<td><s:textfield name="userPassword" value="%{user.userPassword}" /><br>
                             <s:fielderror fieldName="userPassword" style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>

@@ -175,6 +175,7 @@ public class RegistCompleteDAO {
 				user.setUserFamilyNameKana(rs.getString("family_name_kana"));
 				user.setUserLastNameKana(rs.getString("last_name_kana"));
 				user.setUserMail(rs.getString("mail"));
+				user.setUserPassword(rs.getString("userPassword"));
 				user.setUserGender(rs.getInt("gender"));
 				user.setUserPostalCode(rs.getString("postal_code"));
 				user.setUserPrefecture(rs.getString("prefecture"));
@@ -196,21 +197,27 @@ public class RegistCompleteDAO {
 	    String password = null;
 	    String sqlGetPassword = "SELECT password FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
 
-	    try (Connection connection = dbConnector.getConnection();
-	         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetPassword)) {
+	    try (
+	    		Connection connection = dbConnector.getConnection();
+	    		PreparedStatement preparedStatement = connection.prepareStatement(sqlGetPassword)) {
 
-	        preparedStatement.setInt(1, userId);
-	        ResultSet rs = preparedStatement.executeQuery();
+
+	    	preparedStatement.setInt(1, userId);
+	    	ResultSet rs = preparedStatement.executeQuery();
 
 	        if (rs.next()) {
-	            password = rs.getString("password");
+	            password = rs.getString("userPassword");
+
 	        }
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        throw e;
+
 	    }
 
 	    return password;
+
 	}
+
 }

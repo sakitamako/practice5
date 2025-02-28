@@ -10,16 +10,25 @@ public class UpdateUserAction extends ActionSupport {
     private UserDTO user;
 
     public String execute() {
+
         RegistCompleteDAO dao = new RegistCompleteDAO();
+
         try {
+
             user = dao.getUserById(userId); // DBからユーザー情報を取得
+
             if (user == null) {
                 return ERROR;
+
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+
             return ERROR;
+
         }
+
         return SUCCESS;
     }
 
@@ -39,4 +48,5 @@ public class UpdateUserAction extends ActionSupport {
     public void setUser(UserDTO user) {
         this.user = user;
     }
+
 }

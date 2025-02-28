@@ -63,6 +63,10 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 							session.get("userAuthority").toString());
 				} else {
 
+		            // 新規登録時は新しいパスワードをハッシュ化
+		            String userPassword = session.get("userPassword").toString();
+		            hashedPassword = hashPassword(userPassword);
+
 					registCompleteDAO.regist5(session.get("userFamilyName").toString(),
 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
@@ -73,30 +77,22 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 				}
 				result = SUCCESS;
 
+		} catch (SQLException e) {
+			errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
+			e.printStackTrace();
 
-
-		}catch(
-
-	SQLException e)
-	{
-		errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
-		e.printStackTrace();
-
-	}catch(
-	NoSuchAlgorithmException e)
-	{
+	} catch (NoSuchAlgorithmException e) {
 		errorMessage = "パスワードのハッシュ化に失敗しました。";
 		e.printStackTrace();
 
-	}catch(
-	Exception e)
-	{
+	} catch (Exception e) {
 		errorMessage = "予期しないエラーが発生しました。";
 		e.printStackTrace();
 
 	}
 
 	return result;
+
 	}
 
 	/**
