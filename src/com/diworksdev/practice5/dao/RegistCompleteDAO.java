@@ -175,7 +175,6 @@ public class RegistCompleteDAO {
 				user.setUserFamilyNameKana(rs.getString("family_name_kana"));
 				user.setUserLastNameKana(rs.getString("last_name_kana"));
 				user.setUserMail(rs.getString("mail"));
-				user.setUserPassword(rs.getString("userPassword"));
 				user.setUserGender(rs.getInt("gender"));
 				user.setUserPostalCode(rs.getString("postal_code"));
 				user.setUserPrefecture(rs.getString("prefecture"));
@@ -206,7 +205,7 @@ public class RegistCompleteDAO {
 	    	ResultSet rs = preparedStatement.executeQuery();
 
 	        if (rs.next()) {
-	            password = rs.getString("userPassword");
+	            password = rs.getString("password");
 
 	        }
 
