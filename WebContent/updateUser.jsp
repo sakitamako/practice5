@@ -91,6 +91,17 @@ body .fielderror {
 	color: #ff0000; /* ここで希望の色コードに変更 */
 }
 </style>
+
+<script>
+	function updatePasswordMask() {
+		var passwordField = document.getElementById("userPassword");
+		var maskField = document.getElementById("maskedPassword");
+
+		// 入力された文字数に応じて●を更新
+		maskField.value = "●".repeat(passwordField.value.length);
+	}
+</script>
+
 </head>
 <body>
 	<div id="header">
@@ -141,11 +152,10 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><input type="text" id="passwordField" name="userPassword"
-                            value="●●●●●●" /><input type="hidden" id="actualPassword"
-                            value="<s:property value='user.userPassword' />" /> <br> <s:fielderror
-                                fieldName="userPassword" style="color: red; font-weight: bold;" />
-                        </td>
+						<td><input type="text" id="maskedPassword"
+							value="<s:property value="%{user.maskedPassword}" />" readonly />
+							<s:fielderror fieldName="userPassword"
+								style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>

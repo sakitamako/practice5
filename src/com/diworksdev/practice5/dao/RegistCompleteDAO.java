@@ -16,7 +16,7 @@ public class RegistCompleteDAO {
 
 	private DBConnector dbConnector = new DBConnector();
 	private DateUtil dateUtil = new DateUtil();
-	private UpdateUtil UpdateUtil = new UpdateUtil();
+	private UpdateUtil updateUtil = new UpdateUtil();
 
 	private String sql = "INSERT INTO login_user_transaction(family_name, last_name, family_name_kana, "
 			+ "last_name_kana, mail, password, gender, postal_code, prefecture, address_1, address_2, authority, delete_flag, registered_time, update_time) "
@@ -58,7 +58,7 @@ public class RegistCompleteDAO {
 			preparedStatement.setString(12, userAuthority);
 			preparedStatement.setString(13, delete_flag);
 			preparedStatement.setString(14, dateUtil.getDate());
-			preparedStatement.setString(15, UpdateUtil.getUpdate());
+			preparedStatement.setString(15, updateUtil.getUpdate());
 			preparedStatement.execute();
 
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class RegistCompleteDAO {
                preparedStatement.setString(10, userAddress1);
                preparedStatement.setString(11, userAddress2);
                preparedStatement.setString(12, userAuthority);
-               preparedStatement.setString(13, UpdateUtil.getUpdate());
+               preparedStatement.setString(13, updateUtil.getUpdate());
                preparedStatement.setInt(14, userId);
 
                result = preparedStatement.executeUpdate();
