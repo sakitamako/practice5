@@ -30,9 +30,13 @@
 		</action>
 
 		<action name="UpdateUserAction" class="com.diworksdev.practice5.action.UpdateUserAction">
-    <result name="success">updateUser.jsp</result>
-    <result name="error">error.jsp</result>
-</action>
+            <result name="success">updateUser.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+
+        <action name="UpdateConfirmAction" class="com.diworksdev.practice5.action.UpdateConfirmAction">
+            <result name="success">updateConfirm.jsp</result>
+        </action>
 
 		<action name="DeleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
 			<result name="success">deleteUser.jsp</result>
