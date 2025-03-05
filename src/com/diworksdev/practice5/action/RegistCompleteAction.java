@@ -57,10 +57,10 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
 					registCompleteDAO.updateUser((int) session.get("userId"), session.get("userFamilyName").toString(),
 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
-							hashedPassword, session.get("userGender").toString(),
+							hashedPassword, Integer.parseInt(session.get("userGender").toString()),
 							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
 							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
-							session.get("userAuthority").toString());
+							Integer.parseInt(session.get("userAuthority").toString()));
 				} else {
 
 		            // 新規登録時は新しいパスワードをハッシュ化
