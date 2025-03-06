@@ -70,9 +70,9 @@ public class RegistCompleteDAO {
 
     // ユーザー情報更新メソッド
     public int updateUser(int userId, String userFamilyName, String userLastName, String userFamilyNameKana,
-                          String userLastNameKana, String userMail, String hashedPassword, String userGender,
+                          String userLastNameKana, String userMail, String hashedPassword, int userGender,
                           String userPostalCode, String userPrefecture, String userAddress1,
-                          String userAddress2, String userAuthority) throws SQLException {
+                          String userAddress2, int userAuthority) throws SQLException {
 
         int result = 0;
 
@@ -85,12 +85,12 @@ public class RegistCompleteDAO {
                preparedStatement.setString(4, userLastNameKana);
                preparedStatement.setString(5, userMail);
                preparedStatement.setString(6, hashedPassword);
-               preparedStatement.setString(7, userGender);
+               preparedStatement.setInt(7, userGender);
                preparedStatement.setString(8, userPostalCode);
                preparedStatement.setString(9, userPrefecture);
                preparedStatement.setString(10, userAddress1);
                preparedStatement.setString(11, userAddress2);
-               preparedStatement.setString(12, userAuthority);
+               preparedStatement.setInt(12, userAuthority);
                preparedStatement.setString(13, updateUtil.getUpdate());
                preparedStatement.setInt(14, userId);
 

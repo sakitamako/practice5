@@ -134,7 +134,7 @@ tr {
 						<td>
 							<div class="action-links">
 								<!-- 更新ボタンをStrutsのフォームに変更 -->
-								<s:form action="UpdateUserAction" method="post">
+								<s:form action="UpdateAction" method="post">
 									<s:hidden name="userId" value="%{userId}" />
 									<s:submit value="更新" />
 								</s:form>
