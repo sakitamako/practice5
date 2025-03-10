@@ -1,24 +1,32 @@
 package com.diworksdev.practice5.action;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.Map;
+ import java.security.MessageDigest;
+ import java.security.NoSuchAlgorithmException;
+ import java.sql.Connection;
+ import java.sql.SQLException;
+ import java.util.Map;
 
-import org.apache.struts2.interceptor.SessionAware;
+ import org.apache.struts2.interceptor.SessionAware;
 
-import com.diworksdev.practice5.dao.RegistCompleteDAO;
-import com.opensymphony.xwork2.ActionSupport;
+ import com.diworksdev.practice5.dao.RegistCompleteDAO;
+ import com.diworksdev.practice5.util.DBConnector;
+ import com.opensymphony.xwork2.ActionSupport;
 
-public class RegistCompleteAction extends ActionSupport implements SessionAware {
+ public class RegistCompleteAction extends ActionSupport implements SessionAware {
 
-    private String errorMessage;
-    public Map<String, Object> session;
-    private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
+ 	private String errorMessage;
 
-    @Override
-    public String execute() throws SQLException {
-        String result = ERROR;
+ 	public Map<String, Object> session;
+ 	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
+
+
+ 	@Override
+ 	public String execute() throws SQLException {
+
+ 		String result = ERROR;
+
+ 		DBConnector dbConnector = new DBConnector();
+ 		Connection con = dbConnector.getConnection();
 
         try {
             String hashedPassword = null;
@@ -97,6 +105,16 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
         }
         return sb.toString();
     }
+
+    public RegistCompleteDAO getRegistCompleteDAO() {
+ 		return registCompleteDAO;
+
+ 	}
+
+ 	public void setRegistCompleteDAO(RegistCompleteDAO registCompleteDAO) {
+ 		this.registCompleteDAO = registCompleteDAO;
+
+ 	}
 
     public void setSession(Map<String, Object> session) {
         this.session = session;

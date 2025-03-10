@@ -4,6 +4,8 @@ import com.diworksdev.practice5.dao.RegistCompleteDAO;
 import com.diworksdev.practice5.dto.UserDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
+
+
 public class UpdateAction extends ActionSupport {
 
 	private int userId;
