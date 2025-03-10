@@ -44,6 +44,18 @@ public class RegistCompleteAction extends ActionSupport implements SessionAware 
                         session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
                         session.get("userAddress1").toString(), session.get("userAddress2").toString(),
                         Integer.parseInt(session.get("userAuthority").toString()));
+
+                // 🔹セッションのデータを更新（重要）🔹
+                session.put("userFamilyName", session.get("userFamilyName").toString());
+                session.put("userLastName", session.get("userLastName").toString());
+                session.put("userFamilyNameKana", session.get("userFamilyNameKana").toString());
+                session.put("userLastNameKana", session.get("userLastNameKana").toString());
+                session.put("userMail", session.get("userMail").toString());
+                session.put("userPostalCode", session.get("userPostalCode").toString());
+                session.put("userPrefecture", session.get("userPrefecture").toString());
+                session.put("userAddress1", session.get("userAddress1").toString());
+                session.put("userAddress2", session.get("userAddress2").toString());
+
             } else {
                 String userPassword = session.get("userPassword").toString();
                 hashedPassword = hashPassword(userPassword);

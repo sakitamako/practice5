@@ -20,6 +20,8 @@ public class UpdateAction extends ActionSupport {
 	private String userAddress2;
 	private int userAuthority;
 
+	private RegistCompleteDAO dao = new RegistCompleteDAO();
+
 	@Override
 	public String execute() {
 
@@ -27,7 +29,7 @@ public class UpdateAction extends ActionSupport {
 			return SUCCESS; // 新規登録の場合はそのまま画面遷移
 		}
 
-		RegistCompleteDAO dao = new RegistCompleteDAO();
+
 		try {
 			UserDTO user = dao.getUserById(userId); // DBからユーザー情報を取得
 
@@ -36,29 +38,32 @@ public class UpdateAction extends ActionSupport {
 				return ERROR;
 			}
 
-			// 取得した情報をセット
-			this.userFamilyName = user.getUserFamilyName();
-			this.userLastName = user.getUserLastName();
-			this.userFamilyNameKana = user.getUserFamilyNameKana();
-			this.userLastNameKana = user.getUserLastNameKana();
-			this.userMail = user.getUserMail();
-			this.userPassword = user.getUserPassword();
-			this.userGender = user.getUserGender();
-			this.userPostalCode = user.getUserPostalCode();
-			this.userPrefecture = user.getUserPrefecture();
-			this.userAddress1 = user.getUserAddress1();
-			this.userAddress2 = user.getUserAddress2();
-			this.userAuthority = user.getUserAuthority();
+			// ユーザー情報をセット
+            setUserDetails(user);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			addActionError("ユーザー情報の取得中にエラーが発生しました。");
-			return ERROR;
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+            addActionError("ユーザー情報の取得中にエラーが発生しました。");
+            return ERROR;
+        }
 
-		return SUCCESS;
+        return SUCCESS;
+    }
 
-	}
+	private void setUserDetails(UserDTO user) {
+        this.userFamilyName = user.getUserFamilyName();
+        this.userLastName = user.getUserLastName();
+        this.userFamilyNameKana = user.getUserFamilyNameKana();
+        this.userLastNameKana = user.getUserLastNameKana();
+        this.userMail = user.getUserMail();
+        this.userPassword = user.getUserPassword();
+        this.userGender = user.getUserGender();
+        this.userPostalCode = user.getUserPostalCode();
+        this.userPrefecture = user.getUserPrefecture();
+        this.userAddress1 = user.getUserAddress1();
+        this.userAddress2 = user.getUserAddress2();
+        this.userAuthority = user.getUserAuthority();
+    }
 
 	// ゲッター・セッター
 	public int getUserId() {
