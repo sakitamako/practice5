@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class UpdateAction extends ActionSupport {
 
 	private int userId;
+	private UserDTO user;
 	private String userFamilyName;
 	private String userLastName;
 	private String userFamilyNameKana;
@@ -22,50 +23,23 @@ public class UpdateAction extends ActionSupport {
 	private String userAddress2;
 	private int userAuthority;
 
-	private RegistCompleteDAO dao = new RegistCompleteDAO();
-
 	@Override
 	public String execute() {
 
-		if (userId <= 0) {
-			return SUCCESS; // 新規登録の場合はそのまま画面遷移
-		}
+		RegistCompleteDAO dao = new RegistCompleteDAO();
 
+		 try {
+             user = dao.getUserById(userId); // DBからユーザー情報を取得
+             if (user == null) {
+                 return ERROR;
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+             return ERROR;
+         }
+         return SUCCESS;
+     }
 
-		try {
-			UserDTO user = dao.getUserById(userId); // DBからユーザー情報を取得
-
-			if (user == null) {
-				addActionError("該当するユーザーが見つかりません。");
-				return ERROR;
-			}
-
-			// ユーザー情報をセット
-            setUserDetails(user);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            addActionError("ユーザー情報の取得中にエラーが発生しました。");
-            return ERROR;
-        }
-
-        return SUCCESS;
-    }
-
-	private void setUserDetails(UserDTO user) {
-        this.userFamilyName = user.getUserFamilyName();
-        this.userLastName = user.getUserLastName();
-        this.userFamilyNameKana = user.getUserFamilyNameKana();
-        this.userLastNameKana = user.getUserLastNameKana();
-        this.userMail = user.getUserMail();
-        this.userPassword = user.getUserPassword();
-        this.userGender = user.getUserGender();
-        this.userPostalCode = user.getUserPostalCode();
-        this.userPrefecture = user.getUserPrefecture();
-        this.userAddress1 = user.getUserAddress1();
-        this.userAddress2 = user.getUserAddress2();
-        this.userAuthority = user.getUserAuthority();
-    }
 
 	// ゲッター・セッター
 	public int getUserId() {

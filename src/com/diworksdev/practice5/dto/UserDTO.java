@@ -149,16 +149,4 @@ public class UserDTO {
         this.updateTime = updateTime;
     }
 
-//  パスワードを伏せ字にして返す
-    public String getMaskedPassword() {
-        if (userPassword == null) {
-            return "";
-        }
-        StringBuilder masked = new StringBuilder();
-        for (int i = 0; i < userPassword.length(); i++) {
-            masked.append('●');
-        }
-        return masked.toString();
-    }
-
 }

@@ -1,6 +1,6 @@
 package com.diworksdev.practice5.dao;
 
- import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,10 +22,10 @@ import com.diworksdev.practice5.util.UpdateUtil;
  			+ "last_name_kana, mail, password, gender, postal_code, prefecture, address_1, address_2, authority, delete_flag, registered_time, update_time) "
  			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
- 	// アカウント更新SQL
-     private String sqlUpdate = "UPDATE login_user_transaction SET family_name = ?, last_name = ?, family_name_kana = ?, "
-             + "last_name_kana = ?, mail = ?, password = ?, gender = ?, postal_code = ?, prefecture = ?, address_1 = ?, "
-             + "address_2 = ?, authority = ?, update_time = ? WHERE id = ? AND delete_flag = 0";
+ // アカウント更新SQL
+    private String sqlUpdate = "UPDATE login_user_transaction SET family_name = ?, last_name = ?, family_name_kana = ?, "
+            + "last_name_kana = ?, mail = ?, password = ?, gender = ?, postal_code = ?, prefecture = ?, address_1 = ?, "
+            + "address_2 = ?, authority = ?, update_time = ? WHERE id = ? AND delete_flag = 0";
 
  	// アカウント一覧取得SQL
  	private String sqlSelect = "SELECT * FROM login_user_transaction WHERE delete_flag = 0";
@@ -68,41 +68,41 @@ import com.diworksdev.practice5.util.UpdateUtil;
 
  	}
 
-     // ユーザー情報更新メソッド
-     public int updateUser(int userId, String userFamilyName, String userLastName, String userFamilyNameKana,
-                           String userLastNameKana, String userMail, String hashedPassword, int userGender,
-                           String userPostalCode, String userPrefecture, String userAddress1,
-                           String userAddress2, int userAuthority) throws SQLException {
+ // ユーザー情報更新メソッド
+    public int updateUser(int userId, String userFamilyName, String userLastName, String userFamilyNameKana,
+                          String userLastNameKana, String userMail, String hashedPassword, String userGender,
+                          String userPostalCode, String userPrefecture, String userAddress1,
+                          String userAddress2, String userAuthority) throws SQLException {
 
-         int result = 0;
+        int result = 0;
 
-         try (Connection connection = dbConnector.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
+        try (Connection connection = dbConnector.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
 
-                preparedStatement.setString(1, userFamilyName);
-                preparedStatement.setString(2, userLastName);
-                preparedStatement.setString(3, userFamilyNameKana);
-                preparedStatement.setString(4, userLastNameKana);
-                preparedStatement.setString(5, userMail);
-                preparedStatement.setString(6, hashedPassword);
-                preparedStatement.setInt(7, userGender);
-                preparedStatement.setString(8, userPostalCode);
-                preparedStatement.setString(9, userPrefecture);
-                preparedStatement.setString(10, userAddress1);
-                preparedStatement.setString(11, userAddress2);
-                preparedStatement.setInt(12, userAuthority);
-                preparedStatement.setString(13, UpdateUtil.getUpdate());
-                preparedStatement.setInt(14, userId);
+               preparedStatement.setString(1, userFamilyName);
+               preparedStatement.setString(2, userLastName);
+               preparedStatement.setString(3, userFamilyNameKana);
+               preparedStatement.setString(4, userLastNameKana);
+               preparedStatement.setString(5, userMail);
+               preparedStatement.setString(6, hashedPassword);
+               preparedStatement.setString(7, userGender);
+               preparedStatement.setString(8, userPostalCode);
+               preparedStatement.setString(9, userPrefecture);
+               preparedStatement.setString(10, userAddress1);
+               preparedStatement.setString(11, userAddress2);
+               preparedStatement.setString(12, userAuthority);
+               preparedStatement.setString(13, UpdateUtil.getUpdate());
+               preparedStatement.setInt(14, userId);
 
-                result = preparedStatement.executeUpdate();
+               result = preparedStatement.executeUpdate();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw e;
-            }
+           } catch (SQLException e) {
+               e.printStackTrace();
+               throw e;
+           }
 
-            return result;
-        }
+           return result;
+       }
 
 
  	// アカウント一覧取得メソッド
@@ -191,26 +191,35 @@ import com.diworksdev.practice5.util.UpdateUtil;
  		return user;
  	}
 
- 	// 特定の userId に対応するパスワードを取得するメソッドを追加
- 	public String getUserPasswordById(int userId) throws SQLException {
- 	    String password = null;
- 	    String sqlGetPassword = "SELECT password FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
+ // 特定の userId に対応するパスワードを取得するメソッドを追加
+  	public String getUserPasswordById(int userId) throws SQLException {
+  	    String password = null;
+  	    String sqlGetPassword = "SELECT password FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
 
- 	    try (Connection connection = dbConnector.getConnection();
- 	         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetPassword)) {
+  	    try (
+  	    		Connection connection = dbConnector.getConnection();
+  	    		PreparedStatement preparedStatement = connection.prepareStatement(sqlGetPassword)) {
 
- 	        preparedStatement.setInt(1, userId);
- 	        ResultSet rs = preparedStatement.executeQuery();
 
- 	        if (rs.next()) {
- 	            password = rs.getString("password");
+  	    	preparedStatement.setInt(1, userId);
+  	    	ResultSet rs = preparedStatement.executeQuery();
+
+  	        if (rs.next()) {
+
+  	        	 password = rs.getString("password");
+
  	        }
 
  	    } catch (SQLException e) {
  	        e.printStackTrace();
  	        throw e;
+
  	    }
 
  	    return password;
+
  	}
+
  }
+
+

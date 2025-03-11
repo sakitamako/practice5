@@ -1,16 +1,16 @@
 package com.diworksdev.practice5.action;
 
  import java.security.MessageDigest;
- import java.security.NoSuchAlgorithmException;
- import java.sql.Connection;
- import java.sql.SQLException;
- import java.util.Map;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
 
- import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.interceptor.SessionAware;
 
- import com.diworksdev.practice5.dao.RegistCompleteDAO;
- import com.diworksdev.practice5.util.DBConnector;
- import com.opensymphony.xwork2.ActionSupport;
+import com.diworksdev.practice5.dao.RegistCompleteDAO;
+import com.diworksdev.practice5.util.DBConnector;
+import com.opensymphony.xwork2.ActionSupport;
 
  public class RegistCompleteAction extends ActionSupport implements SessionAware {
 
@@ -29,56 +29,39 @@ package com.diworksdev.practice5.action;
  		Connection con = dbConnector.getConnection();
 
         try {
-            String hashedPassword = null;
+        	String userPassword = session.get("userPassword").toString();
+ 			String hashedPassword = hashPassword(userPassword);
 
-            if (session.containsKey("userId") && (int) session.get("userId") > 0) {
-                int userId = (int) session.get("userId");
-                String inputPassword = session.get("userPassword").toString();
+ 			if (con == null) {
 
-                // データベースから既存のパスワードを取得
-                String storedPassword = registCompleteDAO.getUserPasswordById(userId);
+ 				errorMessage = "エラーが発生したためアカウント登録できません。";
 
-                if (inputPassword.equals("⚫︎⚫︎⚫︎⚫︎")) {
-                    hashedPassword = storedPassword;
-                } else {
-                    hashedPassword = hashPassword(inputPassword);
-                }
+ 				result = ERROR;
 
-                // 更新処理
-                registCompleteDAO.updateUser(userId, session.get("userFamilyName").toString(),
-                        session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
-                        session.get("userLastNameKana").toString(), session.get("userMail").toString(),
-                        hashedPassword, Integer.parseInt(session.get("userGender").toString()),
-                        session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
-                        session.get("userAddress1").toString(), session.get("userAddress2").toString(),
-                        Integer.parseInt(session.get("userAuthority").toString()));
+ 			} else {
 
-                // 🔹セッションのデータを更新（重要）🔹
-                session.put("userFamilyName", session.get("userFamilyName").toString());
-                session.put("userLastName", session.get("userLastName").toString());
-                session.put("userFamilyNameKana", session.get("userFamilyNameKana").toString());
-                session.put("userLastNameKana", session.get("userLastNameKana").toString());
-                session.put("userMail", session.get("userMail").toString());
-                session.put("userPostalCode", session.get("userPostalCode").toString());
-                session.put("userPrefecture", session.get("userPrefecture").toString());
-                session.put("userAddress1", session.get("userAddress1").toString());
-                session.put("userAddress2", session.get("userAddress2").toString());
+ 				if (session.containsKey("userId") && (int) session.get("userId") > 0) {
+ 					// 更新処理
+ 					registCompleteDAO.updateUser((int) session.get("userId"), session.get("userFamilyName").toString(),
+ 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
+ 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
+ 							hashedPassword, session.get("userGender").toString(),
+ 							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
+ 							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
+ 							session.get("userAuthority").toString());
+ 				} else {
 
-            } else {
-                String userPassword = session.get("userPassword").toString();
-                hashedPassword = hashPassword(userPassword);
+ 					registCompleteDAO.regist5(session.get("userFamilyName").toString(),
+ 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
+ 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
+ 							hashedPassword, session.get("userGender").toString(),
+ 							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
+ 							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
+ 							session.get("userAuthority").toString(), session.get("delete_flag").toString());
+ 				}
+ 				result = SUCCESS;
 
-                registCompleteDAO.regist5(session.get("userFamilyName").toString(),
-                        session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
-                        session.get("userLastNameKana").toString(), session.get("userMail").toString(),
-                        hashedPassword, session.get("userGender").toString(),
-                        session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
-                        session.get("userAddress1").toString(), session.get("userAddress2").toString(),
-                        session.get("userAuthority").toString(), session.get("delete_flag").toString());
-            }
-
-            result = SUCCESS;
-
+ 			}
         } catch (SQLException e) {
             errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
             e.printStackTrace();
