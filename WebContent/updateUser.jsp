@@ -104,7 +104,7 @@ body .fielderror {
 		</div>
 		<div>
 			<table>
-				<s:form action="updateConfirmAction" method="post">
+				<s:form action="UpdateConfirmAction" method="post">
 					<s:hidden name="userId" value="%{user.userId}" />
 					<tr>
 						<td><label>名前（姓）</label></td>
