@@ -17,9 +17,7 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         // セッションに保存されたデータを取得
         if (session.containsKey("user")) {
             user = (UserDTO) session.get("user");
-        } else {
-            addActionError("ユーザー情報が見つかりません。");
-            return ERROR;
+
         }
         return SUCCESS;
     }

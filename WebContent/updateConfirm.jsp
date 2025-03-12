@@ -108,60 +108,54 @@ input[type="submit"] {
 			<table>
 
 				<tr>
-					<td><label>名前（姓）</label></td>
-					<td><s:property value="userFamilyName" escape="false" /></td>
+					<th>姓</th>
+					<td><s:property value="#session.user.familyName" /></td>
 				</tr>
 				<tr>
-					<td><label>名前（名）</label></td>
-					<td><s:property value="userLastName" escape="false" /></td>
+					<th>名</th>
+					<td><s:property value="#session.user.lastName" /></td>
 				</tr>
 				<tr>
-					<td><label>カナ（姓）</label></td>
-					<td><s:property value="userFamilyNameKana" escape="false" /></td>
+					<th>姓（カナ）</th>
+					<td><s:property value="#session.user.familyNameKana" /></td>
 				</tr>
 				<tr>
-					<td><label>カナ（名）</label></td>
-					<td><s:property value="userLastNameKana" escape="false" /></td>
+					<th>名（カナ）</th>
+					<td><s:property value="#session.user.lastNameKana" /></td>
 				</tr>
 				<tr>
-					<td><label>メールアドレス</label></td>
-					<td><s:property value="userMail" escape="false" /></td>
+					<th>メールアドレス</th>
+					<td><s:property value="#session.user.email" /></td>
 				</tr>
 				<tr>
-					<td><label>パスワード</label></td>
-					<td><s:if test="maskedPassword != null">
-							<s:property value="maskedPassword" />
-						</s:if></td>
+					<th>性別</th>
+					<td><s:property value="#session.user.gender" /></td>
 				</tr>
 				<tr>
-					<td><label>性別</label></td>
-					<td><s:property value="userGenderCheck" escape="false" /></td>
+					<th>郵便番号</th>
+					<td><s:property value="#session.user.postalCode" /></td>
 				</tr>
 				<tr>
-					<td><label>郵便番号</label></td>
-					<td><s:property value="userPostalCode" escape="false" /></td>
+					<th>都道府県</th>
+					<td><s:property value="#session.user.prefecture" /></td>
 				</tr>
 				<tr>
-					<td><label>住所（都道府県）</label></td>
-					<td><s:property value="userPrefecture" escape="false" /></td>
+					<th>住所1</th>
+					<td><s:property value="#session.user.address1" /></td>
 				</tr>
 				<tr>
-					<td><label>住所（市区町村）</label></td>
-					<td><s:property value="userAddress1" escape="false" /></td>
+					<th>住所2</th>
+					<td><s:property value="#session.user.address2" /></td>
 				</tr>
 				<tr>
-					<td><label>住所（番地）</label></td>
-					<td><s:property value="userAddress2" escape="false" /></td>
-				</tr>
-				<tr>
-					<td><label>アカウント権限</label></td>
-					<td><s:property value="userAuthorityCheck" escape="false" /></td>
+					<th>権限</th>
+					<td><s:property value="#session.user.authority" /></td>
 				</tr>
 
 
 				<tr class="center-buttons">
-					<td colspan="2">
-					    <s:form action="updateUserAction" method="post">
+					<td colspan="2"><s:form action="UpdateAction"
+							method="post">
 							<s:hidden name="userFamilyName" value="%{userFamilyName}" />
 							<s:hidden name="userLastName" value="%{userLastName}" />
 							<s:hidden name="userFamilyNameKana" value="%{userFamilyNameKana}" />
@@ -189,8 +183,7 @@ input[type="submit"] {
 							<s:hidden name="userAddress2" value="%{userAddress2}" />
 							<s:hidden name="userAuthority" value="%{userAuthority}" />
 							<input type="submit" value=" 登録する ">
-						</s:form>
-					</td>
+						</s:form></td>
 				</tr>
 			</table>
 		</div>
