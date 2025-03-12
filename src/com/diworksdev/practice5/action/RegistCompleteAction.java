@@ -15,7 +15,6 @@ import com.opensymphony.xwork2.ActionSupport;
  public class RegistCompleteAction extends ActionSupport implements SessionAware {
 
  	private String errorMessage;
-
  	public Map<String, Object> session;
  	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
 
