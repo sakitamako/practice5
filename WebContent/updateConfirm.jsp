@@ -109,47 +109,47 @@ input[type="submit"] {
 
 				<tr>
 					<th>姓</th>
-					<td><s:property value="%{user.userFamilyName}" /></td>
+					<td><s:property value="#session.user.familyName" /></td>
 				</tr>
 				<tr>
 					<th>名</th>
-					<td><s:property value="%{user.userLastName}" /></td>
+					<td><s:property value="#session.user.lastName" /></td>
 				</tr>
 				<tr>
 					<th>姓（カナ）</th>
-					<td><s:property value="%{user.userFamilyNameKana}" /></td>
+					<td><s:property value="#session.user.familyNameKana" /></td>
 				</tr>
 				<tr>
 					<th>名（カナ）</th>
-					<td><s:property value="%{user.userLastNameKana}" /></td>
+					<td><s:property value="#session.user.lastNameKana" /></td>
 				</tr>
 				<tr>
 					<th>メールアドレス</th>
-					<td><s:property value="%{user.userMail}" /></td>
+					<td><s:property value="#session.user.email" /></td>
 				</tr>
 				<tr>
 					<th>性別</th>
-					<td><s:property value="%{user.userGender}" /></td>
+					<td><s:property value="#session.user.gender" /></td>
 				</tr>
 				<tr>
 					<th>郵便番号</th>
-					<td><s:property value="%{user.userPostalCode}" /></td>
+					<td><s:property value="#session.user.postalCode" /></td>
 				</tr>
 				<tr>
 					<th>都道府県</th>
-					<td><s:property value="%{user.userPrefecture}" /></td>
+					<td><s:property value="#session.user.prefecture" /></td>
 				</tr>
 				<tr>
 					<th>住所1</th>
-					<td><s:property value="%{user.userAddress1}" /></td>
+					<td><s:property value="#session.user.address1" /></td>
 				</tr>
 				<tr>
 					<th>住所2</th>
-					<td><s:property value="%{user.userAddress2}" /></td>
+					<td><s:property value="#session.user.address2" /></td>
 				</tr>
 				<tr>
 					<th>権限</th>
-					<td><s:property value="%{user.userAuthority}" /></td>
+					<td><s:property value="#session.user.authority" /></td>
 				</tr>
 
 

@@ -9,24 +9,20 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 
-    private UserDTO user;
-    private Map<String, Object> session;
+	private UserDTO user; // 確認画面に表示するユーザーデータ
+	private Map<String, Object> session;
 
-    @Override
+	@Override
     public String execute() {
-        // フォームの入力値を取得（JSPのname属性と一致するフィールドが必要）
-        if (user != null) {
-            session.put("user", user); // セッションにデータを格納
-        } else if (session.containsKey("user")) {
-            user = (UserDTO) session.get("user"); // セッションからデータを取得
-        } else {
-            return ERROR; // セッションにもデータがない場合はエラー
-        }
+        // セッションに保存されたデータを取得
+        if (session.containsKey("user")) {
+            user = (UserDTO) session.get("user");
 
+        }
         return SUCCESS;
     }
 
-    // ゲッター・セッター
+    // ゲッターとセッター
     public UserDTO getUser() {
         return user;
     }
@@ -40,4 +36,3 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         this.session = session;
     }
 }
-
