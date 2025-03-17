@@ -30,19 +30,38 @@
 		</action>
 
 		<action name="UpdateAction" class="com.diworksdev.practice5.action.UpdateAction">
-            <result name="success">updateUser.jsp</result>
-            <result name="error">error.jsp</result>
-        </action>
+			<result name="success">updateUser.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
 
-        <action name="UpdateConfirmAction" class="com.diworksdev.practice5.action.UpdateConfirmAction">
-            <result name="success">updateConfirm.jsp</result>
-            <result name="error">/updateUser.jsp</result>
-        </action>
+		<action name="UpdateConfirmAction"
+			class="com.diworksdev.practice5.action.UpdateConfirmAction">
+			<result name="success">updateConfirm.jsp</result>
+			<result name="error">/updateUser.jsp</result>
+		</action>
+
+		<action name="UpdateCompleteAction"
+			class="com.diworksdev.practice5.action.UpdateCompleteAction">
+			<result name="success">/updateComplete.jsp</result>
+			<result name="error">/UpdateConfirm.jsp</result>
+		</action>
 
 		<action name="DeleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">
 			<result name="success">deleteUser.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>
+
+		<action name="DeleteConfirmAction"
+            class="com.diworksdev.practice5.action.DeleteConfirmAction">
+            <result name="success">deleteConfirm.jsp</result>
+            <result name="error">/deleteUser.jsp</result>
+        </action>
+
+        <action name="DeleteCompleteAction"
+            class="com.diworksdev.practice5.action.DeleteCompleteAction">
+            <result name="success">/deleteComplete.jsp</result>
+            <result name="error">/deleteConfirm.jsp</result>
+        </action>
 
 		<action name="RegistAction" class="com.diworksdev.practice5.action.RegistAction"
 			method="execute">

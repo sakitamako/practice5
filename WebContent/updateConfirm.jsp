@@ -108,86 +108,89 @@ input[type="submit"] {
 			<table>
 
 				<tr>
-                    <td><label>名前（姓）</label></td>
-                    <td><s:property value="userFamilyName" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>名前（名）</label></td>
-                    <td><s:property value="userLastName" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>カナ（姓）</label></td>
-                    <td><s:property value="userFamilyNameKana" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>カナ（名）</label></td>
-                    <td><s:property value="userLastNameKana" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>メールアドレス</label></td>
-                    <td><s:property value="userMail" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>パスワード</label></td>
-                    <td><s:if test="maskedPassword != null">
-                            <s:property value="maskedPassword" />
-                        </s:if></td>
-                </tr>
-                <tr>
-                    <td><label>性別</label></td>
-                    <td><s:property value="userGenderCheck" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>郵便番号</label></td>
-                    <td><s:property value="userPostalCode" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>住所（都道府県）</label></td>
-                    <td><s:property value="userPrefecture" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>住所（市区町村）</label></td>
-                    <td><s:property value="userAddress1" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>住所（番地）</label></td>
-                    <td><s:property value="userAddress2" escape="false" /></td>
-                </tr>
-                <tr>
-                    <td><label>アカウント権限</label></td>
-                    <td><s:property value="userAuthorityCheck" escape="false" /></td>
-                </tr>
+					<td><label>名前（姓）</label></td>
+					<td><s:property value="user.userFamilyName" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>名前（名）</label></td>
+					<td><s:property value="user.userLastName" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>カナ（姓）</label></td>
+					<td><s:property value="user.userFamilyNameKana" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>カナ（名）</label></td>
+					<td><s:property value="user.userLastNameKana" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>メールアドレス</label></td>
+					<td><s:property value="user.userMail" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>パスワード</label></td>
+					<td><s:if test="maskedPassword != null">
+							<s:property value="maskedPassword" />
+						</s:if></td>
+				</tr>
+				<tr>
+					<td><label>性別</label></td>
+					<td><s:property value="user.userGenderCheck" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>郵便番号</label></td>
+					<td><s:property value="user.userPostalCode" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>住所（都道府県）</label></td>
+					<td><s:property value="user.userPrefecture" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>住所（市区町村）</label></td>
+					<td><s:property value="user.userAddress1" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>住所（番地）</label></td>
+					<td><s:property value="user.userAddress2" escape="false" /></td>
+				</tr>
+				<tr>
+					<td><label>アカウント権限</label></td>
+					<td><s:property value="user.userAuthorityCheck" escape="false" /></td>
+				</tr>
 
 
 				<tr class="center-buttons">
-					<td colspan="2"><s:form action="UpdateAction"
-							method="post">
-							<s:hidden name="userFamilyName" value="%{userFamilyName}" />
-							<s:hidden name="userLastName" value="%{userLastName}" />
-							<s:hidden name="userFamilyNameKana" value="%{userFamilyNameKana}" />
-							<s:hidden name="userLastNameKana" value="%{userLastNameKana}" />
-							<s:hidden name="userMail" value="%{userMail}" />
-							<s:hidden name="userPassword" value="%{userPassword}" />
-							<s:hidden name="userGender" value="%{userGender}" />
-							<s:hidden name="userPostalCode" value="%{userPostalCode}" />
-							<s:hidden name="userPrefecture" value="%{userPrefecture}" />
-							<s:hidden name="userAddress1" value="%{userAddress1}" />
-							<s:hidden name="userAddress2" value="%{userAddress2}" />
-							<s:hidden name="userAuthority" value="%{userAuthority}" />
+					<td colspan="2"><s:form action="UpdateAction" method="post">
+							<s:hidden name="userFamilyName" value="%{user.userFamilyName}" />
+							<s:hidden name="userLastName" value="%{user.userLastName}" />
+							<s:hidden name="userFamilyNameKana"
+								value="%{user.userFamilyNameKana}" />
+							<s:hidden name="userLastNameKana"
+								value="%{user.userLastNameKana}" />
+							<s:hidden name="userMail" value="%{user.userMail}" />
+							<s:hidden name="userPassword" value="%{user.userPassword}" />
+							<s:hidden name="userGender" value="%{user.userGender}" />
+							<s:hidden name="userPostalCode" value="%{user.userPostalCode}" />
+							<s:hidden name="userPrefecture" value="%{user.userPrefecture}" />
+							<s:hidden name="userAddress1" value="%{user.userAddress1}" />
+							<s:hidden name="userAddress2" value="%{user.userAddress2}" />
+							<s:hidden name="userAuthority" value="%{user.userAuthority}" />
 							<input type="submit" value=" 前に戻る ">
 						</s:form> <s:form action="updateCompleteAction" method="post">
-							<s:hidden name="userFamilyName" value="%{userFamilyName}" />
-							<s:hidden name="userLastName" value="%{userLastName}" />
-							<s:hidden name="userFamilyNameKana" value="%{userFamilyNameKana}" />
-							<s:hidden name="userLastNameKana" value="%{userLastNameKana}" />
-							<s:hidden name="userMail" value="%{userMail}" />
-							<s:hidden name="userPassword" value="%{userPassword}" />
-							<s:hidden name="userGender" value="%{userGender}" />
-							<s:hidden name="userPostalCode" value="%{userPostalCode}" />
-							<s:hidden name="userPrefecture" value="%{userPrefecture}" />
-							<s:hidden name="userAddress1" value="%{userAddress1}" />
-							<s:hidden name="userAddress2" value="%{userAddress2}" />
-							<s:hidden name="userAuthority" value="%{userAuthority}" />
+							<s:hidden name="userFamilyName" value="%{user.userFamilyName}" />
+							<s:hidden name="userLastName" value="%{user.userLastName}" />
+							<s:hidden name="userFamilyNameKana"
+								value="%{user.userFamilyNameKana}" />
+							<s:hidden name="userLastNameKana"
+								value="%{user.userLastNameKana}" />
+							<s:hidden name="userMail" value="%{user.userMail}" />
+							<s:hidden name="userPassword" value="%{user.userPassword}" />
+							<s:hidden name="userGender" value="%{user.userGender}" />
+							<s:hidden name="userPostalCode" value="%{user.userPostalCode}" />
+							<s:hidden name="userPrefecture" value="%{user.userPrefecture}" />
+							<s:hidden name="userAddress1" value="%{user.userAddress1}" />
+							<s:hidden name="userAddress2" value="%{user.userAddress2}" />
+							<s:hidden name="userAuthority" value="%{user.userAuthority}" />
 							<input type="submit" value=" 登録する ">
 						</s:form></td>
 				</tr>

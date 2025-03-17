@@ -99,14 +99,14 @@ table {
     <div id="header">
         <div id="pr"></div>
     </div>
-    <h1>アカウント更新完了画面</h1>
+    <h1>アカウント更新削除完了画面</h1>
     <div id="main">
         <div id="top">
             <p>ナビゲーションバー</p>
-            <h3>アカウント更新完了画面</h3>
+            <h3>アカウント削除完了画面</h3>
         </div>
         <div>
-            <h2>更新完了しました</h2>
+            <h2>削除完了しました</h2>
             <div>
                 <form action="HomeAction" method="post">
                     <input type="submit" value="  TOPページへ戻る  ">
