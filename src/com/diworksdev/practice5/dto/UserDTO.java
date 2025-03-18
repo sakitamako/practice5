@@ -10,12 +10,13 @@ public class UserDTO {
     private String userLastNameKana;
     private String userMail;
     private String userPassword;
-    private int userGender;
+    private String maskedPassword;
+    private String userGender;
     private String userPostalCode;
     private String userPrefecture;
     private String userAddress1;
     private String userAddress2;
-    private int userAuthority;
+    private String userAuthority;
     private int deleteFlag;
     private Timestamp registeredTime;
     private Timestamp updateTime;
@@ -77,11 +78,19 @@ public class UserDTO {
         this.userPassword = userPassword;
     }
 
-    public int getUserGender() {
+    public String getMaskedPassword() {
+        return maskedPassword;
+    }
+
+    public void setMaskedPassword(String maskedPassword) {
+        this.maskedPassword = maskedPassword;
+    }
+
+    public String getUserGender() {
         return userGender;
     }
 
-    public void setUserGender(int userGender) {
+    public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
 
@@ -117,11 +126,11 @@ public class UserDTO {
         this.userAddress2 = userAddress2;
     }
 
-    public int getUserAuthority() {
+    public String getUserAuthority() {
         return userAuthority;
     }
 
-    public void setUserAuthority(int userAuthority) {
+    public void setUserAuthority(String userAuthority) {
         this.userAuthority = userAuthority;
     }
 

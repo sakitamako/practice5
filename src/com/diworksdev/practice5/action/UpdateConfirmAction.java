@@ -9,18 +9,34 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 
-	private UserDTO user; // 確認画面に表示するユーザーデータ
-	private Map<String, Object> session;
+    private UserDTO user; // 確認画面に表示するユーザーデータ
+    private Map<String, Object> session;
+    private String maskedPassword; // 伏せ字パスワード
 
-	@Override
+    @Override
     public String execute() {
-        // セッションに保存されたデータを取得
-        if (session.containsKey("user")) {
-            user = (UserDTO) session.get("user");
-
+        if (session == null || !session.containsKey("user")) {
+            addActionError("セッションが切れています。もう一度やり直してください。");
+            return ERROR;
         }
+
+        // セッションからデータを取得し、安全にキャスト
+        Object sessionUser = session.get("user");
+        if (sessionUser instanceof UserDTO) {
+            user = (UserDTO) sessionUser;
+        } else {
+            addActionError("ユーザー情報が取得できませんでした。データが失われた可能性があります。");
+            return ERROR;
+        }
+
+     // 確認画面でもデータを維持するために、再度セッションに格納
+        session.put("user", user);
+        // 確認画面でも伏せ字のまま
+        user.setMaskedPassword("●●●●●");
+
         return SUCCESS;
     }
+
 
     // ゲッターとセッター
     public UserDTO getUser() {
@@ -31,8 +47,13 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         this.user = user;
     }
 
+    public String getMaskedPassword() {
+        return maskedPassword;
+    }
+
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }
 }
+

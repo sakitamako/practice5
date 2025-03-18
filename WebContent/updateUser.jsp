@@ -141,9 +141,8 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><s:textfield name="userMail" value="%{user.userMail}" /><br>
-							<s:fielderror fieldName="userPassword"
-								style="color: red; font-weight: bold;" /></td>
+						<td><input type="password" name="userPassword" value="●●●●●" />
+						</td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>

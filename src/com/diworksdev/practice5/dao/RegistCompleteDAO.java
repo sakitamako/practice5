@@ -173,12 +173,12 @@ public class RegistCompleteDAO {
 				user.setUserFamilyNameKana(rs.getString("family_name_kana"));
 				user.setUserLastNameKana(rs.getString("last_name_kana"));
 				user.setUserMail(rs.getString("mail"));
-				user.setUserGender(rs.getInt("gender"));
+				user.setUserGender(rs.getString("gender"));
 				user.setUserPostalCode(rs.getString("postal_code"));
 				user.setUserPrefecture(rs.getString("prefecture"));
 				user.setUserAddress1(rs.getString("address_1"));
 				user.setUserAddress2(rs.getString("address_2"));
-				user.setUserAuthority(rs.getInt("authority"));
+				user.setUserAuthority(rs.getString("authority"));
 			}
 
 		} catch (SQLException e) {

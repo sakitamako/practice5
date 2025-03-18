@@ -51,18 +51,6 @@
 			<result name="error">error.jsp</result>
 		</action>
 
-		<action name="DeleteConfirmAction"
-            class="com.diworksdev.practice5.action.DeleteConfirmAction">
-            <result name="success">deleteConfirm.jsp</result>
-            <result name="error">/deleteUser.jsp</result>
-        </action>
-
-        <action name="DeleteCompleteAction"
-            class="com.diworksdev.practice5.action.DeleteCompleteAction">
-            <result name="success">/deleteComplete.jsp</result>
-            <result name="error">/deleteConfirm.jsp</result>
-        </action>
-
 		<action name="RegistAction" class="com.diworksdev.practice5.action.RegistAction"
 			method="execute">
 			<result name="success">regist.jsp</result>

@@ -28,12 +28,12 @@ public class UserDAO {
             ps.setString(4, user.getUserLastNameKana());
             ps.setString(5, user.getUserMail());
             ps.setString(6, user.getUserPassword()); // ハッシュ化したパスワードを事前にセット
-            ps.setInt(7, user.getUserGender());
+            ps.setString(7, user.getUserGender());
             ps.setString(8, user.getUserPostalCode());
             ps.setString(9, user.getUserPrefecture());
             ps.setString(10, user.getUserAddress1());
             ps.setString(11, user.getUserAddress2());
-            ps.setInt(12, user.getUserAuthority());
+            ps.setString(12, user.getUserAuthority());
             ps.setInt(14, user.getUserId());
 
             int result = ps.executeUpdate(); // 戻り値は更新された行数

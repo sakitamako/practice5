@@ -128,14 +128,15 @@ input[type="submit"] {
 					<td><s:property value="user.userMail" escape="false" /></td>
 				</tr>
 				<tr>
-					<td><label>パスワード</label></td>
-					<td><s:if test="maskedPassword != null">
-							<s:property value="maskedPassword" />
-						</s:if></td>
-				</tr>
+                    <td><label>パスワード</label></td>
+                    <td><s:if test="maskedPassword != null">
+                            <s:property value="maskedPassword" />
+                        </s:if></td>
+                </tr>
 				<tr>
 					<td><label>性別</label></td>
-					<td><s:property value="user.userGenderCheck" escape="false" /></td>
+					<td><s:if test="user.userGender == 0">男性</s:if> <s:if
+							test="user.userGender == 1">女性</s:if></td>
 				</tr>
 				<tr>
 					<td><label>郵便番号</label></td>
@@ -155,7 +156,8 @@ input[type="submit"] {
 				</tr>
 				<tr>
 					<td><label>アカウント権限</label></td>
-					<td><s:property value="user.userAuthorityCheck" escape="false" /></td>
+					<td><s:if test="user.userAuthority == 0">一般ユーザー</s:if> <s:if
+							test="user.userAuthority == 1">管理者</s:if></td>
 				</tr>
 
 
@@ -176,7 +178,7 @@ input[type="submit"] {
 							<s:hidden name="userAddress2" value="%{user.userAddress2}" />
 							<s:hidden name="userAuthority" value="%{user.userAuthority}" />
 							<input type="submit" value=" 前に戻る ">
-						</s:form> <s:form action="updateCompleteAction" method="post">
+						</s:form> <s:form action="UpdateCompleteAction" method="post">
 							<s:hidden name="userFamilyName" value="%{user.userFamilyName}" />
 							<s:hidden name="userLastName" value="%{user.userLastName}" />
 							<s:hidden name="userFamilyNameKana"
