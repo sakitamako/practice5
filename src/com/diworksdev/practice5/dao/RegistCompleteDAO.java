@@ -73,8 +73,6 @@ public class RegistCompleteDAO {
 			String userLastNameKana, String userMail, String hashedPassword, String userGender, String userPostalCode,
 			String userPrefecture, String userAddress1, String userAddress2, String userAuthority) throws SQLException {
 
-		int result = 0;
-
 		try (Connection connection = dbConnector.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
 
@@ -93,14 +91,8 @@ public class RegistCompleteDAO {
 			preparedStatement.setString(13, updateUtil.getUpdate());
 			preparedStatement.setInt(14, userId);
 
-			result = preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
+			return preparedStatement.executeUpdate();
 		}
-
-		return result;
 	}
 
 	// アカウント一覧取得メソッド
@@ -137,7 +129,6 @@ public class RegistCompleteDAO {
 
 	// アカウント削除メソッド
 	public int deleteAccount(int userId) throws SQLException {
-		int result = 0;
 
 		try (
 
@@ -145,14 +136,8 @@ public class RegistCompleteDAO {
 				PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
 
 			preparedStatement.setInt(1, userId);
-			result = preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e; // 呼び出し元でエラーハンドリング
+			return preparedStatement.executeUpdate();
 		}
-
-		return result;
 	}
 
 	// 特定の userId に該当するユーザー情報を取得するメソッド
@@ -179,14 +164,9 @@ public class RegistCompleteDAO {
 				user.setUserAddress1(rs.getString("address_1"));
 				user.setUserAddress2(rs.getString("address_2"));
 				user.setUserAuthority(rs.getString("authority"));
+
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
 		}
-
 		return user;
 	}
-
 }

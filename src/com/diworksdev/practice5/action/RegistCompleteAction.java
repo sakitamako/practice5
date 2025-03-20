@@ -1,6 +1,6 @@
 package com.diworksdev.practice5.action;
 
- import java.security.MessageDigest;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,98 +12,100 @@ import com.diworksdev.practice5.dao.RegistCompleteDAO;
 import com.diworksdev.practice5.util.DBConnector;
 import com.opensymphony.xwork2.ActionSupport;
 
- public class RegistCompleteAction extends ActionSupport implements SessionAware {
+public class RegistCompleteAction extends ActionSupport implements SessionAware {
 
- 	private String errorMessage;
- 	public Map<String, Object> session;
- 	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
+	private String errorMessage;
+	public Map<String, Object> session;
+	private RegistCompleteDAO registCompleteDAO = new RegistCompleteDAO();
+
+	@Override
+	public String execute() {
+
+		String result = ERROR;
+
+		try {
+
+			DBConnector dbConnector = new DBConnector();
+			Connection con = dbConnector.getConnection();
+
+			String userPassword = session.get("userPassword") != null ? session.get("userPassword").toString() : "";
+			String hashedPassword;
+
+			if (userPassword.isEmpty()) {
+			    // ユーザーがパスワードを変更しない場合、既存のハッシュ化されたパスワードを使用
+			    hashedPassword = session.get("existingHashedPassword").toString();
+			} else {
+			    // 新しいパスワードをハッシュ化
+			    hashedPassword = hashPassword(userPassword);
+			}
 
 
- 	@Override
- 	public String execute() throws SQLException {
+			if (con == null) {
+				errorMessage = "エラーが発生したためアカウント登録できません。";
+				return ERROR;
+			}
 
- 		String result = ERROR;
+			// 必要なセッション値のチェック
+			if (!session.containsKey("userPassword") || session.get("userPassword") == null) {
+				errorMessage = "セッション情報が不足しています。";
+				return ERROR;
+			}
 
- 		DBConnector dbConnector = new DBConnector();
- 		Connection con = dbConnector.getConnection();
+			if (session.containsKey("userId") && session.get("userId") != null) {
+				int userId = (int) session.get("userId");
+				if (userId > 0) {
+					// 更新処理
+					registCompleteDAO.updateUser(userId, String.valueOf(session.get("userFamilyName")),
+							String.valueOf(session.get("userLastName")),
+							String.valueOf(session.get("userFamilyNameKana")),
+							String.valueOf(session.get("userLastNameKana")), String.valueOf(session.get("userMail")),
+							hashedPassword, String.valueOf(session.get("userGender")),
+							String.valueOf(session.get("userPostalCode")),
+							String.valueOf(session.get("userPrefecture")), String.valueOf(session.get("userAddress1")),
+							String.valueOf(session.get("userAddress2")), String.valueOf(session.get("userAuthority")));
+				}
+			} else {
 
-        try {
-        	String userPassword = session.get("userPassword").toString();
- 			String hashedPassword = hashPassword(userPassword);
+				// 新規登録処理
+				registCompleteDAO.regist5(String.valueOf(session.get("userFamilyName")),
+						String.valueOf(session.get("userLastName")), String.valueOf(session.get("userFamilyNameKana")),
+						String.valueOf(session.get("userLastNameKana")), String.valueOf(session.get("userMail")),
+						hashedPassword, String.valueOf(session.get("userGender")),
+						String.valueOf(session.get("userPostalCode")), String.valueOf(session.get("userPrefecture")),
+						String.valueOf(session.get("userAddress1")), String.valueOf(session.get("userAddress2")),
+						String.valueOf(session.get("userAuthority")), String.valueOf(session.get("delete_flag")));
+			}
+			result = SUCCESS;
 
- 			if (con == null) {
+		} catch (SQLException e) {
+			errorMessage = "データベースエラーが発生しました。";
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			errorMessage = "パスワードのハッシュ化に失敗しました。";
+			e.printStackTrace();
+		} catch (Exception e) {
+			errorMessage = "予期しないエラーが発生しました。";
+			e.printStackTrace();
+		}
 
- 				errorMessage = "エラーが発生したためアカウント登録できません。";
+		return result;
+	}
 
- 				result = ERROR;
+	private String hashPassword(String userPassword) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		byte[] hashedBytes = md.digest(userPassword.getBytes());
+		StringBuilder sb = new StringBuilder();
+		for (byte b : hashedBytes) {
+			sb.append(String.format("%02x", b));
+		}
+		return sb.toString();
+	}
 
- 			} else {
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 
- 				if (session.containsKey("userId") && (int) session.get("userId") > 0) {
- 					// 更新処理
- 					registCompleteDAO.updateUser((int) session.get("userId"), session.get("userFamilyName").toString(),
- 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
- 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
- 							hashedPassword, session.get("userGender").toString(),
- 							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
- 							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
- 							session.get("userAuthority").toString());
- 				} else {
-
- 					registCompleteDAO.regist5(session.get("userFamilyName").toString(),
- 							session.get("userLastName").toString(), session.get("userFamilyNameKana").toString(),
- 							session.get("userLastNameKana").toString(), session.get("userMail").toString(),
- 							hashedPassword, session.get("userGender").toString(),
- 							session.get("userPostalCode").toString(), session.get("userPrefecture").toString(),
- 							session.get("userAddress1").toString(), session.get("userAddress2").toString(),
- 							session.get("userAuthority").toString(), session.get("delete_flag").toString());
- 				}
- 				result = SUCCESS;
-
- 			}
-        } catch (SQLException e) {
-            errorMessage = "アカウント登録中にエラーが発生しました。もう一度お試しください。";
-            e.printStackTrace();
-            result = ERROR;
-        } catch (NoSuchAlgorithmException e) {
-            errorMessage = "パスワードのハッシュ化に失敗しました。";
-            e.printStackTrace();
-            result = ERROR;
-        } catch (Exception e) {
-            errorMessage = "予期しないエラーが発生しました。";
-            e.printStackTrace();
-            result = ERROR;
-        }
-
-        return result;
-    }
-
-    private String hashPassword(String userPassword) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hashedBytes = md.digest(userPassword.getBytes());
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashedBytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
-    }
-
-    public RegistCompleteDAO getRegistCompleteDAO() {
- 		return registCompleteDAO;
-
- 	}
-
- 	public void setRegistCompleteDAO(RegistCompleteDAO registCompleteDAO) {
- 		this.registCompleteDAO = registCompleteDAO;
-
- 	}
-
-    public void setSession(Map<String, Object> session) {
-        this.session = session;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+	public String getErrorMessage() {
+		return errorMessage;
+	}
 }
-

@@ -20,23 +20,52 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
             return ERROR;
         }
 
-        // セッションからデータを取得し、安全にキャスト
+        // セッションからユーザーデータを取得
         Object sessionUser = session.get("user");
         if (sessionUser instanceof UserDTO) {
             user = (UserDTO) sessionUser;
         } else {
-            addActionError("ユーザー情報が取得できませんでした。データが失われた可能性があります。");
+            addActionError("ユーザー情報が取得できませんでした。");
             return ERROR;
         }
 
-     // 確認画面でもデータを維持するために、再度セッションに格納
-        session.put("user", user);
-        // 確認画面でも伏せ字のまま
-        user.setMaskedPassword("●●●●●");
+        // 既存のパスワード取得
+        String existingPassword = user.getUserPassword();
+        String storedPassword = (String) session.get("userPassword"); // セッションにあるパスワード
+
+        // 入力画面でパスワードを変更しなかった場合、セッションのパスワードを使用
+        if (existingPassword == null || existingPassword.isEmpty()) {
+            if (storedPassword != null) {
+                existingPassword = storedPassword;
+                user.setUserPassword(existingPassword); // ユーザーオブジェクトにセット
+            }
+        } else {
+            session.put("userPassword", existingPassword); // 新しいパスワードを保存
+        }
+
+        // 伏せ字パスワードの作成（StringBuilder を使用）
+        if (existingPassword != null && !existingPassword.isEmpty()) {
+            maskedPassword = generateMaskedPassword(existingPassword.length());
+        } else {
+            maskedPassword = "（パスワード未設定）";
+        }
+
+        // 伏せ字パスワードをセッションに保存
+        session.put("maskedPassword", maskedPassword);
 
         return SUCCESS;
     }
 
+    /**
+     * 指定された長さの伏せ字パスワードを作成する
+     */
+    private String generateMaskedPassword(int length) {
+        StringBuilder masked = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            masked.append("●");
+        }
+        return masked.toString();
+    }
 
     // ゲッターとセッター
     public UserDTO getUser() {

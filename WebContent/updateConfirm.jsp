@@ -128,11 +128,9 @@ input[type="submit"] {
 					<td><s:property value="user.userMail" escape="false" /></td>
 				</tr>
 				<tr>
-                    <td><label>パスワード</label></td>
-                    <td><s:if test="maskedPassword != null">
-                            <s:property value="maskedPassword" />
-                        </s:if></td>
-                </tr>
+					<td><label>パスワード</label></td>
+					<td><s:property value="#session.maskedPassword" /></td>
+				</tr>
 				<tr>
 					<td><label>性別</label></td>
 					<td><s:if test="user.userGender == 0">男性</s:if> <s:if
@@ -186,7 +184,7 @@ input[type="submit"] {
 							<s:hidden name="userLastNameKana"
 								value="%{user.userLastNameKana}" />
 							<s:hidden name="userMail" value="%{user.userMail}" />
-							<s:hidden name="userPassword" value="%{user.userPassword}" />
+							<s:hidden name="user.userPassword" value="%{user.userPassword}" />
 							<s:hidden name="userGender" value="%{user.userGender}" />
 							<s:hidden name="userPostalCode" value="%{user.userPostalCode}" />
 							<s:hidden name="userPrefecture" value="%{user.userPrefecture}" />

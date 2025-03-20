@@ -121,15 +121,15 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>カナ（姓）</label></td>
-						<td><s:textfield name="userFamilyName"
-								value="%{user.userFamilyName}" /> <br> <s:fielderror
+						<td><s:textfield name="userFamilyNameKana"
+								value="%{user.userFamilyNameKana}" /> <br> <s:fielderror
 								fieldName="userFamilyNameKana"
 								style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>カナ（名）</label></td>
-						<td><s:textfield name="userFamilyName"
-								value="%{user.userFamilyName}" /><br> <s:fielderror
+						<td><s:textfield name="userLastNameKana"
+								value="%{user.userLastNameKana}" /><br> <s:fielderror
 								fieldName="userLastNameKana"
 								style="color: red; font-weight: bold;" /></td>
 					</tr>
@@ -141,8 +141,8 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><input type="password" name="userPassword" value="●●●●●" />
-						</td>
+						<td><input type="password" name="userPassword"
+							value="%{maskedPassword}" /></td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>
