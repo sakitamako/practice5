@@ -158,7 +158,7 @@ input[type="submit"] {
 				</tr>
 				<tr>
 					<td><label>アカウント権限</label></td>
-					<td><s:if test="user.userAuthority == 0">一般ユーザー</s:if> <s:if
+					<td><s:if test="user.userAuthority == 0">一般</s:if> <s:if
 							test="user.userAuthority == 1">管理者</s:if></td>
 				</tr>
 
