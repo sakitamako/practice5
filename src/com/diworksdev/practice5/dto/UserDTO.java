@@ -10,7 +10,7 @@ public class UserDTO {
     private String userLastNameKana;
     private String userMail;
     private String userPassword;
-    private String maskedPassword;
+    private String maskedPassword; // 追加
     private String userGender;
     private String userPostalCode;
     private String userPrefecture;
@@ -20,6 +20,7 @@ public class UserDTO {
     private int deleteFlag;
     private Timestamp registeredTime;
     private Timestamp updateTime;
+    private int passwordLength;
 
     // ゲッター・セッター
     public int getUserId() {
@@ -82,8 +83,12 @@ public class UserDTO {
         return maskedPassword;
     }
 
-    public void setMaskedPassword(String maskedPassword) {
-        this.maskedPassword = maskedPassword;
+    public void setMaskedPassword(int passwordLength) {
+        StringBuilder masked = new StringBuilder();
+        for (int i = 0; i < passwordLength; i++) {
+            masked.append("●");
+        }
+        this.maskedPassword = masked.toString();
     }
 
     public String getUserGender() {
@@ -158,4 +163,13 @@ public class UserDTO {
         this.updateTime = updateTime;
     }
 
+    public int getPasswordLength() {
+        return passwordLength;
+    }
+
+    public void setPasswordLength(int passwordLength) {
+        this.passwordLength = passwordLength;
+        setMaskedPassword(passwordLength);
+    }
 }
+

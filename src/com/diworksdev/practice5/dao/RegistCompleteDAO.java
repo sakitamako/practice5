@@ -19,13 +19,13 @@ public class RegistCompleteDAO {
 	private UpdateUtil updateUtil = new UpdateUtil();
 
 	private String sql = "INSERT INTO login_user_transaction(family_name, last_name, family_name_kana, "
-			+ "last_name_kana, mail, password, gender, postal_code, prefecture, address_1, address_2, authority, delete_flag, registered_time, update_time) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "last_name_kana, mail, password, password_length, gender, postal_code, prefecture, address_1, address_2, authority, delete_flag, registered_time, update_time) "
+            + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	// アカウント更新SQL
-	private String sqlUpdate = "UPDATE login_user_transaction SET family_name = ?, last_name = ?, family_name_kana = ?, "
-			+ "last_name_kana = ?, mail = ?, password = ?, gender = ?, postal_code = ?, prefecture = ?, address_1 = ?, "
-			+ "address_2 = ?, authority = ?, update_time = ? WHERE id = ? AND delete_flag = 0";
+    // アカウント更新SQL
+    private String sqlUpdate = "UPDATE login_user_transaction SET family_name = ?, last_name = ?, family_name_kana = ?, "
+            + "last_name_kana = ?, mail = ?, password = ?, password_length = ?, gender = ?, postal_code = ?, prefecture = ?, address_1 = ?, "
+            + "address_2 = ?, authority = ?, update_time = ? WHERE id = ? AND delete_flag = 0";
 
 	// アカウント一覧取得SQL
 	private String sqlSelect = "SELECT * FROM login_user_transaction WHERE delete_flag = 0";
@@ -45,21 +45,22 @@ public class RegistCompleteDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			preparedStatement.setString(1, userFamilyName);
-			preparedStatement.setString(2, userLastName);
-			preparedStatement.setString(3, userFamilyNameKana);
-			preparedStatement.setString(4, userLastNameKana);
-			preparedStatement.setString(5, userMail);
-			preparedStatement.setString(6, hashedPassword);
-			preparedStatement.setString(7, userGender);
-			preparedStatement.setString(8, userPostalCode);
-			preparedStatement.setString(9, userPrefecture);
-			preparedStatement.setString(10, userAddress1);
-			preparedStatement.setString(11, userAddress2);
-			preparedStatement.setString(12, userAuthority);
-			preparedStatement.setString(13, delete_flag);
-			preparedStatement.setString(14, dateUtil.getDate());
-			preparedStatement.setString(15, updateUtil.getUpdate());
-			preparedStatement.execute();
+            preparedStatement.setString(2, userLastName);
+            preparedStatement.setString(3, userFamilyNameKana);
+            preparedStatement.setString(4, userLastNameKana);
+            preparedStatement.setString(5, userMail);
+            preparedStatement.setString(6, hashedPassword);
+            preparedStatement.setInt(7, hashedPassword.length()); // パスワードの長さを保存
+            preparedStatement.setString(8, userGender);
+            preparedStatement.setString(9, userPostalCode);
+            preparedStatement.setString(10, userPrefecture);
+            preparedStatement.setString(11, userAddress1);
+            preparedStatement.setString(12, userAddress2);
+            preparedStatement.setString(13, userAuthority);
+            preparedStatement.setString(14, delete_flag);
+            preparedStatement.setString(15, dateUtil.getDate());
+            preparedStatement.setString(16, updateUtil.getUpdate());
+            preparedStatement.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,19 +78,20 @@ public class RegistCompleteDAO {
 				PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
 
 			preparedStatement.setString(1, userFamilyName);
-			preparedStatement.setString(2, userLastName);
-			preparedStatement.setString(3, userFamilyNameKana);
-			preparedStatement.setString(4, userLastNameKana);
-			preparedStatement.setString(5, userMail);
-			preparedStatement.setString(6, hashedPassword);
-			preparedStatement.setString(7, userGender);
-			preparedStatement.setString(8, userPostalCode);
-			preparedStatement.setString(9, userPrefecture);
-			preparedStatement.setString(10, userAddress1);
-			preparedStatement.setString(11, userAddress2);
-			preparedStatement.setString(12, userAuthority);
-			preparedStatement.setString(13, updateUtil.getUpdate());
-			preparedStatement.setInt(14, userId);
+            preparedStatement.setString(2, userLastName);
+            preparedStatement.setString(3, userFamilyNameKana);
+            preparedStatement.setString(4, userLastNameKana);
+            preparedStatement.setString(5, userMail);
+            preparedStatement.setString(6, hashedPassword);
+            preparedStatement.setInt(7, hashedPassword.length()); // 更新時もパスワードの長さを保存
+            preparedStatement.setString(8, userGender);
+            preparedStatement.setString(9, userPostalCode);
+            preparedStatement.setString(10, userPrefecture);
+            preparedStatement.setString(11, userAddress1);
+            preparedStatement.setString(12, userAddress2);
+            preparedStatement.setString(13, userAuthority);
+            preparedStatement.setString(14, updateUtil.getUpdate());
+            preparedStatement.setInt(15, userId);
 
 			return preparedStatement.executeUpdate();
 		}
@@ -170,3 +172,4 @@ public class RegistCompleteDAO {
 		return user;
 	}
 }
+

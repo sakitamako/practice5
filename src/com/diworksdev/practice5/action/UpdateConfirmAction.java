@@ -31,13 +31,10 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
             return ERROR;
         }
 
-        // 既存のパスワード取得
-        String storedPassword = user.getUserPassword();
-        if (storedPassword == null) {
-            storedPassword = "";
-        }
+        // 既存のパスワード長をDBから取得
+        int storedPasswordLength = user.getPasswordLength();
 
-        // パスワードが入力されているか判定
+        // パスワードの入力有無を判定
         if (userPassword != null && !userPassword.isEmpty()) {
             // 変更された場合、新しいパスワードの長さ分「●」を生成
             isPasswordChanged = true;
@@ -45,8 +42,8 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         } else {
             // 変更なし → 既存パスワードの長さ分「●」を生成
             isPasswordChanged = false;
-            maskedPassword = generateMaskedPassword(storedPassword.length());
-            userPassword = storedPassword; // 既存パスワードを維持
+            maskedPassword = generateMaskedPassword(storedPasswordLength);
+            userPassword = user.getUserPassword(); // 既存パスワードを維持
         }
 
         // セッションに保存
@@ -56,7 +53,7 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
     }
 
     /**
-     * 指定された長さの伏せ字パスワードを作成する（Java 8 互換版）
+     * 指定された長さの伏せ字パスワードを作成する
      */
     private String generateMaskedPassword(int length) {
         StringBuilder masked = new StringBuilder();
@@ -96,4 +93,5 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         this.session = session;
     }
 }
+
 
