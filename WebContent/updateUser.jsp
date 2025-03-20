@@ -91,6 +91,22 @@ body .fielderror {
 	color: #ff0000; /* ここで希望の色コードに変更 */
 }
 </style>
+<script>
+	function maskPassword() {
+		let passwordField = document.getElementById("userPassword");
+
+		// 入力されていない場合は「●」で埋める
+		if (passwordField.value === "") {
+			passwordField.value = "<s:property value='maskedPassword' />";
+		}
+	}
+
+	function clearPassword() {
+		let passwordField = document.getElementById("userPassword");
+		passwordField.value = "";
+		passwordField.focus();
+	}
+</script>
 </head>
 <body>
 	<div id="header">
@@ -141,8 +157,9 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><input type="password" name="userPassword"
-							value="%{maskedPassword}" /></td>
+						<td><input type="password" id="userPassword"
+							name="userPassword" value="<s:property value='maskedPassword'/>"
+							oninput="maskPassword()"></td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>
