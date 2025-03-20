@@ -9,89 +9,83 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 
-    private UserDTO user; // 確認画面に表示するユーザーデータ
-    private Map<String, Object> session;
-    private String userPassword; // 入力されたパスワード
-    private String maskedPassword; // 伏せ字パスワード
-    private boolean isPasswordChanged; // パスワード変更フラグ
+	private UserDTO user; // 確認画面に表示するユーザーデータ
+	private Map<String, Object> session;
+	private String userPassword; // 入力されたパスワード
+	private String maskedPassword; // 伏せ字パスワード
+	private boolean isPasswordChanged; // パスワード変更フラグ
 
-    @Override
-    public String execute() {
-        if (session == null || !session.containsKey("user")) {
-            addActionError("セッションが切れています。もう一度やり直してください。");
-            return ERROR;
-        }
+	@Override
+	public String execute() {
+		if (session == null || !session.containsKey("user")) {
+			addActionError("セッションが切れています。もう一度やり直してください。");
+			return ERROR;
+		}
 
-        // セッションからユーザーデータを取得
-        Object sessionUser = session.get("user");
-        if (sessionUser instanceof UserDTO) {
-            user = (UserDTO) sessionUser;
-        } else {
-            addActionError("ユーザー情報が取得できませんでした。");
-            return ERROR;
-        }
+		// セッションからユーザーデータを取得
+		Object sessionUser = session.get("user");
+		if (sessionUser instanceof UserDTO) {
+			user = (UserDTO) sessionUser;
+		} else {
+			addActionError("ユーザー情報が取得できませんでした。");
+			return ERROR;
+		}
 
-        // 既存のパスワード長をDBから取得
-        int storedPasswordLength = user.getPasswordLength();
+		int storedPasswordLength = user.getPasswordLength();
 
-        // パスワードの入力有無を判定
-        if (userPassword != null && !userPassword.isEmpty()) {
-            // 変更された場合、新しいパスワードの長さ分「●」を生成
-            isPasswordChanged = true;
-            maskedPassword = generateMaskedPassword(userPassword.length());
-        } else {
-            // 変更なし → 既存パスワードの長さ分「●」を生成
-            isPasswordChanged = false;
-            maskedPassword = generateMaskedPassword(storedPasswordLength);
-            userPassword = user.getUserPassword(); // 既存パスワードを維持
-        }
+		// パスワードの入力有無を判定
+		if (userPassword != null && !userPassword.isEmpty()) {
+			// 変更された場合、新しいパスワードの長さ分「●」を生成
+			isPasswordChanged = true;
+			maskedPassword = generateMaskedPassword(userPassword.length());
+		} else {
+			// 変更なし → 既存パスワードの長さ分「●」を生成
+			isPasswordChanged = false;
+			maskedPassword = generateMaskedPassword(storedPasswordLength);
+			userPassword = user.getUserPassword(); // 既存パスワードを維持
+		}
+		// セッションに保存
+		session.put("maskedPassword", this.maskedPassword);
 
-        // セッションに保存
-        session.put("maskedPassword", this.maskedPassword);
+		return SUCCESS;
 
-        return SUCCESS;
-    }
+	}
 
-    /**
-     * 指定された長さの伏せ字パスワードを作成する
-     */
-    private String generateMaskedPassword(int length) {
-        StringBuilder masked = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            masked.append("●");
-        }
-        return masked.toString();
-    }
+	private String generateMaskedPassword(int length) {
+		StringBuilder masked = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			masked.append("●");
+		}
+		return masked.toString();
+	}
 
-    // ゲッター・セッター
-    public String getUserPassword() {
-        return userPassword;
-    }
+	// ゲッター・セッター
+	public String getUserPassword() {
+		return userPassword;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
 
-    public String getMaskedPassword() {
-        return maskedPassword;
-    }
+	public String getMaskedPassword() {
+		return maskedPassword;
+	}
 
-    public boolean getIsPasswordChanged() {
-        return isPasswordChanged;
-    }
+	public boolean getIsPasswordChanged() {
+		return isPasswordChanged;
+	}
 
-    public UserDTO getUser() {
-        return user;
-    }
+	public UserDTO getUser() {
+		return user;
+	}
 
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
 
-    @Override
-    public void setSession(Map<String, Object> session) {
-        this.session = session;
-    }
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 }
-
-

@@ -26,12 +26,11 @@
 		<action name="MyPageAction" class="com.diworksdev.practice5.action.MyPageAction"
 			method="execute">
 			<result name="success">myPage.jsp</result>
-			<result name="error">home.jsp</result>
+			<result name="input">home.jsp</result>
 		</action>
 
 		<action name="UpdateAction" class="com.diworksdev.practice5.action.UpdateAction">
 			<result name="success">updateUser.jsp</result>
-			<result name="error">error.jsp</result>
 		</action>
 
 		<action name="UpdateConfirmAction"
@@ -43,7 +42,7 @@
 		<action name="UpdateCompleteAction"
 			class="com.diworksdev.practice5.action.UpdateCompleteAction">
 			<result name="success">/updateComplete.jsp</result>
-			<result name="error">/UpdateConfirm.jsp</result>
+			<result name="error">/updateConfirm.jsp</result>
 		</action>
 
 		<action name="DeleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">

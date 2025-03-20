@@ -161,7 +161,7 @@ body .fielderror {
 					<tr>
 						<td><label>パスワード</label></td>
 						<td><input type="password" name="userPassword" value="%{maskedPassword}" />
-							<button type="button" onclick="togglePasswordVisibility()">表示</button></td>
+							</td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>
