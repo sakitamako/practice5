@@ -11,7 +11,9 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 
     private UserDTO user; // 確認画面に表示するユーザーデータ
     private Map<String, Object> session;
+    private String userPassword; // 入力されたパスワード
     private String maskedPassword; // 伏せ字パスワード
+    private boolean isPasswordChanged; // パスワード変更フラグ
 
     @Override
     public String execute() {
@@ -30,34 +32,31 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         }
 
         // 既存のパスワード取得
-        String existingPassword = user.getUserPassword();
-        String storedPassword = (String) session.get("userPassword"); // セッションにあるパスワード
-
-        // 入力画面でパスワードを変更しなかった場合、セッションのパスワードを使用
-        if (existingPassword == null || existingPassword.isEmpty()) {
-            if (storedPassword != null) {
-                existingPassword = storedPassword;
-                user.setUserPassword(existingPassword); // ユーザーオブジェクトにセット
-            }
-        } else {
-            session.put("userPassword", existingPassword); // 新しいパスワードを保存
+        String storedPassword = user.getUserPassword();
+        if (storedPassword == null) {
+            storedPassword = "";
         }
 
-        // 伏せ字パスワードの作成（StringBuilder を使用）
-        if (existingPassword != null && !existingPassword.isEmpty()) {
-            maskedPassword = generateMaskedPassword(existingPassword.length());
+        // パスワードが入力されているか判定
+        if (userPassword != null && !userPassword.isEmpty()) {
+            // 変更された場合、新しいパスワードの長さ分「●」を生成
+            isPasswordChanged = true;
+            maskedPassword = generateMaskedPassword(userPassword.length());
         } else {
-            maskedPassword = "（パスワード未設定）";
+            // 変更なし → 既存パスワードの長さ分「●」を生成
+            isPasswordChanged = false;
+            maskedPassword = generateMaskedPassword(storedPassword.length());
+            userPassword = storedPassword; // 既存パスワードを維持
         }
 
-        // 伏せ字パスワードをセッションに保存
-        session.put("maskedPassword", maskedPassword);
+        // セッションに保存
+        session.put("maskedPassword", this.maskedPassword);
 
         return SUCCESS;
     }
 
     /**
-     * 指定された長さの伏せ字パスワードを作成する
+     * 指定された長さの伏せ字パスワードを作成する（Java 8 互換版）
      */
     private String generateMaskedPassword(int length) {
         StringBuilder masked = new StringBuilder();
@@ -67,17 +66,29 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
         return masked.toString();
     }
 
-    // ゲッターとセッター
+    // ゲッター・セッター
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public String getMaskedPassword() {
+        return maskedPassword;
+    }
+
+    public boolean getIsPasswordChanged() {
+        return isPasswordChanged;
+    }
+
     public UserDTO getUser() {
         return user;
     }
 
     public void setUser(UserDTO user) {
         this.user = user;
-    }
-
-    public String getMaskedPassword() {
-        return maskedPassword;
     }
 
     @Override

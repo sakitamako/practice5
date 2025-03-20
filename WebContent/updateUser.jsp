@@ -92,20 +92,23 @@ body .fielderror {
 }
 </style>
 <script>
-	function maskPassword() {
-		let passwordField = document.getElementById("userPassword");
+    let originalMaskedPassword = "<s:property value='maskedPassword' />";
+    let isPasswordChanged = false;
 
-		// 入力されていない場合は「●」で埋める
-		if (passwordField.value === "") {
-			passwordField.value = "<s:property value='maskedPassword' />";
-		}
-	}
+    function detectPasswordChange() {
+        let passwordField = document.getElementById("userPassword");
+        // 入力値が「●」でない場合、変更フラグをONにする
+        isPasswordChanged = passwordField.value !== originalMaskedPassword;
+    }
 
-	function clearPassword() {
-		let passwordField = document.getElementById("userPassword");
-		passwordField.value = "";
-		passwordField.focus();
-	}
+    function togglePasswordVisibility() {
+        let passwordField = document.getElementById("userPassword");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
 </script>
 </head>
 <body>
@@ -157,9 +160,8 @@ body .fielderror {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><input type="password" id="userPassword"
-							name="userPassword" value="<s:property value='maskedPassword'/>"
-							oninput="maskPassword()"></td>
+						<td><input type="password" name="userPassword" value="%{maskedPassword}" />
+							<button type="button" onclick="togglePasswordVisibility()">表示</button></td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>
