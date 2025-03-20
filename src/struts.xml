@@ -42,7 +42,7 @@
 		<action name="UpdateCompleteAction"
 			class="com.diworksdev.practice5.action.UpdateCompleteAction">
 			<result name="success">/updateComplete.jsp</result>
-			<result name="error">/updateConfirm.jsp</result>
+			<result name="error">/updateError.jsp</result>
 		</action>
 
 		<action name="DeleteUserAction" class="com.diworksdev.practice5.action.DeleteUserAction">

@@ -1,31 +1,61 @@
 package com.diworksdev.practice5.action;
 
-import com.diworksdev.practice5.dao.UserDAO;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.diworksdev.practice5.dao.RegistCompleteDAO;
 import com.diworksdev.practice5.dto.UserDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class UpdateCompleteAction extends ActionSupport {
-    private int userId;
+public class UpdateCompleteAction extends ActionSupport implements SessionAware {
+    private Map<String, Object> session;
+    private RegistCompleteDAO dao = new RegistCompleteDAO();
 
+    @Override
     public String execute() {
-        UserDAO dao = new UserDAO();
-        UserDTO userDTO = null;
-
         try {
-            userDTO = dao.getUserById(userId);
+            // セッションからユーザー情報を取得
+            UserDTO user = (UserDTO) session.get("user");
+            if (user == null) {
+                addActionError("更新するデータがありません。");
+                return ERROR;
+            }
+
+            // データベースを更新
+            int result = dao.updateUser(
+                    user.getUserId(),
+                    user.getUserFamilyName(),
+                    user.getUserLastName(),
+                    user.getUserFamilyNameKana(),
+                    user.getUserLastNameKana(),
+                    user.getUserMail(),
+                    user.getUserPassword(),  // ここでパスワードも渡す
+                    user.getUserGender(),
+                    user.getUserPostalCode(),
+                    user.getUserPrefecture(),
+                    user.getUserAddress1(),
+                    user.getUserAddress2(),
+                    user.getUserAuthority()
+                );
+
+            if (result > 0) {
+            	session.put("updateSuccess", true);  // 成功フラグをセット
+                return SUCCESS; // 更新成功
+            } else {
+                addActionError("更新に失敗しました。");
+                return ERROR;
+            }
         } catch (Exception e) {
+            addActionError("データ更新中にエラーが発生しました。");
             e.printStackTrace();
-            addActionError("ユーザー情報の取得に失敗しました。");
             return ERROR;
         }
+    }
 
-        if (userDTO == null) {
-            addActionError("ユーザーが存在しません。");
-            return ERROR;
-        }
-
-        // ここで成功メッセージなどを追加可能
-        return SUCCESS;
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 }
 
