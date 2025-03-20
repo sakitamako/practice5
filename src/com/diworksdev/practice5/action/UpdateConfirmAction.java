@@ -32,6 +32,7 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 		}
 
 		int storedPasswordLength = user.getPasswordLength();
+		maskedPassword = generateMaskedPassword(storedPasswordLength);
 
 		// パスワードの入力有無を判定
 		if (userPassword != null && !userPassword.isEmpty()) {
@@ -45,6 +46,7 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 			userPassword = user.getUserPassword(); // 既存パスワードを維持
 		}
 		// セッションに保存
+		session.put("user", user);
 		session.put("maskedPassword", this.maskedPassword);
 
 		return SUCCESS;

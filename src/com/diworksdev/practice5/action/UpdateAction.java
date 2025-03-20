@@ -16,6 +16,13 @@ public class UpdateAction extends ActionSupport implements SessionAware {
 
     @Override
     public String execute() {
+
+    	// 確認画面から戻ってきた場合、セッションの `user` を使用
+        if (session.containsKey("user")) {
+            user = (UserDTO) session.get("user");
+            return SUCCESS;
+        }
+
         if (userId <= 0) { // IDが不正な場合はエラー
             addActionError("ユーザーIDが不正です。");
             return ERROR;
