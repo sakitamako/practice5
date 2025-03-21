@@ -38,7 +38,7 @@ public class MyPageDAO {
 //		MyPageDTO のオブジェクトを格納するためのリストを作成。
 //		SQL の結果をこのリストに追加していく。
 
-		String sql = "SELECT * FROM login_user_transaction WHERE delete_flag = 0 ORDER BY registered_time DESC";
+		String sql = "SELECT * FROM login_user_transaction ORDER BY registered_time DESC";
 //		delete_flag = 0 のレコード（削除されていないユーザー情報）を取得。
 //				ORDER BY registered_time DESC で、新しい登録順に並び替える。
 

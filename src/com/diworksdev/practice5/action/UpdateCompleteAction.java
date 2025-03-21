@@ -15,12 +15,20 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
     @Override
     public String execute() {
         try {
+            // デバッグログ
+            System.out.println("Session contents: " + session);
+            System.out.println("Retrieving user from session...");
+
             // セッションからユーザー情報を取得
             UserDTO user = (UserDTO) session.get("user");
+
             if (user == null) {
+                System.out.println("Error: UserDTO is null");
                 addActionError("更新するデータがありません。");
                 return ERROR;
             }
+
+            System.out.println("Updating User ID: " + user.getUserId());
 
             // データベースを更新
             int result = dao.updateUser(
@@ -30,7 +38,7 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
                     user.getUserFamilyNameKana(),
                     user.getUserLastNameKana(),
                     user.getUserMail(),
-                    user.getUserPassword(),  // ここでパスワードも渡す
+                    user.getUserPassword(),
                     user.getUserGender(),
                     user.getUserPostalCode(),
                     user.getUserPrefecture(),
@@ -39,10 +47,13 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
                     user.getUserAuthority()
                 );
 
+            System.out.println("Update result: " + result);
+
             if (result > 0) {
-            	session.put("updateSuccess", true);  // 成功フラグをセット
+                session.put("updateSuccess", true);  // 成功フラグをセット
                 return SUCCESS; // 更新成功
             } else {
+                System.out.println("Error: Update failed");
                 addActionError("更新に失敗しました。");
                 return ERROR;
             }
