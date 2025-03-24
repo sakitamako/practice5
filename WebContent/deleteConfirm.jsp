@@ -105,20 +105,26 @@ table {
 			<p>ナビゲーションバー</p>
 			<h3>アカウント削除確認画面</h3>
 		</div>
-		<div>
-			<h2>本当に削除してよろしいですか？</h2>
+		<body>
 			<div class="container">
-				<div class="buttons">
-					<a href="deleteUserAction">前に戻る</a> <a
-						href="deleteConfirmAction?userId=<s:property value='userId'/>">削除する</a>
-				</div>
-				<form action="HomeAction" method="post">
-					<input type="submit" value="  TOPページへ戻る  ">
-				</form>
+				<h2>アカウント削除確認</h2>
+				<p>本当にこのアカウントを削除しますか？</p>
+				<p>
+					ユーザーID:
+					<s:property value="userId" />
+				</p>
+				<s:form action="DeleteConfirm" method="post">
+					<s:hidden name="userId" value="%{user.userId}" />
+					<s:submit value="削除" />
+				</s:form>
+
+				<s:form action="accountList" method="get">
+					<s:submit value="キャンセル" />
+				</s:form>
 			</div>
-		</div>
-		<p>フッター</p>
+		</body>
 	</div>
+	<p>フッター</p>
 	<div id="footer">
 		<div id="pr"></div>
 	</div>

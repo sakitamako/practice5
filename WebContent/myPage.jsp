@@ -28,14 +28,13 @@ body {
 	background: #fff;
 }
 
-/* テーブルを画面の中央に配置 */
+/* テーブルをナビゲーション枠内に収める */
 table {
-	width: 80%; /* 必要に応じて調整 */
-	margin: 20px auto; /* 水平方向にセンター配置 */
+	width: 100%; /* 枠内に収める */
+	margin: 10px auto;
 	border-collapse: collapse;
-	min-width: 600px;
 	border: 1px solid #333;
-	text-align: center; /* テーブル内のテキストを中央寄せ */
+	text-align: center;
 }
 
 /* 行を中央寄せする */
@@ -44,8 +43,10 @@ tr {
 	display: table-row;
 	text-align: center;
 }
-
+/* ナビゲーション枠を調整 */
 #main {
+	max-width: 90%;
+	margin: auto;
 	border-right: 1px solid #333;
 	border-left: 1px solid #333;
 }
@@ -63,31 +64,33 @@ tr {
 	padding: 10px 0;
 }
 
-/* 操作リンク全体のデザイン */
+/* 操作ボタンのレイアウトを改善 */
 .action-links {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: 10px;
+	gap: 5px; /* 仕切りの間隔を調整 */
 }
 
-/* 削除と更新の間の仕切り */
-.action-links span {
+/* ボタンのスタイルを統一 */
+.action-links s\:form {
 	display: inline-block;
-	width: 1px;
-	height: 20px;
-	background-color: #333;
+	margin: 0;
+	padding: 0;
 }
 
-/* リンクのデザイン */
-.action-links a {
-	text-decoration: none;
-	color: #333;
+.action-links s\:submit {
+	display: inline-block;
+	width: auto;
 	padding: 5px 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	background-color: #f8f8f8;
+	cursor: pointer;
 }
 
-.action-links a:hover {
-	text-decoration: underline;
+.action-links s\:submit:hover {
+	background-color: #e0e0e0;
 }
 </style>
 </head>
@@ -133,22 +136,22 @@ tr {
 						<td><s:property value="updateTime" /></td>
 						<td>
 							<div class="action-links">
-								<!-- 更新ボタンをStrutsのフォームに変更 -->
-								<s:form action="UpdateAction" method="post">
+								<!-- 更新ボタン -->
+								<s:form action="UpdateAction" method="post"
+									cssClass="inline-form">
 									<s:hidden name="userId" value="%{userId}" />
-									<s:submit value="更新" />
+									<s:submit value="更新" cssClass="action-btn" />
 								</s:form>
 
-								<span></span>
-								<!-- 仕切り用の縦線 -->
-
 								<!-- 削除ボタン -->
-								<s:form action="DeleteUserAction" method="post">
+								<s:form action="DeleteAction" method="post"
+									cssClass="inline-form">
 									<s:hidden name="userId" value="%{userId}" />
-									<s:submit value="削除" />
+									<s:submit value="削除" cssClass="action-btn delete-btn" />
 								</s:form>
 							</div>
 						</td>
+
 					</tr>
 				</s:iterator>
 			</table>
