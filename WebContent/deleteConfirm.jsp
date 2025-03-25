@@ -96,35 +96,35 @@ table {
 </style>
 </head>
 <body>
-	<div id="header">
-		<div id="pr"></div>
-	</div>
 	<h1>アカウント削除確認画面</h1>
 	<div id="main">
 		<div id="top">
 			<p>ナビゲーションバー</p>
 			<h3>アカウント削除確認画面</h3>
 		</div>
-		<body>
-			<div class="container">
-				<h2>アカウント削除確認</h2>
-				<p>本当にこのアカウントを削除しますか？</p>
-				<p>
-					ユーザーID:
-					<s:property value="userId" />
-				</p>
-				<s:form action="DeleteConfirm" method="post">
-					<s:hidden name="userId" value="%{user.userId}" />
-					<s:submit value="削除" />
-				</s:form>
-
-				<s:form action="accountList" method="get">
-					<s:submit value="キャンセル" />
-				</s:form>
-			</div>
-		</body>
+		<div>
+			<table>
+				<tr class="center-buttons">
+					<td colspan="2">
+						<h2>本当に削除してよろしいですか？</h2>
+						<div
+							style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+							<s:form action="MyPageAction" method="get">
+								<s:submit value="前に戻る"
+									cssStyle="padding: 10px 20px; font-size: 18px;" />
+							</s:form>
+							<s:form action="DeleteCompleteAction" method="post">
+								<s:hidden name="userId" value="%{user.userId}" />
+								<s:submit value="削除する"
+									cssStyle="padding: 10px 20px; font-size: 18px; background-color: red; color: white; border: none; cursor: pointer;" />
+							</s:form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p>フッター</p>
 	</div>
-	<p>フッター</p>
 	<div id="footer">
 		<div id="pr"></div>
 	</div>

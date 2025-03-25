@@ -74,4 +74,21 @@ public class UserDAO {
             return preparedStatement.executeUpdate() > 0;
         }
     }
+
+    // ユーザー削除処理
+    public boolean deleteUser(String userId) {
+        String sql = "DELETE FROM login_user_transaction WHERE id = ?";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, userId);
+            int result = preparedStatement.executeUpdate();
+
+            return result > 0; // 1 以上なら削除成功
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

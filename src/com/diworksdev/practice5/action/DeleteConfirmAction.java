@@ -1,32 +1,29 @@
 package com.diworksdev.practice5.action;
 
-import com.diworksdev.practice5.dao.RegistCompleteDAO;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.diworksdev.practice5.dto.UserDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class DeleteConfirmAction extends ActionSupport {
-    private int userId;
+public class DeleteConfirmAction extends ActionSupport implements SessionAware {
+    private Map<String, Object> session;
+    private UserDTO user;
 
     public String execute() {
-        RegistCompleteDAO dao = new RegistCompleteDAO();
-        try {
-            int result = dao.deleteAccount(userId);
-            if (result == 0) {
-                return ERROR; // 削除失敗時
-            }
-            return SUCCESS; // 削除完了画面へ
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ERROR;
+        if (session.containsKey("deleteUser")) {
+            user = (UserDTO) session.get("deleteUser"); // セッションからユーザー情報を取得
+            return SUCCESS;
         }
+        return ERROR;
     }
 
-    // Getter & Setter
-    public int getUserId() {
-    	return userId;
-
+    public UserDTO getUser() {
+        return user;
     }
-    public void setUserId(int userId) {
-    	this.userId = userId;
 
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 }
