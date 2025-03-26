@@ -48,6 +48,10 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
                 );
 
             System.out.println("Update result: " + result);
+            System.out.println("Session contents: " + session);
+            System.out.println("User object: " + session.get("user"));
+            System.out.println("Updating User ID: " + user.getUserId());
+
 
             if (result > 0) {
                 session.put("updateSuccess", true);  // 成功フラグをセット

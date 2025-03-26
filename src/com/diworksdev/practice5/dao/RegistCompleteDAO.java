@@ -93,7 +93,10 @@ public class RegistCompleteDAO {
             preparedStatement.setString(14, updateUtil.getUpdate());
             preparedStatement.setInt(15, userId);
 
-			return preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
+			System.out.println("Update executed, affected rows: " + result);
+
+			return result;
 		}
 	}
 
