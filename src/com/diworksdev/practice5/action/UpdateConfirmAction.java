@@ -31,25 +31,22 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 	        return ERROR;
 	    }
 
-	    int storedPasswordLength = user.getPasswordLength();
-	    maskedPassword = generateMaskedPassword(storedPasswordLength);
+	 // 画面から送信されたデータを `user` にセット（例）
+	    user.setUserFamilyName(user.getUserFamilyName());
+	    user.setUserLastName(user.getUserLastName());
+	    user.setUserFamilyNameKana(user.getUserFamilyNameKana());
+	    user.setUserLastNameKana(user.getUserLastNameKana());
+	    user.setUserMail(user.getUserMail());
+	    user.setUserPassword(userPassword);
+	    user.setUserGender(user.getUserGender());
+	    user.setUserPostalCode(user.getUserPostalCode());
+	    user.setUserPrefecture(user.getUserPrefecture());
+	    user.setUserAddress1(user.getUserAddress1());
+	    user.setUserAddress2(user.getUserAddress2());
+	    user.setUserAuthority(user.getUserAuthority());
 
-	    // パスワードの入力有無を判定
-	    if (userPassword != null && !userPassword.isEmpty()) {
-	        isPasswordChanged = true;
-	        user.setUserPassword(userPassword); // 新しいパスワードをセット
-	        maskedPassword = generateMaskedPassword(userPassword.length());
-	    } else {
-	        isPasswordChanged = false;
-	        user.setUserPassword(user.getUserPassword()); // 既存パスワードをセット
-	        maskedPassword = generateMaskedPassword(storedPasswordLength);
-	    }
-
-	    session.remove("user");  // 古いデータを削除
-	    session.put("user", user);  // 新しいデータをセット
-	    session.put("maskedPassword", this.maskedPassword); // パスワードの伏字もセッションに保存
-
-	    System.out.println("更新後の情報:");
+	    // ここで新しい情報が正しく `user` にセットされているか確認
+	    System.out.println("===== UpdateConfirmAction: 更新されたユーザー情報 =====");
 	    System.out.println("姓: " + user.getUserFamilyName());
 	    System.out.println("名: " + user.getUserLastName());
 	    System.out.println("カナ（姓）: " + user.getUserFamilyNameKana());
@@ -62,7 +59,23 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 	    System.out.println("住所1: " + user.getUserAddress1());
 	    System.out.println("住所2: " + user.getUserAddress2());
 	    System.out.println("権限: " + user.getUserAuthority());
-	    System.out.println("UpdateConfirmAction: User before saving to session → " + user);
+
+	    // 最新の `user` をセッションに保存
+	    session.put("user", user);
+	    System.out.println("UpdateConfirmAction: session に更新データを保存しました");
+
+	    // パスワードの処理
+	    int storedPasswordLength = user.getPasswordLength();
+	    maskedPassword = generateMaskedPassword(storedPasswordLength);
+
+	    if (userPassword != null && !userPassword.isEmpty()) {
+	        isPasswordChanged = true;
+	        user.setUserPassword(userPassword);
+	        maskedPassword = generateMaskedPassword(userPassword.length());
+	    } else {
+	        isPasswordChanged = false;
+	    }
+
 
 	    return SUCCESS;
 	}

@@ -74,6 +74,8 @@ public class RegistCompleteDAO {
 			String userLastNameKana, String userMail, String hashedPassword, String userGender, String userPostalCode,
 			String userPrefecture, String userAddress1, String userAddress2, String userAuthority) throws SQLException {
 
+		int result = 0;
+
 		try (Connection connection = dbConnector.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
 
@@ -93,7 +95,7 @@ public class RegistCompleteDAO {
             preparedStatement.setString(14, updateUtil.getUpdate());
             preparedStatement.setInt(15, userId);
 
-            int result = preparedStatement.executeUpdate();
+            result = preparedStatement.executeUpdate();
 			System.out.println("Update executed, affected rows: " + result);
 
 			return result;

@@ -15,7 +15,8 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
     @Override
     public String execute() {
         try {
-            // デバッグログ
+            // セッションの内容を出力（デバッグ用）
+            System.out.println("===== UpdateCompleteAction: セッション情報 =====");
             System.out.println("Session contents: " + session);
             System.out.println("Retrieving user from session...");
 
@@ -28,7 +29,23 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
                 return ERROR;
             }
 
-            System.out.println("Updating User ID: " + user.getUserId());
+            // 取得した `user` の内容をログ出力
+            System.out.println("----- UpdateCompleteAction: userの内容 -----");
+            System.out.println("ID: " + user.getUserId());
+            System.out.println("姓: " + user.getUserFamilyName());
+            System.out.println("名: " + user.getUserLastName());
+            System.out.println("カナ（姓）: " + user.getUserFamilyNameKana());
+            System.out.println("カナ（名）: " + user.getUserLastNameKana());
+            System.out.println("メール: " + user.getUserMail());
+            System.out.println("パスワード: " + user.getUserPassword());
+            System.out.println("性別: " + user.getUserGender());
+            System.out.println("郵便番号: " + user.getUserPostalCode());
+            System.out.println("都道府県: " + user.getUserPrefecture());
+            System.out.println("住所1: " + user.getUserAddress1());
+            System.out.println("住所2: " + user.getUserAddress2());
+            System.out.println("権限: " + user.getUserAuthority());
+
+            // ここで、ログの `user` の値が更新されているか確認してください！
 
             // データベースを更新
             int result = dao.updateUser(
@@ -48,14 +65,10 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
                 );
 
             System.out.println("Update result: " + result);
-            System.out.println("Session contents: " + session);
-            System.out.println("User object: " + session.get("user"));
-            System.out.println("Updating User ID: " + user.getUserId());
-
 
             if (result > 0) {
                 session.put("updateSuccess", true);  // 成功フラグをセット
-                return SUCCESS; // 更新成功
+                return SUCCESS;
             } else {
                 System.out.println("Error: Update failed");
                 addActionError("更新に失敗しました。");
@@ -67,6 +80,7 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
             return ERROR;
         }
     }
+
 
     @Override
     public void setSession(Map<String, Object> session) {

@@ -16,26 +16,43 @@ import com.opensymphony.xwork2.ActionSupport;
 
      @Override
      public String execute() {
-
-     	// 確認画面から戻ってきた場合、セッションの `user` を使用
+         // 更新画面で入力したデータを反映させる処理
          if (session.containsKey("user")) {
              user = (UserDTO) session.get("user");
+
+             // フォームで入力された新しいデータを取得
+             if (user != null) {
+                 user.setUserFamilyName((String) session.get("userFamilyName"));
+                 user.setUserLastName((String) session.get("userLastName"));
+                 user.setUserFamilyNameKana((String) session.get("userFamilyNameKana"));
+                 user.setUserLastNameKana((String) session.get("userLastNameKana"));
+                 user.setUserMail((String) session.get("userMail"));
+                 user.setUserGender((String) session.get("userGender"));
+                 user.setUserPostalCode((String) session.get("userPostalCode"));
+                 user.setUserPrefecture((String) session.get("userPrefecture"));
+                 user.setUserAddress1((String) session.get("userAddress1"));
+                 user.setUserAddress2((String) session.get("userAddress2"));
+                 user.setUserAuthority((String) session.get("userAuthority"));
+
+                 // 更新後の情報をセッションに再保存
+                 session.put("user", user);
+             }
              return SUCCESS;
          }
 
-         if (userId <= 0) { // IDが不正な場合はエラー
+         if (userId <= 0) {
              addActionError("ユーザーIDが不正です。");
              return ERROR;
          }
 
          try {
-             user = dao.getUserById(userId); // DBからユーザー情報を取得
+             user = dao.getUserById(userId);
              if (user == null) {
                  addActionError("指定されたユーザーが見つかりません。");
                  return ERROR;
              }
 
-             // 取得したユーザー情報をセッションに保存
+             // 取得したデータをセッションに保存
              session.put("user", user);
 
          } catch (Exception e) {
@@ -45,6 +62,7 @@ import com.opensymphony.xwork2.ActionSupport;
          }
          return SUCCESS;
      }
+
 
      // ゲッターとセッター
      public int getUserId() {
