@@ -14,6 +14,18 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 	private String userPassword; // 入力されたパスワード
 	private String maskedPassword; // 伏せ字パスワード
 	private boolean isPasswordChanged; // パスワード変更フラグ
+	// フォームから受け取るフィールド
+    private String userFamilyName;
+    private String userLastName;
+    private String userFamilyNameKana;
+    private String userLastNameKana;
+    private String userMail;
+    private String userGender;
+    private String userPostalCode;
+    private String userPrefecture;
+    private String userAddress1;
+    private String userAddress2;
+    private String userAuthority;
 
 	@Override
 	public String execute() {
@@ -32,18 +44,17 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 	    }
 
 	 // 画面から送信されたデータを `user` にセット（例）
-	    user.setUserFamilyName(user.getUserFamilyName());
-	    user.setUserLastName(user.getUserLastName());
-	    user.setUserFamilyNameKana(user.getUserFamilyNameKana());
-	    user.setUserLastNameKana(user.getUserLastNameKana());
-	    user.setUserMail(user.getUserMail());
-	    user.setUserPassword(userPassword);
-	    user.setUserGender(user.getUserGender());
-	    user.setUserPostalCode(user.getUserPostalCode());
-	    user.setUserPrefecture(user.getUserPrefecture());
-	    user.setUserAddress1(user.getUserAddress1());
-	    user.setUserAddress2(user.getUserAddress2());
-	    user.setUserAuthority(user.getUserAuthority());
+	    user.setUserFamilyName(userFamilyName);
+	    user.setUserLastName(userLastName);
+	    user.setUserFamilyNameKana(userFamilyNameKana);
+	    user.setUserLastNameKana(userLastNameKana);
+	    user.setUserMail(userMail);
+	    user.setUserGender(userGender);
+	    user.setUserPostalCode(userPostalCode);
+	    user.setUserPrefecture(userPrefecture);
+	    user.setUserAddress1(userAddress1);
+	    user.setUserAddress2(userAddress2);
+	    user.setUserAuthority(userAuthority);
 
 	    // ここで新しい情報が正しく `user` にセットされているか確認
 	    System.out.println("===== UpdateConfirmAction: 更新されたユーザー情報 =====");
@@ -118,4 +129,92 @@ public class UpdateConfirmAction extends ActionSupport implements SessionAware {
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
+
+	public String getUserFamilyName() {
+        return userFamilyName;
+    }
+
+    public void setUserFamilyName(String userFamilyName) {
+        this.userFamilyName = userFamilyName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
+
+    public String getUserFamilyNameKana() {
+        return userFamilyNameKana;
+    }
+
+    public void setUserFamilyNameKana(String userFamilyNameKana) {
+        this.userFamilyNameKana = userFamilyNameKana;
+    }
+
+    public String getUserLastNameKana() {
+        return userLastNameKana;
+    }
+
+    public void setUserLastNameKana(String userLastNameKana) {
+        this.userLastNameKana = userLastNameKana;
+    }
+
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
+    public String getUserPostalCode() {
+        return userPostalCode;
+    }
+
+    public void setUserPostalCode(String userPostalCode) {
+        this.userPostalCode = userPostalCode;
+    }
+
+    public String getUserPrefecture() {
+        return userPrefecture;
+    }
+
+    public void setUserPrefecture(String userPrefecture) {
+        this.userPrefecture = userPrefecture;
+    }
+
+    public String getUserAddress1() {
+        return userAddress1;
+    }
+
+    public void setUserAddress1(String userAddress1) {
+        this.userAddress1 = userAddress1;
+    }
+
+    public String getUserAddress2() {
+        return userAddress2;
+    }
+
+    public void setUserAddress2(String userAddress2) {
+        this.userAddress2 = userAddress2;
+    }
+
+    public String getUserAuthority() {
+        return userAuthority;
+    }
+
+    public void setUserAuthority(String userAuthority) {
+        this.userAuthority = userAuthority;
+    }
 }

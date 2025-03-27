@@ -20,23 +20,6 @@ import com.opensymphony.xwork2.ActionSupport;
          if (session.containsKey("user")) {
              user = (UserDTO) session.get("user");
 
-             // フォームで入力された新しいデータを取得
-             if (user != null) {
-                 user.setUserFamilyName((String) session.get("userFamilyName"));
-                 user.setUserLastName((String) session.get("userLastName"));
-                 user.setUserFamilyNameKana((String) session.get("userFamilyNameKana"));
-                 user.setUserLastNameKana((String) session.get("userLastNameKana"));
-                 user.setUserMail((String) session.get("userMail"));
-                 user.setUserGender((String) session.get("userGender"));
-                 user.setUserPostalCode((String) session.get("userPostalCode"));
-                 user.setUserPrefecture((String) session.get("userPrefecture"));
-                 user.setUserAddress1((String) session.get("userAddress1"));
-                 user.setUserAddress2((String) session.get("userAddress2"));
-                 user.setUserAuthority((String) session.get("userAuthority"));
-
-                 // 更新後の情報をセッションに再保存
-                 session.put("user", user);
-             }
              return SUCCESS;
          }
 
