@@ -22,9 +22,12 @@ public class DeleteConfirmAction extends ActionSupport implements SessionAware {
 
     public UserDTO getUser() {
         return user;
+
     }
 
     public void setSession(Map<String, Object> session) {
         this.session = session;
+
     }
+
 }

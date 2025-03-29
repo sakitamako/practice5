@@ -156,7 +156,8 @@ input[type="submit"] {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td><input type="password" name="userPassword" value="${user.maskedPassword}" /></td>
+						<td><input type="password" name="userPassword"
+                            value="%{maskedPassword}" /></td>
 					</tr>
 					<tr>
 						<td><label>性別</label></td>

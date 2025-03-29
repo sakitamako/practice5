@@ -112,7 +112,6 @@ input[type="submit"] {
 		} else {
 			passwordField.type = "password";
 		}
-		let originalMaskedPassword = "<s:property value='maskedPassword' escape='false' />";
 	}
 </script>
 
@@ -183,11 +182,11 @@ input[type="submit"] {
 								test="user.userAuthority == 1">管理者</s:if></td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center;"><s:submit
-								value="確認する" cssClass="submit-center"
-								cssStyle="padding: 10px 20px; font-size: 18px; background-color: white; color: black; border: 1px solid black; cursor: pointer; display: block; margin: 0 auto;" />
-						</td>
-					</tr>
+                         <td colspan="2" style="text-align: center;"><s:submit
+                                 value="確認する" cssClass="submit-center"
+                                 cssStyle="padding: 10px 20px; font-size: 18px; background-color: white; color: black; border: 1px solid black; cursor: pointer; display: block; margin: 0 auto;" />
+                         </td>
+                     </tr>
 				</s:form>
 			</table>
 		</div>

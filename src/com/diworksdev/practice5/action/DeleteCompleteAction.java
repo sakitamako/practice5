@@ -1,6 +1,6 @@
 package com.diworksdev.practice5.action;
 
- import com.diworksdev.practice5.dao.UserDAO;
+import com.diworksdev.practice5.dao.UserDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
  public class DeleteCompleteAction extends ActionSupport {
@@ -21,5 +21,4 @@ import com.opensymphony.xwork2.ActionSupport;
              return ERROR; // 削除失敗
          }
      }
-
  }
