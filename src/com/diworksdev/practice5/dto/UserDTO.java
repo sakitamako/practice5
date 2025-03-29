@@ -163,11 +163,10 @@ package com.diworksdev.practice5.dto;
      }
 
      public int getPasswordLength() {
-         return passwordLength;
-     }
+    	    return passwordLength;
+    	}
 
-     public void setPasswordLength(int passwordLength) {
-         this.passwordLength = passwordLength;
-         setMaskedPassword(passwordLength);
-     }
+    	public void setPasswordLength(int passwordLength) {
+    	    this.passwordLength = passwordLength;
+    	}
  }

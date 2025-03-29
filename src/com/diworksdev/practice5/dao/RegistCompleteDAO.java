@@ -147,33 +147,32 @@ public class RegistCompleteDAO {
 		}
 	}
 
-	// 特定の userId に該当するユーザー情報を取得するメソッド
 	public UserDTO getUserById(int userId) throws SQLException {
-		UserDTO user = null;
+	    UserDTO user = null;
 
-		try (Connection connection = dbConnector.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(sqlGetUserById)) {
+	    try (Connection connection = dbConnector.getConnection();
+	         PreparedStatement preparedStatement = connection.prepareStatement(sqlGetUserById)) {
 
-			preparedStatement.setInt(1, userId);
-			ResultSet rs = preparedStatement.executeQuery();
+	        preparedStatement.setInt(1, userId);
+	        ResultSet rs = preparedStatement.executeQuery();
 
-			if (rs.next()) {
-				user = new UserDTO();
-				user.setUserId(rs.getInt("id"));
-				user.setUserFamilyName(rs.getString("family_name"));
-				user.setUserLastName(rs.getString("last_name"));
-				user.setUserFamilyNameKana(rs.getString("family_name_kana"));
-				user.setUserLastNameKana(rs.getString("last_name_kana"));
-				user.setUserMail(rs.getString("mail"));
-				user.setUserGender(rs.getString("gender"));
-				user.setUserPostalCode(rs.getString("postal_code"));
-				user.setUserPrefecture(rs.getString("prefecture"));
-				user.setUserAddress1(rs.getString("address_1"));
-				user.setUserAddress2(rs.getString("address_2"));
-				user.setUserAuthority(rs.getString("authority"));
-
-			}
-		}
-		return user;
+	        if (rs.next()) {
+	            user = new UserDTO();
+	            user.setUserId(rs.getInt("id"));
+	            user.setUserFamilyName(rs.getString("family_name"));
+	            user.setUserLastName(rs.getString("last_name"));
+	            user.setUserFamilyNameKana(rs.getString("family_name_kana"));
+	            user.setUserLastNameKana(rs.getString("last_name_kana"));
+	            user.setUserMail(rs.getString("mail"));
+	            user.setUserGender(rs.getString("gender"));
+	            user.setUserPostalCode(rs.getString("postal_code"));
+	            user.setUserPrefecture(rs.getString("prefecture"));
+	            user.setUserAddress1(rs.getString("address_1"));
+	            user.setUserAddress2(rs.getString("address_2"));
+	            user.setUserAuthority(rs.getString("authority"));
+	            user.setPasswordLength(rs.getInt("password_length")); // 追加
+	        }
+	    }
+	    return user;
 	}
 }
