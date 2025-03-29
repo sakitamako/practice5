@@ -71,33 +71,35 @@ import com.opensymphony.xwork2.ActionSupport;
  	    System.out.println("住所2: " + user.getUserAddress2());
  	    System.out.println("権限: " + user.getUserAuthority());
 
- 	    // 最新の `user` をセッションに保存
- 	    session.put("user", user);
- 	    System.out.println("UpdateConfirmAction: session に更新データを保存しました");
+ 	   int storedPasswordLength = user.getPasswordLength();
+		maskedPassword = generateMaskedPassword(storedPasswordLength);
 
- 	    // パスワードの処理
- 	    int storedPasswordLength = user.getPasswordLength();
- 	    maskedPassword = generateMaskedPassword(storedPasswordLength);
+		// パスワードの入力有無を判定
+		if (userPassword != null && !userPassword.isEmpty()) {
+			// 変更された場合、新しいパスワードの長さ分「●」を生成
+			isPasswordChanged = true;
+			maskedPassword = generateMaskedPassword(userPassword.length());
+		} else {
+			// 変更なし → 既存パスワードの長さ分「●」を生成
+			isPasswordChanged = false;
+			maskedPassword = generateMaskedPassword(storedPasswordLength);
+			userPassword = user.getUserPassword(); // 既存パスワードを維持
+		}
+		// セッションに保存
+		session.put("user", user);
+		session.put("maskedPassword", this.maskedPassword);
 
- 	    if (userPassword != null && !userPassword.isEmpty()) {
- 	        isPasswordChanged = true;
- 	        user.setUserPassword(userPassword);
- 	        maskedPassword = generateMaskedPassword(userPassword.length());
- 	    } else {
- 	        isPasswordChanged = false;
- 	    }
+		return SUCCESS;
 
+	}
 
- 	    return SUCCESS;
- 	}
-
- 	private String generateMaskedPassword(int length) {
- 		StringBuilder masked = new StringBuilder();
- 		for (int i = 0; i < length; i++) {
- 			masked.append("●");
- 		}
- 		return masked.toString();
- 	}
+	private String generateMaskedPassword(int length) {
+		StringBuilder masked = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			masked.append("●");
+		}
+		return masked.toString();
+	}
 
  // ゲッター・セッター
   	public String getUserPassword() {
