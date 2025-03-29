@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
+
+
 <!-- ユーザー登録機能 -->
 <!DOCTYPE html>
 <html>
@@ -129,11 +131,7 @@ input[type="submit"] {
 				</tr>
 				<tr>
 					<td><label>パスワード</label></td>
-					<td><s:if test="isPasswordChanged">
-							<s:property value="maskedPassword" />
-						</s:if> <s:else>
-							<s:property value="#session.maskedPassword" />
-						</s:else></td>
+					<td><s:property value="user.maskedPassword" escape="false" /></td>
 				</tr>
 				<tr>
 					<td><label>性別</label></td>
