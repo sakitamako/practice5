@@ -12,12 +12,13 @@ public class DeleteConfirmAction extends ActionSupport implements SessionAware {
     private UserDTO user;
 
     public String execute() {
-        if (session.containsKey("deleteUser")) {
+    	if (session.containsKey("deleteUser")) {
             user = (UserDTO) session.get("deleteUser"); // セッションからユーザー情報を取得
             return SUCCESS;
         }
         return ERROR;
     }
+
 
     public UserDTO getUser() {
         return user;

@@ -1,7 +1,7 @@
 package com.diworksdev.practice5.action;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+//import java.security.MessageDigest;
+//import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -18,18 +18,18 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
 	public String execute() {
 		try {
 			// セッションの内容を出力（デバッグ用）
-			System.out.println("===== UpdateCompleteAction: セッション情報 =====");
-			System.out.println("Session contents: " + session);
-			System.out.println("Retrieving user from session...");
+            System.out.println("===== UpdateCompleteAction: セッション情報 =====");
+            System.out.println("Session contents: " + session);
+            System.out.println("Retrieving user from session...");
 
-			// セッションからユーザー情報を取得
-			UserDTO user = (UserDTO) session.get("user");
+            // セッションからユーザー情報を取得
+            UserDTO user = (UserDTO) session.get("user");
 
-			if (user == null) {
-				System.out.println("Error: UserDTO is null");
-				addActionError("更新するデータがありません。");
-				return ERROR;
-			}
+            if (user == null) {
+                System.out.println("Error: UserDTO is null");
+                addActionError("更新するデータがありません。");
+                return ERROR;
+            }
 
 			// 取得した `user` の内容をログ出力
 			System.out.println("----- UpdateCompleteAction: userの内容 -----");
@@ -49,19 +49,30 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
 
 			// ここで、ログの `user` の値が更新されているか確認してください！
 
-			// パスワードをハッシュ化（新しいパスワードが入力された場合のみ）
-			if (user.getUserPassword() != null && !user.getUserPassword().isEmpty()) {
-				String hashedPassword = hashPassword(user.getUserPassword());
-				user.setUserPassword(hashedPassword);
-			}
+//			// パスワードをハッシュ化（新しいパスワードが入力された場合のみ）
+//			if (user.getUserPassword() != null && !user.getUserPassword().isEmpty()) {
+//				String hashedPassword = hashPassword(user.getUserPassword());
+//				user.setUserPassword(hashedPassword);
+//			}
 
 			// データベースを更新
-			int result = dao.updateUser(user.getUserId(), user.getUserFamilyName(), user.getUserLastName(),
-					user.getUserFamilyNameKana(), user.getUserLastNameKana(), user.getUserMail(),
-					user.getUserPassword(), user.getUserGender(), user.getUserPostalCode(), user.getUserPrefecture(),
-					user.getUserAddress1(), user.getUserAddress2(), user.getUserAuthority());
+            int result = dao.updateUser(
+                    user.getUserId(),
+                    user.getUserFamilyName(),
+                    user.getUserLastName(),
+                    user.getUserFamilyNameKana(),
+                    user.getUserLastNameKana(),
+                    user.getUserMail(),
+                    user.getUserPassword(),
+                    user.getUserGender(),
+                    user.getUserPostalCode(),
+                    user.getUserPrefecture(),
+                    user.getUserAddress1(),
+                    user.getUserAddress2(),
+                    user.getUserAuthority()
+                );
 
-			System.out.println("Update result: " + result);
+            System.out.println("Update result: " + result);
 
 			if (result > 0) {
 				session.put("updateSuccess", true); // 成功フラグをセット
@@ -78,22 +89,22 @@ public class UpdateCompleteAction extends ActionSupport implements SessionAware 
 		}
 	}
 
-	// パスワードをSHA-256でハッシュ化するメソッド
-	private String hashPassword(String password) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			byte[] hash = md.digest(password.getBytes());
-			StringBuilder hexString = new StringBuilder();
-			for (byte b : hash) {
-				hexString.append(String.format("%02x", b));
-			}
-			return hexString.toString();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
+//	// パスワードをSHA-256でハッシュ化するメソッド
+//	private String hashPassword(String password) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("SHA-256");
+//			byte[] hash = md.digest(password.getBytes());
+//			StringBuilder hexString = new StringBuilder();
+//			for (byte b : hash) {
+//				hexString.append(String.format("%02x", b));
+//			}
+//			return hexString.toString();
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//	}
 
 	@Override
 	public void setSession(Map<String, Object> session) {

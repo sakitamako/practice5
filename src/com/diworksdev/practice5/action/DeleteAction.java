@@ -28,6 +28,7 @@ public class DeleteAction extends ActionSupport implements SessionAware {
         }
     }
 
+
     // Getter & Setter
     public int getUserId() {
         return userId;

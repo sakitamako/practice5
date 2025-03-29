@@ -20,7 +20,6 @@ public class UserDTO {
     private int deleteFlag;
     private Timestamp registeredTime;
     private Timestamp updateTime;
-    private int passwordLength;
 
     // ゲッター・セッター
     public int getUserId() {
@@ -69,6 +68,11 @@ public class UserDTO {
 
     public void setUserMail(String userMail) {
         this.userMail = userMail;
+    }
+
+    // パスワードの長さを取得
+    public int getPasswordLength() {
+        return (userPassword != null) ? userPassword.length() : 0;
     }
 
     public String getUserPassword() {
@@ -163,13 +167,5 @@ public class UserDTO {
         this.updateTime = updateTime;
     }
 
-    public int getPasswordLength() {
-        return passwordLength;
-    }
-
-    public void setPasswordLength(int passwordLength) {
-        this.passwordLength = passwordLength;
-        setMaskedPassword(passwordLength);
-    }
 }
 

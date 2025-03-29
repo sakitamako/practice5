@@ -112,6 +112,7 @@ input[type="submit"] {
 		} else {
 			passwordField.type = "password";
 		}
+		let originalMaskedPassword = "<s:property value='maskedPassword' escape='false' />";
 	}
 </script>
 
@@ -148,13 +149,13 @@ input[type="submit"] {
 						<td><s:property value="user.userMail" escape="false" /></td>
 					</tr>
 					<tr>
-						<td><label>パスワード</label></td>
-						<td><s:if test="isPasswordChanged">
-								<s:property value="maskedPassword" />
-							</s:if> <s:else>
-								<s:property value="#session.maskedPassword" />
-							</s:else></td>
-					</tr>
+                        <td><label>パスワード</label></td>
+                        <td><s:if test="isPasswordChanged">
+                                <s:property value="maskedPassword" />
+                            </s:if> <s:else>
+                                <s:property value="#session.maskedPassword" />
+                            </s:else></td>
+                    </tr>
 					<tr>
 						<td><label>性別</label></td>
 						<td><s:if test="user.userGender == 0">男性</s:if> <s:if
@@ -182,11 +183,11 @@ input[type="submit"] {
 								test="user.userAuthority == 1">管理者</s:if></td>
 					</tr>
 					<tr>
-                        <td colspan="2" style="text-align: center;"><s:submit
-                                value="確認する" cssClass="submit-center"
-                                cssStyle="padding: 10px 20px; font-size: 18px; background-color: white; color: black; border: 1px solid black; cursor: pointer; display: block; margin: 0 auto;" />
-                        </td>
-                    </tr>
+						<td colspan="2" style="text-align: center;"><s:submit
+								value="確認する" cssClass="submit-center"
+								cssStyle="padding: 10px 20px; font-size: 18px; background-color: white; color: black; border: 1px solid black; cursor: pointer; display: block; margin: 0 auto;" />
+						</td>
+					</tr>
 				</s:form>
 			</table>
 		</div>
