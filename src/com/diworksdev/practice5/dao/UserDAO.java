@@ -11,6 +11,7 @@ import com.diworksdev.practice5.util.DBConnector;
 public class UserDAO {
     private DBConnector dbConnector = new DBConnector();
 
+    // 特定の userId に該当するユーザー情報を取得するメソッド
     public UserDTO getUserById(int userId) throws SQLException {
         UserDTO user = null;
         String sql = "SELECT * FROM login_user_transaction WHERE id = ? AND delete_flag = 0";
@@ -35,12 +36,10 @@ public class UserDAO {
                 user.setUserAddress1(rs.getString("address_1"));
                 user.setUserAddress2(rs.getString("address_2"));
                 user.setUserAuthority(rs.getString("authority"));
-                user.setPasswordLength(rs.getInt("password_length")); // 追加
             }
         }
         return user;
     }
-
 
     // 更新処理
     public boolean updateUser(UserDTO userDTO) throws SQLException {
@@ -92,4 +91,5 @@ public class UserDAO {
             return false;
         }
     }
+
 }
