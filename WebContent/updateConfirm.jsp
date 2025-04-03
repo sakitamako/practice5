@@ -131,11 +131,10 @@ input[type="submit"] {
 				</tr>
 				<tr>
 					<td><label>パスワード</label></td>
-					<td><s:if
-							test="user.maskedPassword != null && user.maskedPassword != ''">
-							<s:property value="user.maskedPassword" escape="false" />
+					<td><s:if test="isPasswordChanged">
+							<s:property value="maskedPassword" />
 						</s:if> <s:else>
-							<span>（未設定）</span>
+							<s:property value="#session.maskedPassword" />
 						</s:else></td>
 				</tr>
 

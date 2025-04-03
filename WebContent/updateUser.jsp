@@ -156,15 +156,8 @@ input[type="submit"] {
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
-						<td>
-							<!-- パスワードが設定されていれば伏せ字（●）で表示 --> <s:if
-								test="user.maskedPassword != null">
-								<span><s:property value="user.maskedPassword"
-										escape="false" /></span>
-							</s:if> <s:else>
-								<span>（未設定）</span>
-							</s:else>
-						</td>
+						<td><input type="password" name="userPassword"
+							value="<s:property value='%{#session.maskedPassword}' />" /></td>
 					</tr>
 
 					<tr>

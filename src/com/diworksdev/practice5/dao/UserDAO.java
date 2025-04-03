@@ -56,12 +56,15 @@ public class UserDAO {
             preparedStatement.setString(4, userDTO.getUserLastNameKana());
             preparedStatement.setString(5, userDTO.getUserMail());
 
-            // パスワードが null または空の場合は更新しない
+         // パスワードが null または空の場合は更新しない
             if (userDTO.getUserPassword() != null && !userDTO.getUserPassword().isEmpty()) {
                 preparedStatement.setString(6, userDTO.getUserPassword());
             } else {
-                preparedStatement.setString(6, getUserById(userDTO.getUserId()).getUserPassword());
+                // 既存パスワードを再度設定
+                String existingPassword = getUserById(userDTO.getUserId()).getUserPassword();
+                preparedStatement.setString(6, existingPassword); // 既存パスワードをセット
             }
+
 
             preparedStatement.setString(7, userDTO.getUserGender());
             preparedStatement.setString(8, userDTO.getUserPostalCode());
