@@ -60,9 +60,7 @@ public class UserDAO {
             if (userDTO.getUserPassword() != null && !userDTO.getUserPassword().isEmpty()) {
                 preparedStatement.setString(6, userDTO.getUserPassword());
             } else {
-                // 既存パスワードを再度設定
-                String existingPassword = getUserById(userDTO.getUserId()).getUserPassword();
-                preparedStatement.setString(6, existingPassword); // 既存パスワードをセット
+            	preparedStatement.setString(6, getUserById(userDTO.getUserId()).getUserPassword());
             }
 
 

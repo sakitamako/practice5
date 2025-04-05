@@ -178,22 +178,4 @@ public class RegistCompleteDAO {
 
  	}
 
- 	public int getPasswordLengthByUserId(int userId) {
- 	    int length = 0;
- 	    String sql = "SELECT password_length FROM login_user_transaction WHERE user_id = ?";
-
- 	    try (Connection connection = dbConnector.getConnection();
- 	         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
- 	    	preparedStatement.setInt(1, userId);
- 	        ResultSet rs = preparedStatement.executeQuery();
- 	        if (rs.next()) {
- 	            length = rs.getInt("password_length");
- 	        }
- 	    } catch (SQLException e) {
- 	        e.printStackTrace();
- 	    }
- 	    return length;
- 	}
-
  }
