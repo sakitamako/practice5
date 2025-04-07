@@ -175,7 +175,5 @@ public class RegistCompleteDAO {
  			}
  		}
  		return user;
-
  	}
-
  }

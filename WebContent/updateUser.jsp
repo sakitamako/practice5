@@ -157,7 +157,7 @@ input[type="submit"] {
 					<tr>
 						<td><label>パスワード</label></td>
 						<td><input type="password" name="userPassword"
-							value="<s:property value='%{#session.maskedPassword}' />" /></td>
+                             value="%{maskedPassword}" /></td>
 					</tr>
 
 					<tr>
