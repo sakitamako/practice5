@@ -1,5 +1,6 @@
 package com.diworksdev.practice5.action;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -12,61 +13,45 @@ public class UpdateAction extends ActionSupport implements SessionAware {
 	private int userId;
 	private UserDTO user;
 	private Map<String, Object> session; // セッション管理用
-	private RegistCompleteDAO dao = new RegistCompleteDAO(); // DAOをクラス変数として定義
 
 	@Override
 	public String execute() {
-		// 更新画面で入力したデータを反映させる処理
-		if (session.containsKey("user")) {
-			user = (UserDTO) session.get("user");
 
-            return SUCCESS;
-        }
-
-        if (userId <= 0) {
-            addActionError("ユーザーIDが不正です。");
+		RegistCompleteDAO dao = new RegistCompleteDAO(); // DAOをクラス変数として定義
+		try {
+			user = dao.getUserById(userId);
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} // ←ここでDBから取得
+        if (user == null) {
+            addActionError("該当ユーザーが見つかりません。");
             return ERROR;
         }
 
-        try {
-            user = dao.getUserById(userId);
-            if (user == null) {
-                addActionError("指定されたユーザーが見つかりません。");
-                return ERROR;
-            }
-
-            // 取得したデータをセッションに保存
-            session.put("user", user);
-
-        } catch (Exception e) {
-            addActionError("データ取得中にエラーが発生しました。");
-            e.printStackTrace();
-            return ERROR;
-        }
+        session.put("user", user); // 入力画面に表示する用
         return SUCCESS;
     }
 
+	// ゲッターとセッター
+	public int getUserId() {
+		return userId;
+	}
 
-    // ゲッターとセッター
-    public int getUserId() {
-        return userId;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public UserDTO getUser() {
+		return user;
+	}
 
-    public UserDTO getUser() {
-        return user;
-    }
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
 
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
-
-    @Override
-    public void setSession(Map<String, Object> session) {
-        this.session = session;
-    }
-
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
 }

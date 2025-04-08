@@ -36,7 +36,7 @@
 		<action name="UpdateConfirmAction"
 			class="com.diworksdev.practice5.action.UpdateConfirmAction">
 			<result name="success">updateConfirm.jsp</result>
-			<result name="error">/updateUser.jsp</result>
+			<result name="input">/updateUser.jsp</result>
 		</action>
 
 		<action name="UpdateCompleteAction"

@@ -133,31 +133,43 @@ input[type="submit"] {
 					<tr>
 						<td><label>名前（姓）</label></td>
 						<td><s:textfield name="userFamilyName"
-								value="%{user.userFamilyName}" /></td>
+								value="%{user.userFamilyName}" />
+								<s:fielderror fieldName="userFamilyName"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>名前（名）</label></td>
 						<td><s:textfield name="userLastName"
-								value="%{user.userLastName}" /></td>
+								value="%{user.userLastName}" />
+								<s:fielderror fieldName="userLastName"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>カナ（姓）</label></td>
 						<td><s:textfield name="userFamilyNameKana"
-								value="%{user.userFamilyNameKana}" /></td>
+								value="%{user.userFamilyNameKana}" />
+								<s:fielderror fieldName="userFamilyNameKana"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>カナ（名）</label></td>
 						<td><s:textfield name="userLastNameKana"
-								value="%{user.userLastNameKana}" /></td>
+								value="%{user.userLastNameKana}" />
+								<s:fielderror fieldName="userLastNameKana"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>メールアドレス</label></td>
-						<td><s:textfield name="userMail" value="%{user.userMail}" /></td>
+						<td><s:textfield name="userMail" value="%{user.userMail}" />
+                        <s:fielderror fieldName="userMail"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>パスワード</label></td>
 						<td><input type="password" name="userPassword"
-                             value="%{maskedPassword}" /></td>
+                             value="%{maskedPassword}" />
+                        <s:fielderror fieldName="userPassword"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 
 					<tr>
@@ -168,7 +180,9 @@ input[type="submit"] {
 					<tr>
 						<td><label>郵便番号</label></td>
 						<td><s:textfield name="userPostalCode"
-								value="%{user.userPostalCode}" /></td>
+								value="%{user.userPostalCode}" />
+                        <s:fielderror fieldName="userPostalCode"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>住所（都道府県）</label></td>
@@ -185,22 +199,29 @@ input[type="submit"] {
                          '香川県':'香川県','愛媛県':'愛媛県','高知県':'高知県','福岡県':'福岡県',
                          '佐賀県':'佐賀県','長崎県':'長崎県','熊本県':'熊本県','大分県':'大分県',
                          '宮崎県':'宮崎県','鹿児島県':'鹿児島県','沖縄県':'沖縄県'}"
-								value="%{user.userPrefecture}" /></td>
+								value="%{user.userPrefecture}" />
+								<s:fielderror fieldName="userPrefecture"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>住所（市区町村）</label></td>
 						<td><s:textfield name="userAddress1"
-								value="%{user.userAddress1}" /></td>
+								value="%{user.userAddress1}" />
+                        <s:fielderror fieldName="userAddress1"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>住所（番地）</label></td>
 						<td><s:textfield name="userAddress2"
-								value="%{user.userAddress2}" /></td>
+								value="%{user.userAddress2}" />
+                        <s:fielderror fieldName="userAddress2"
+                                style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td><label>権限</label></td>
 						<td><s:select name="userAuthority"
-								list="#{'0':'一般','1':'管理者'}" value="%{user.userAuthority}" /></td>
+								list="#{'0':'一般','1':'管理者'}" value="%{user.userAuthority}" />
+                            <s:fielderror fieldName="userAuthority" style="color: red; font-weight: bold;" /></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center;"><s:submit
